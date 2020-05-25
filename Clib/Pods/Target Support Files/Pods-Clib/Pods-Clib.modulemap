@@ -1,6 +1,0 @@
-framework module Pods_Clib {
-  umbrella header "Pods-Clib-umbrella.h"
-
-  export *
-  module * { export * }
-}
