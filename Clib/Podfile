@@ -7,8 +7,7 @@ target 'Clib' do
 
   # Pods for Clib
 
-  pod 'RxSwift'
-  pod 'RxCocoa'
+  pod 'Firebase/Analytics'
 
   target 'ClibTests' do
     inherit! :search_paths

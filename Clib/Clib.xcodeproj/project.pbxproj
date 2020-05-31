@@ -36,6 +36,7 @@
 		D1F31C222482B0D90025525C /* BookDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F31C212482B0D90025525C /* BookDetailViewController.swift */; };
 		D1F31C262482B40C0025525C /* BookReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F31C252482B40C0025525C /* BookReportViewController.swift */; };
 		D1F31C28248384B90025525C /* BookDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F31C27248384B90025525C /* BookDetailHeaderView.swift */; };
+		D1F31C2A2483988B0025525C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D1F31C292483988B0025525C /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,6 +96,7 @@
 		D1F31C212482B0D90025525C /* BookDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDetailViewController.swift; sourceTree = "<group>"; };
 		D1F31C252482B40C0025525C /* BookReportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookReportViewController.swift; sourceTree = "<group>"; };
 		D1F31C27248384B90025525C /* BookDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDetailHeaderView.swift; sourceTree = "<group>"; };
+		D1F31C292483988B0025525C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D987D8949B4F8DEA4BA2D291 /* Pods_Clib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Clib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB71EAE1474035D219357E0A /* Pods-Clib-ClibUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Clib-ClibUITests.debug.xcconfig"; path = "Target Support Files/Pods-Clib-ClibUITests/Pods-Clib-ClibUITests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -196,6 +198,7 @@
 				D1B5DE1B247BBD9D00EFD62E /* Assets.xcassets */,
 				D1B5DE1D247BBD9D00EFD62E /* LaunchScreen.storyboard */,
 				D1B5DE20247BBD9D00EFD62E /* Info.plist */,
+				D1F31C292483988B0025525C /* GoogleService-Info.plist */,
 				D1D100B9247C20DC00E18A24 /* books.json */,
 			);
 			path = Clib;
@@ -445,6 +448,7 @@
 			files = (
 				D1B5DE1F247BBD9D00EFD62E /* LaunchScreen.storyboard in Resources */,
 				D1B5DE1C247BBD9D00EFD62E /* Assets.xcassets in Resources */,
+				D1F31C2A2483988B0025525C /* GoogleService-Info.plist in Resources */,
 				D1B5DE1A247BBD9C00EFD62E /* Main.storyboard in Resources */,
 				D1D100BA247C20DC00E18A24 /* books.json in Resources */,
 			);

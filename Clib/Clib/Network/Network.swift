@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import RxSwift
 
 protocol Network {
     func dispatch(request: URLRequest, completion: @escaping (Data?, URLResponse?, Error?) -> Void)
