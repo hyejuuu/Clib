@@ -10,17 +10,36 @@ import UIKit
 
 class BookDetailViewController: UIViewController {
 
+    private let bookDetailService: BookServiceProtocol = BookService()
     var bookData: Book?
+    
+    let detailTableView: UITableView = {
+        let tableView = UITableView()
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        return tableView
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        requestBookDetailData()
         setupLayout()
     }
 
     private func setupLayout() {
         view.backgroundColor = .white
-        
-        print(bookData)
+    }
+    
+    private func requestBookDetailData() {
+        guard let isbn = bookData?.isbn13 else { return }
+        bookDetailService.fetchBookData(isbn: isbn) { result in
+            switch result {
+            case .failure(let error):
+                print(error)
+                return
+            case .success(let bookData):
+                print(bookData)
+            }
+        }
     }
 }

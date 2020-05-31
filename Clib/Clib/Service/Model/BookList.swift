@@ -26,7 +26,7 @@ struct BookList: Codable {
 struct Book: Codable {
     let title: String
     let link: String
-    let author, pubDate, description, isbn: String
+    let author, pubDate, description, isbn, isbn13: String
     let itemId, priceStandard: Int
     let mallType: MallType
     let cover: String
