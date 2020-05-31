@@ -8,6 +8,7 @@ target 'Clib' do
   # Pods for Clib
 
   pod 'Firebase/Analytics'
+  pod 'Firebase/Auth'
 
   target 'ClibTests' do
     inherit! :search_paths
