@@ -31,11 +31,11 @@ class MainSectionHeaderView: UIView {
         
         titleLabel.leadingAnchor.constraint(
             equalTo: leadingAnchor,
-            constant: 10)
+            constant: 20)
             .isActive = true
         titleLabel.trailingAnchor.constraint(
             equalTo: trailingAnchor,
-            constant: -10)
+            constant: -20)
             .isActive = true
         titleLabel.centerYAnchor.constraint(
             equalTo: centerYAnchor)

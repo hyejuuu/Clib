@@ -100,7 +100,7 @@ class BookService: BookServiceProtocol {
     
     func fetchBookData(isbn: String,
                        completion: @escaping (Result<Book, Error>) -> Void) {
-        guard let url = "http://aladin.co.kr/ttb/api/ItemLookUp.aspx?ttbkey=ttbhhhuul0980981654002&itemIdType=ISBN13&ItemId=\(isbn)&output=js&Version=20131101".getCleanedURL() else {
+        guard let url = "http://aladin.co.kr/ttb/api/ItemLookUp.aspx?ttbkey=ttbhhhuul0980981654002&itemIdType=ISBN13&ItemId=\(isbn)&output=js&Version=20131101&Cover=MidBig".getCleanedURL() else {
             completion(.failure(NSError(domain: "unknown", code: 0, userInfo: nil)))
             return
         }

@@ -14,8 +14,8 @@
             filePath = "Clib/Scenes/Main/View/MainViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "98"
-            endingLineNumber = "98"
+            startingLineNumber = "104"
+            endingLineNumber = "104"
             landmarkName = "requestBookData()"
             landmarkType = "7">
          </BreakpointContent>
@@ -30,8 +30,8 @@
             filePath = "Clib/Scenes/Main/View/MainViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "100"
-            endingLineNumber = "100"
+            startingLineNumber = "106"
+            endingLineNumber = "106"
             landmarkName = "requestBookData()"
             landmarkType = "7">
             <Locations>
@@ -46,8 +46,8 @@
                   urlString = "file:///Users/hyeju/Documents/Clib/Clib/Clib/Scenes/Main/View/MainViewController.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "101"
-                  endingLineNumber = "101"
+                  startingLineNumber = "107"
+                  endingLineNumber = "107"
                   offsetFromSymbolStart = "209">
                </Location>
                <Location
@@ -61,8 +61,8 @@
                   urlString = "file:///Users/hyeju/Documents/Clib/Clib/Clib/Scenes/Main/View/MainViewController.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "101"
-                  endingLineNumber = "101"
+                  startingLineNumber = "107"
+                  endingLineNumber = "107"
                   offsetFromSymbolStart = "266">
                </Location>
                <Location
@@ -76,43 +76,11 @@
                   urlString = "file:///Users/hyeju/Documents/Clib/Clib/Clib/Scenes/Main/View/MainViewController.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "101"
-                  endingLineNumber = "101"
+                  startingLineNumber = "107"
+                  endingLineNumber = "107"
                   offsetFromSymbolStart = "614">
                </Location>
             </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "70958F35-2566-4057-826D-0028686089A4"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Clib/Service/BookService.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "103"
-            endingLineNumber = "103"
-            landmarkName = "fetchBookData(isbn:completion:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "D879ED22-E8A2-4BFF-8DD9-DC10E43A7257"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Clib/Service/BookService.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "111"
-            endingLineNumber = "111"
-            landmarkName = "fetchBookData(isbn:completion:)"
-            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

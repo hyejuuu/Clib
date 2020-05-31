@@ -39,6 +39,12 @@ class MainViewController: UIViewController {
         return tableView
     }()
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        tabBarController?.tabBar.isHidden = false
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -139,7 +145,7 @@ extension MainViewController: UITableViewDelegate {
         guard tableView == searchTableView else { return }
         
         let bookDetailViewController = BookDetailViewController()
-        bookDetailViewController.bookData = searchedBookList[indexPath.row]
+        bookDetailViewController.isbn = searchedBookList[indexPath.row].isbn13
         navigationController?.pushViewController(bookDetailViewController, animated: true)
     }
     
@@ -224,7 +230,7 @@ extension MainViewController: UITableViewDataSource {
         
         cell.selectCallBack = { [weak self] bookData in
             let bookDetailViewController = BookDetailViewController()
-            bookDetailViewController.bookData = bookData
+            bookDetailViewController.isbn = bookData.isbn13
             self?.navigationController?.pushViewController(bookDetailViewController, animated: true)
         }
         
