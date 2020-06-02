@@ -16,8 +16,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "104"
             endingLineNumber = "104"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "requestBookData()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -32,8 +32,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "106"
             endingLineNumber = "106"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "requestBookData()"
+            landmarkType = "7">
             <Locations>
                <Location
                   uuid = "08AEB1BE-4EA7-4342-943E-C57239608500 - 19d2b65d5ca9860a"

@@ -106,6 +106,8 @@ class DirectLoginViewController: UIViewController {
     private func setupLayout() {
         view.backgroundColor = .white
         
+        loginButton.addTarget(self, action: #selector(touchUpLoginButton), for: .touchUpInside)
+        
         emailStackView.addArrangedSubview(emailTextField)
         emailStackView.addArrangedSubview(emailTextFieldUnderLine)
         
@@ -162,6 +164,11 @@ class DirectLoginViewController: UIViewController {
         passwordTextFieldUnderLine.heightAnchor.constraint(equalToConstant: 1).isActive = true
         passwordTextFieldUnderLine.leadingAnchor.constraint(equalTo: passwordStackView.leadingAnchor).isActive = true
         passwordTextFieldUnderLine.trailingAnchor.constraint(equalTo: passwordStackView.trailingAnchor).isActive = true
+    }
+    
+    @objc private func touchUpLoginButton() {
+        let tabBarViewController = TabBarViewController()
+        UIApplication.shared.keyWindow?.rootViewController = tabBarViewController
     }
 
 }

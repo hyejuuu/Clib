@@ -34,13 +34,13 @@ class TabBarViewController: UITabBarController {
         let mainNavigationController
             = UINavigationController(rootViewController: mainViewController)
         
-        let bookReportViewController = BookReportViewController()
-        bookReportViewController.tabBarItem = UITabBarItem(title: "내 서재",
+        let bookReportListViewController = BookReportListViewController()
+        bookReportListViewController.tabBarItem = UITabBarItem(title: "내 서재",
                                                      image: UIImage(),
                                                      tag: 0)
         
         let bookReportNavigationController
-            = UINavigationController(rootViewController: bookReportViewController)
+            = UINavigationController(rootViewController: bookReportListViewController)
         
         let viewControllers = [mainNavigationController,
                                bookReportNavigationController]
