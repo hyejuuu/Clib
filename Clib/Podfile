@@ -9,6 +9,8 @@ target 'Clib' do
 
   pod 'Firebase/Analytics'
   pod 'Firebase/Auth'
+  pod 'CryptoKit'
+  pod 'GoogleSignIn'
 
   target 'ClibTests' do
     inherit! :search_paths

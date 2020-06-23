@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class DirectLoginViewController: UIViewController {
 
@@ -167,6 +168,16 @@ class DirectLoginViewController: UIViewController {
     }
     
     @objc private func touchUpLoginButton() {
+        guard let idText = emailTextField.text,
+            idText.isEmpty == false,
+            let passwordText = passwordTextField.text,
+            passwordText.isEmpty == false else {
+            return
+        }
+        Auth.auth().signIn(withEmail: idText,
+                           password: passwordText) { (result, error) in
+                            print(result)
+        }
         let tabBarViewController = TabBarViewController()
         UIApplication.shared.keyWindow?.rootViewController = tabBarViewController
     }

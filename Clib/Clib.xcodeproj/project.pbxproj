@@ -70,6 +70,7 @@
 		C2E147FF5ACF16D0155CB297 /* Pods-Clib.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Clib.debug.xcconfig"; path = "Target Support Files/Pods-Clib/Pods-Clib.debug.xcconfig"; sourceTree = "<group>"; };
 		C4FDAD4DFA71A031B10BA83E /* Pods-ClibTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClibTests.debug.xcconfig"; path = "Target Support Files/Pods-ClibTests/Pods-ClibTests.debug.xcconfig"; sourceTree = "<group>"; };
 		C58EB64ACD882BE0AD0CBF0F /* Pods-Clib-ClibUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Clib-ClibUITests.release.xcconfig"; path = "Target Support Files/Pods-Clib-ClibUITests/Pods-Clib-ClibUITests.release.xcconfig"; sourceTree = "<group>"; };
+		C90455C924A253E400E6D6CC /* Clib.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Clib.entitlements; sourceTree = "<group>"; };
 		D10D75D7247BF091007A3366 /* MainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewCell.swift; sourceTree = "<group>"; };
 		D15FDE2224839AE000512969 /* LoginMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginMenuViewController.swift; sourceTree = "<group>"; };
 		D15FDE2424839D5100512969 /* DirectLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectLoginViewController.swift; sourceTree = "<group>"; };
@@ -235,6 +236,7 @@
 		D1B5DE11247BBD9C00EFD62E /* Clib */ = {
 			isa = PBXGroup;
 			children = (
+				C90455C924A253E400E6D6CC /* Clib.entitlements */,
 				D1D100BF247C213600E18A24 /* ServiceProtocol */,
 				D1D100BE247C212E00E18A24 /* Service */,
 				D1D100BB247C210600E18A24 /* Network */,
@@ -402,6 +404,7 @@
 				D1B5DE0C247BBD9C00EFD62E /* Frameworks */,
 				D1B5DE0D247BBD9C00EFD62E /* Resources */,
 				31510CFB8A3E6C3CE3BF6A9B /* [CP] Embed Pods Frameworks */,
+				50BFB69725B8A193EF7ABAD3 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -440,6 +443,7 @@
 				D1B5DE2D247BBD9D00EFD62E /* Frameworks */,
 				D1B5DE2E247BBD9D00EFD62E /* Resources */,
 				BF1B51451163DC34E3ABA391 /* [CP] Embed Pods Frameworks */,
+				3EF52E7407753F012FB63616 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -563,6 +567,23 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Clib/Pods-Clib-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		3EF52E7407753F012FB63616 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Clib-ClibUITests/Pods-Clib-ClibUITests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Clib-ClibUITests/Pods-Clib-ClibUITests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Clib-ClibUITests/Pods-Clib-ClibUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		4224FBA920AE1966A010C163 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -583,6 +604,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		50BFB69725B8A193EF7ABAD3 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Clib/Pods-Clib-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Clib/Pods-Clib-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Clib/Pods-Clib-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		BF1B51451163DC34E3ABA391 /* [CP] Embed Pods Frameworks */ = {
@@ -831,6 +869,7 @@
 			baseConfigurationReference = C2E147FF5ACF16D0155CB297 /* Pods-Clib.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Clib/Clib.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = P55BH5C78Q;
 				INFOPLIST_FILE = Clib/Info.plist;
@@ -850,6 +889,7 @@
 			baseConfigurationReference = B76B651FE50C51035CD9FBF0 /* Pods-Clib.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Clib/Clib.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = P55BH5C78Q;
 				INFOPLIST_FILE = Clib/Info.plist;
