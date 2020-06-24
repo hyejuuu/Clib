@@ -804,6 +804,7 @@
 				D1F31C1E24811A600025525C /* TabBarViewController.swift in Sources */,
 				D11456E924A34ACF0068851F /* SeeMoreBooksViewController.swift in Sources */,
 				D1F31C262482B40C0025525C /* WriteBookReportViewController.swift in Sources */,
+				D1F31C262482B40C0025525C /* BookReportViewController.swift in Sources */,
 				D15FDE2B2484064200512969 /* BottomButtonItemsView.swift in Sources */,
 				D1B5DE15247BBD9C00EFD62E /* SceneDelegate.swift in Sources */,
 				D11456F024B9B0BC0068851F /* AladinDetailViewController.swift in Sources */,
