@@ -28,6 +28,8 @@ class MainViewController: UIViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.separatorColor = .clear
         tableView.backgroundColor = .white
+        tableView.sectionHeaderHeight = 0
+        tableView.sectionFooterHeight = 0
         return tableView
     }()
     
@@ -157,7 +159,7 @@ extension MainViewController: UITableViewDelegate {
         
         switch section {
         case 0:
-            return 150
+            return 170
         default:
             return 40
         }
@@ -190,7 +192,17 @@ extension MainViewController: UITableViewDataSource {
             return LogoHeaderView()
         default:
             let header = MainSectionHeaderView()
-            header.titleLabel.text = sectionTitles[section - 1].rawValue
+            header.configure(title: sectionTitles[section - 1].rawValue)
+            header.callback = { [weak self] in
+                // 더보기
+                let seeMoreBooksViewController = SeeMoreBooksViewController()
+                if section == 1 {
+                    seeMoreBooksViewController.bookListKind = .bestSeller
+                } else if section == 2 {
+                    seeMoreBooksViewController.bookListKind = .new
+                }
+                self?.navigationController?.pushViewController(seeMoreBooksViewController, animated: true)
+            }
             return header
         }
     }

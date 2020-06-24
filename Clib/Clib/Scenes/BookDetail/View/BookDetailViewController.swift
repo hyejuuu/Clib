@@ -142,7 +142,7 @@ extension BookDetailViewController: UITableViewDelegate {
             return header
         case 2, 3:
             let header = MainSectionHeaderView()
-            header.titleLabel.text = sectionTitles[section - 2]
+            header.configure(title: sectionTitles[section - 2])
             return header
         default:
             return UIView()

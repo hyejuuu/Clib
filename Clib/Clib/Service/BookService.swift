@@ -12,8 +12,14 @@ class BookService: BookServiceProtocol {
     
     let network: Network = URLSession.shared
     
-    func fetchBestseller(completion: @escaping (Result<BookList, Error>) -> Void) {
-        guard let url = URL(string: "http://www.aladin.co.kr/ttb/api/ItemList.aspx?ttbkey=ttbhhhuul0980981654002&QueryType=Bestseller&MaxResults=8&start=1&SearchTarget=Book&output=js&Version=20131101") else {
+    func fetchBestseller(maxResult: Int?, completion: @escaping (Result<BookList, Error>) -> Void) {
+        var urlString = "http://www.aladin.co.kr/ttb/api/ItemList.aspx?ttbkey=ttbhhhuul0980981654002&QueryType=Bestseller&start=1&SearchTarget=Book&output=js&Version=20131101&Cover=MidBig"
+        
+        if let maxResult = maxResult {
+            urlString += "&MaxResults=\(maxResult)"
+        }
+        
+        guard let url = URL(string: urlString) else {
             completion(.failure(NSError(domain: "unknown", code: 0, userInfo: nil)))
             return
         }
@@ -40,8 +46,14 @@ class BookService: BookServiceProtocol {
         }
     }
     
-    func fetchNewBooks(completion: @escaping (Result<BookList, Error>) -> Void) {
-        guard let url = URL(string: "http://www.aladin.co.kr/ttb/api/ItemList.aspx?ttbkey=ttbhhhuul0980981654002&QueryType=ItemNewSpecial&MaxResults=8&start=1&SearchTarget=Book&output=js&Version=20131101") else {
+    func fetchNewBooks(maxResult: Int?, completion: @escaping (Result<BookList, Error>) -> Void) {
+        var urlString = "http://www.aladin.co.kr/ttb/api/ItemList.aspx?ttbkey=ttbhhhuul0980981654002&QueryType=ItemNewSpecial&start=1&SearchTarget=Book&output=js&Version=20131101&Cover=MidBig"
+        
+        if let maxResult = maxResult {
+            urlString += "&MaxResults=\(maxResult)"
+        }
+        
+        guard let url = URL(string: urlString) else {
             completion(.failure(NSError(domain: "unknown", code: 0, userInfo: nil)))
             return
         }

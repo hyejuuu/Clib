@@ -12,6 +12,8 @@
 		6775C565331B16A018171D26 /* Pods_ClibTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEBD051581A2828878DB9816 /* Pods_ClibTests.framework */; };
 		D10B5DA724C5F40600901202 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D10B5DA524C5F40600901202 /* Model.xcdatamodeld */; };
 		D10D75D8247BF091007A3366 /* MainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10D75D7247BF091007A3366 /* MainTableViewCell.swift */; };
+		D11456E924A34ACF0068851F /* SeeMoreBooksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D11456E824A34ACF0068851F /* SeeMoreBooksViewController.swift */; };
+		D11456EB24A35B920068851F /* BookTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D11456EA24A35B920068851F /* BookTableViewCell.swift */; };
 		D15FDE2324839AE000512969 /* LoginMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D15FDE2224839AE000512969 /* LoginMenuViewController.swift */; };
 		D15FDE2524839D5100512969 /* DirectLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D15FDE2424839D5100512969 /* DirectLoginViewController.swift */; };
 		D15FDE29248405E300512969 /* BookReportListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D15FDE28248405E300512969 /* BookReportListViewController.swift */; };
@@ -74,6 +76,8 @@
 		C90455C924A253E400E6D6CC /* Clib.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Clib.entitlements; sourceTree = "<group>"; };
 		D10B5DA624C5F40600901202 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		D10D75D7247BF091007A3366 /* MainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewCell.swift; sourceTree = "<group>"; };
+		D11456E824A34ACF0068851F /* SeeMoreBooksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeeMoreBooksViewController.swift; sourceTree = "<group>"; };
+		D11456EA24A35B920068851F /* BookTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookTableViewCell.swift; sourceTree = "<group>"; };
 		D15FDE2224839AE000512969 /* LoginMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginMenuViewController.swift; sourceTree = "<group>"; };
 		D15FDE2424839D5100512969 /* DirectLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectLoginViewController.swift; sourceTree = "<group>"; };
 		D15FDE28248405E300512969 /* BookReportListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookReportListViewController.swift; sourceTree = "<group>"; };
@@ -176,6 +180,7 @@
 				D1B5DE42247BBDB400EFD62E /* MainViewController.swift */,
 				D1D100B3247BF17800E18A24 /* LogoHeaderView.swift */,
 				D1D100B5247C0F8400E18A24 /* MainSectionHeaderView.swift */,
+				D11456E824A34ACF0068851F /* SeeMoreBooksViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -346,6 +351,7 @@
 			children = (
 				D10D75D7247BF091007A3366 /* MainTableViewCell.swift */,
 				D1D100B7247C1C5900E18A24 /* BookCollectionViewCell.swift */,
+				D11456EA24A35B920068851F /* BookTableViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -675,6 +681,7 @@
 				D1B5DE13247BBD9C00EFD62E /* AppDelegate.swift in Sources */,
 				D1D100C6247C218100E18A24 /* BookList.swift in Sources */,
 				D1D100C3247C216300E18A24 /* ImageManager.swift in Sources */,
+				D11456EB24A35B920068851F /* BookTableViewCell.swift in Sources */,
 				D10B5DA724C5F40600901202 /* Model.xcdatamodeld in Sources */,
 				D1D100D1247C267200E18A24 /* MainCellViewModel.swift in Sources */,
 				D1D100CD247C264B00E18A24 /* BookCellViewModel.swift in Sources */,
@@ -685,6 +692,7 @@
 				D1D100B6247C0F8400E18A24 /* MainSectionHeaderView.swift in Sources */,
 				D15FDE2F248566C800512969 /* String+.swift in Sources */,
 				D1F31C1E24811A600025525C /* TabBarViewController.swift in Sources */,
+				D11456E924A34ACF0068851F /* SeeMoreBooksViewController.swift in Sources */,
 				D1F31C262482B40C0025525C /* BookReportViewController.swift in Sources */,
 				D15FDE2B2484064200512969 /* BottomButtonItemsView.swift in Sources */,
 				D1B5DE15247BBD9C00EFD62E /* SceneDelegate.swift in Sources */,

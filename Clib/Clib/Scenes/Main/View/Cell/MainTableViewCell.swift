@@ -27,8 +27,10 @@ class MainTableViewCell: UITableViewCell {
     
     let sectionMenuCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.showsHorizontalScrollIndicator = false
         collectionView.backgroundColor = .white
         collectionView.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         return collectionView
@@ -60,7 +62,7 @@ class MainTableViewCell: UITableViewCell {
     private func requestBookList() {
         switch listKind {
         case .bestSeller:
-            bookService.fetchBestseller { [weak self] result in
+            bookService.fetchBestseller(maxResult: 8) { [weak self] result in
                 switch result {
                 case .failure(let error):
                     return
@@ -72,7 +74,7 @@ class MainTableViewCell: UITableViewCell {
                 }
             }
         case .new:
-            bookService.fetchNewBooks { [weak self] result in
+            bookService.fetchNewBooks(maxResult: 8) { [weak self] result in
                 switch result {
                 case .failure(let error):
                     return
@@ -111,20 +113,19 @@ extension MainTableViewCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 70, height: 100)
+        return CGSize(width: 120, height: 210)
     }
     
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 30
+        return 15
     }
 }
 
 extension MainTableViewCell: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView,
                         didSelectItemAt indexPath: IndexPath) {
-        print("click")
         selectCallBack?(bookList[indexPath.item])
     }
 }
@@ -141,7 +142,7 @@ extension MainTableViewCell: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         
-        cell.setImage(urlString: bookList[indexPath.item].cover)
+        cell.configure(book: bookList[indexPath.item])
         
         return cell
     }
