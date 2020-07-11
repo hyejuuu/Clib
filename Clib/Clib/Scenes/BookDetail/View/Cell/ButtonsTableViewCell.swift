@@ -10,9 +10,8 @@ import UIKit
 
 class ButtonsTableViewCell: UITableViewCell {
     
-    var writeReviewCallBack: (()->())?
-    var writeBookReportCallBack: (()->())?
-    var moveToSiteCallBack: (()->())?
+    var writeCallBack: (()->())?
+    var itemId: String?
     
     private let topLineView: UIView = {
         let view = UIView()
@@ -28,20 +27,20 @@ class ButtonsTableViewCell: UITableViewCell {
         return view
     }()
     
-    private let writeReviewButton: UIButton = {
+    private let bookMarkButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("후기 작성", for: .normal)
+        button.setTitle("책 저장", for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.layer.cornerRadius = 8
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
         return button
     }()
     
-    private let writeBookReportButton: UIButton = {
+    private let writeButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("독후감 작성", for: .normal)
+        button.setTitle("작성", for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.layer.cornerRadius = 8
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
@@ -78,27 +77,37 @@ class ButtonsTableViewCell: UITableViewCell {
     
     private func setupLayout() {
         
-        writeReviewButton.addTarget(self,
-                                    action: #selector(touchUpWriteReviewButton),
-                                    for: .touchUpInside)
-        writeBookReportButton.addTarget(self,
-                                        action: #selector(touchUpWriteBookReportButton),
-                                        for: .touchUpInside)
+        writeButton.addTarget(self,
+                              action: #selector(touchUpWriteButton),
+                              for: .touchUpInside)
         moveToSiteButton.addTarget(self,
                                    action: #selector(touchUpMoveToSiteButton),
                                    for: .touchUpInside)
+        bookMarkButton.addTarget(self,
+                                 action: #selector(touchUpBookMarkButton),
+                                 for: .touchUpInside)
         
-//        buttonStackView.addArrangedSubview(writeReviewButton)
-        buttonStackView.addArrangedSubview(writeBookReportButton)
+        buttonStackView.addArrangedSubview(writeButton)
+        buttonStackView.addArrangedSubview(bookMarkButton)
         buttonStackView.addArrangedSubview(moveToSiteButton)
         addSubview(topLineView)
         addSubview(buttonStackView)
         addSubview(bottomLineView)
         
-        topLineView.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        topLineView.heightAnchor.constraint(equalToConstant: 1).isActive = true
-        topLineView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20).isActive = true
-        topLineView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20).isActive = true
+        topLineView.topAnchor.constraint(
+            equalTo: topAnchor)
+            .isActive = true
+        topLineView.heightAnchor.constraint(
+            equalToConstant: 1)
+            .isActive = true
+        topLineView.leadingAnchor.constraint(
+            equalTo: leadingAnchor,
+            constant: 20)
+            .isActive = true
+        topLineView.trailingAnchor.constraint(
+            equalTo: trailingAnchor,
+            constant: -20)
+            .isActive = true
         
         buttonStackView.topAnchor.constraint(
             equalTo: topLineView.bottomAnchor,
@@ -117,23 +126,40 @@ class ButtonsTableViewCell: UITableViewCell {
             constant: -10)
             .isActive = true
         
-        bottomLineView.topAnchor.constraint(equalTo: buttonStackView.bottomAnchor, constant: 10).isActive = true
-        bottomLineView.heightAnchor.constraint(equalToConstant: 1).isActive = true
-        bottomLineView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20).isActive = true
-        bottomLineView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20).isActive = true
-        bottomLineView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        bottomLineView.topAnchor.constraint(
+            equalTo: buttonStackView.bottomAnchor,
+            constant: 10)
+            .isActive = true
+        bottomLineView.heightAnchor.constraint(
+            equalToConstant: 1)
+            .isActive = true
+        bottomLineView.leadingAnchor.constraint(
+            equalTo: leadingAnchor,
+            constant: 20)
+            .isActive = true
+        bottomLineView.trailingAnchor.constraint(
+            equalTo: trailingAnchor,
+            constant: -20)
+            .isActive = true
+        bottomLineView.bottomAnchor.constraint(
+            equalTo: bottomAnchor)
+            .isActive = true
     
     }
     
-    @objc private func touchUpWriteReviewButton() {
-        writeReviewCallBack?()
+    @objc private func touchUpBookMarkButton() {
+        
     }
     
-    @objc private func touchUpWriteBookReportButton() {
-        writeBookReportCallBack?()
+    @objc private func touchUpWriteButton() {
+        writeCallBack?()
     }
     
     @objc private func touchUpMoveToSiteButton() {
-        moveToSiteCallBack?()
+        guard let itemId = itemId,
+            let url = URL(string: "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=\(itemId)"),
+           UIApplication.shared.canOpenURL(url) else { return }
+
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
 }

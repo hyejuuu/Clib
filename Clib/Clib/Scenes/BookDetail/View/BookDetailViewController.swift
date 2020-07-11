@@ -16,6 +16,21 @@ class BookDetailViewController: UIViewController {
     
     private let sectionTitles = ["줄거리", "리뷰"]
     
+    private let backButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(#imageLiteral(resourceName: "back"), for: .normal)
+        return button
+    }()
+    
+    private let shareButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("공유", for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        return button
+    }()
+    
     let detailTableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -49,15 +64,47 @@ class BookDetailViewController: UIViewController {
         detailTableView.delegate = self
         detailTableView.dataSource = self
         
-        detailTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
-        detailTableView.register(DetailContentsTableViewCell.self, forCellReuseIdentifier: "contentsCell")
-        detailTableView.register(ButtonsTableViewCell.self, forCellReuseIdentifier: "buttonTableViewCell")
+        detailTableView.register(UITableViewCell.self,
+                                 forCellReuseIdentifier: "cell")
+        detailTableView.register(DetailContentsTableViewCell.self,
+                                 forCellReuseIdentifier: "contentsCell")
+        detailTableView.register(ButtonsTableViewCell.self,
+                                 forCellReuseIdentifier: "buttonTableViewCell")
     }
 
     private func setupLayout() {
         view.backgroundColor = .white
         
         view.addSubview(detailTableView)
+        view.addSubview(backButton)
+        view.addSubview(shareButton)
+        backButton.addTarget(self, action: #selector(touchUpBackButton), for: .touchUpInside)
+        
+        backButton.topAnchor.constraint(
+            equalTo: view.safeAreaLayoutGuide.topAnchor)
+            .isActive = true
+        backButton.leadingAnchor.constraint(
+            equalTo: view.safeAreaLayoutGuide.leadingAnchor)
+            .isActive = true
+        backButton.widthAnchor.constraint(
+            equalToConstant: 50)
+            .isActive = true
+        backButton.heightAnchor.constraint(
+            equalTo: backButton.widthAnchor)
+            .isActive = true
+        
+        shareButton.topAnchor.constraint(
+            equalTo: view.safeAreaLayoutGuide.topAnchor)
+            .isActive = true
+        shareButton.trailingAnchor.constraint(
+            equalTo: view.safeAreaLayoutGuide.trailingAnchor)
+            .isActive = true
+        shareButton.widthAnchor.constraint(
+            equalToConstant: 50)
+            .isActive = true
+        shareButton.heightAnchor.constraint(
+            equalTo: shareButton.widthAnchor)
+            .isActive = true
         
         detailTableView.topAnchor.constraint(
             equalTo: view.safeAreaLayoutGuide.topAnchor)
@@ -88,6 +135,10 @@ class BookDetailViewController: UIViewController {
                 }
             }
         }
+    }
+    
+    @objc private func touchUpBackButton() {
+        navigationController?.popViewController(animated: true)
     }
 }
 
@@ -175,22 +226,30 @@ extension BookDetailViewController: UITableViewDataSource {
         
         switch indexPath.section {
         case 0:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "buttonTableViewCell") as? ButtonsTableViewCell else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "buttonTableViewCell") as? ButtonsTableViewCell, let itemId = bookData?.itemId else {
                 return UITableViewCell()
             }
 
-            cell.writeReviewCallBack = { [weak self] in
+            cell.writeCallBack = { [weak self] in
+
+                let alertController = UIAlertController(title: "작성하고자 하는 유형을 선택해주세요", message: nil, preferredStyle: .actionSheet)
+                let reviewAction = UIAlertAction(title: "후기 작성", style: .default) { [weak self] _ in
+                    
+                }
+                let reportAction = UIAlertAction(title: "독후감 작성", style: .default) { [weak self] _ in
+                    let bookReportViewController = BookReportViewController()
+                    bookReportViewController.modalPresentationStyle = .fullScreen
+                    self?.present(bookReportViewController, animated: true)
+                }
+                let cancelAction = UIAlertAction(title: "취소", style: .cancel)
+                alertController.addAction(reviewAction)
+                alertController.addAction(reportAction)
+                alertController.addAction(cancelAction)
                 
-            }
-            cell.writeBookReportCallBack = { [weak self] in
-                let bookReportViewController = BookReportViewController()
-                bookReportViewController.modalPresentationStyle = .fullScreen
-                self?.present(bookReportViewController, animated: true)
-            }
-            cell.moveToSiteCallBack = { [weak self] in
-                
+                self?.present(alertController, animated: true)
             }
             
+            cell.itemId = String(itemId)
             cell.selectionStyle = .none
             
             return cell
