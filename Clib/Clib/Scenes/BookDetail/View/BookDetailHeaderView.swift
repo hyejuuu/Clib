@@ -21,12 +21,12 @@ class BookDetailHeaderView: UIView {
         return imageView
     }()
     
-    private let categoryLabel: UILabel = {
+    let categoryLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "category"
         label.font = .systemFont(ofSize: 15, weight: .semibold)
         label.textColor = #colorLiteral(red: 0.3921568627, green: 0.3921568627, blue: 0.3921568627, alpha: 1)
+        label.textAlignment = .center
         return label
     }()
     
@@ -36,6 +36,7 @@ class BookDetailHeaderView: UIView {
         label.font = .systemFont(ofSize: 18, weight: .bold)
         label.textColor = #colorLiteral(red: 0.2274509804, green: 0.2274509804, blue: 0.2274509804, alpha: 1)
         label.numberOfLines = 2
+        label.textAlignment = .center
         return label
     }()
     
@@ -45,6 +46,18 @@ class BookDetailHeaderView: UIView {
         label.font = .systemFont(ofSize: 15, weight: .semibold)
         label.textColor = #colorLiteral(red: 0.3921568627, green: 0.3921568627, blue: 0.3921568627, alpha: 1)
         label.numberOfLines = 2
+        label.textAlignment = .center
+        return label
+    }()
+    
+    let rateAndReviewCountLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .systemFont(ofSize: 15, weight: .semibold)
+        label.textColor = #colorLiteral(red: 0.3921568627, green: 0.3921568627, blue: 0.3921568627, alpha: 1)
+        label.numberOfLines = 2
+        label.textAlignment = .center
+        label.text = "5.0 1,222"
         return label
     }()
     
@@ -53,6 +66,7 @@ class BookDetailHeaderView: UIView {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.spacing = 5
+        stackView.distribution = .fillEqually
         return stackView
     }()
     
@@ -67,47 +81,48 @@ class BookDetailHeaderView: UIView {
     }
     
     private func setupLayout() {
-        
         stackView.addArrangedSubview(categoryLabel)
         stackView.addArrangedSubview(titleLabel)
         stackView.addArrangedSubview(authorLabel)
+        stackView.addArrangedSubview(rateAndReviewCountLabel)
         
         addSubview(coverImageView)
         addSubview(stackView)
         
         coverImageView.topAnchor.constraint(
             equalTo: topAnchor,
-            constant: 15)
+            constant: 30)
             .isActive = true
         
-        let coverImageViewBottomConstraint = coverImageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -15)
-        coverImageViewBottomConstraint.priority = UILayoutPriority.defaultHigh
-        coverImageViewBottomConstraint.isActive = true
+//        let coverImageViewBottomConstraint = coverImageView.bottomAnchor.constraint(equalTo: stackView.bottomAnchor, constant: -15)
+//        coverImageViewBottomConstraint.priority = UILayoutPriority.defaultHigh
+//        coverImageViewBottomConstraint.isActive = true
         
-        coverImageView.leadingAnchor.constraint(
-            equalTo: leadingAnchor,
-            constant: 20)
+        coverImageView.centerXAnchor.constraint(
+            equalTo: centerXAnchor)
             .isActive = true
         coverImageView.widthAnchor.constraint(
             equalTo: widthAnchor,
             multiplier: 0.3)
             .isActive = true
+        coverImageView.heightAnchor.constraint(equalTo: coverImageView.widthAnchor, multiplier: 1.3).isActive = true
         
+        stackView.topAnchor.constraint(equalTo: coverImageView.bottomAnchor, constant: 15).isActive = true
         stackView.leadingAnchor.constraint(
-            equalTo: coverImageView.trailingAnchor,
-            constant: 10)
+            equalTo: leadingAnchor,
+            constant: 15)
             .isActive = true
         stackView.trailingAnchor.constraint(
             equalTo: trailingAnchor,
             constant: -15)
             .isActive = true
         stackView.bottomAnchor.constraint(
-            equalTo: coverImageView.bottomAnchor,
-            constant: -5)
+            equalTo: bottomAnchor,
+            constant: -30)
             .isActive = true
     }
     
-    func setImage(urlString: String) {
+    private func setImage(urlString: String) {
         imageManager.fetchImage(urlString: urlString) { [weak self] result in
             switch result {
             case .failure(let error):
@@ -119,5 +134,13 @@ class BookDetailHeaderView: UIView {
                 }
             }
         }
+    }
+    
+    func configure(book: Book) {
+        titleLabel.text = book.title
+        authorLabel.text = book.author
+        let categoryComponents = book.categoryName.components(separatedBy: ">")
+        categoryLabel.text = categoryComponents.count != 1 ? categoryComponents[1] : categoryComponents[0]
+        setImage(urlString: book.cover)
     }
 }

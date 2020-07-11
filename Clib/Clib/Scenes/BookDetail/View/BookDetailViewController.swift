@@ -16,42 +16,30 @@ class BookDetailViewController: UIViewController {
     
     private let sectionTitles = ["줄거리", "리뷰"]
     
-    let bottomButtonItemsView: BottomButtonItemsView = {
-        let view = BottomButtonItemsView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .clear
-        return view
-    }()
-    
     let detailTableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.backgroundColor = .white
         tableView.separatorColor = .clear
         tableView.tableFooterView = UIView()
-        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 50, right: 0)
+        tableView.showsVerticalScrollIndicator = false
         tableView.sectionHeaderHeight = 0
         tableView.sectionFooterHeight = 0
         return tableView
     }()
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        navigationController?.navigationBar.isHidden = true
+        tabBarController?.tabBar.isHidden = true
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tabBarController?.tabBar.isHidden = true
 
-        bottomButtonItemsView.writeReviewCallBack = { [weak self] in
-            
-        }
-        bottomButtonItemsView.writeBookReportCallBack = { [weak self] in
-            let bookReportViewController = BookReportViewController()
-            bookReportViewController.modalPresentationStyle = .fullScreen
-            self?.present(bookReportViewController, animated: true)
-        }
-        bottomButtonItemsView.moveToSiteCallBack = { [weak self] in
-            
-        }
-        
         setupTableView()
         requestBookDetailData()
         setupLayout()
@@ -63,13 +51,13 @@ class BookDetailViewController: UIViewController {
         
         detailTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         detailTableView.register(DetailContentsTableViewCell.self, forCellReuseIdentifier: "contentsCell")
+        detailTableView.register(ButtonsTableViewCell.self, forCellReuseIdentifier: "buttonTableViewCell")
     }
 
     private func setupLayout() {
         view.backgroundColor = .white
         
         view.addSubview(detailTableView)
-        view.addSubview(bottomButtonItemsView)
         
         detailTableView.topAnchor.constraint(
             equalTo: view.safeAreaLayoutGuide.topAnchor)
@@ -82,19 +70,6 @@ class BookDetailViewController: UIViewController {
             .isActive = true
         detailTableView.bottomAnchor.constraint(
             equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-            .isActive = true
-        
-        bottomButtonItemsView.bottomAnchor.constraint(
-            equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-            .isActive = true
-        bottomButtonItemsView.leadingAnchor.constraint(
-            equalTo: view.safeAreaLayoutGuide.leadingAnchor)
-            .isActive = true
-        bottomButtonItemsView.trailingAnchor.constraint(
-            equalTo: view.safeAreaLayoutGuide.trailingAnchor)
-            .isActive = true
-        bottomButtonItemsView.heightAnchor.constraint(
-            equalToConstant: 70)
             .isActive = true
     }
     
@@ -136,9 +111,7 @@ extension BookDetailViewController: UITableViewDelegate {
             guard let bookData = bookData else { return UIView() }
             
             let header = BookDetailHeaderView()
-            header.titleLabel.text = bookData.title
-            header.authorLabel.text = bookData.author
-            header.setImage(urlString: bookData.cover)
+            header.configure(book: bookData)
             return header
         case 2, 3:
             let header = MainSectionHeaderView()
@@ -153,7 +126,7 @@ extension BookDetailViewController: UITableViewDelegate {
                    heightForHeaderInSection section: Int) -> CGFloat {
         switch section {
         case 0:
-            return 190
+            return 300
         case 2, 3:
             return 50
         default:
@@ -164,6 +137,8 @@ extension BookDetailViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView,
                    heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.section {
+        case 0:
+            return 80
         case 1:
             return 50
         case 2:
@@ -188,7 +163,7 @@ extension BookDetailViewController: UITableViewDataSource {
                 return 0
             }
             return 1
-        case 2, 3:
+        case 0, 2, 3:
             return 1
         default:
             return 0
@@ -199,6 +174,26 @@ extension BookDetailViewController: UITableViewDataSource {
                    cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         switch indexPath.section {
+        case 0:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "buttonTableViewCell") as? ButtonsTableViewCell else {
+                return UITableViewCell()
+            }
+
+            cell.writeReviewCallBack = { [weak self] in
+                
+            }
+            cell.writeBookReportCallBack = { [weak self] in
+                let bookReportViewController = BookReportViewController()
+                bookReportViewController.modalPresentationStyle = .fullScreen
+                self?.present(bookReportViewController, animated: true)
+            }
+            cell.moveToSiteCallBack = { [weak self] in
+                
+            }
+            
+            cell.selectionStyle = .none
+            
+            return cell
         case 1:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell") else {
                 return UITableViewCell()
