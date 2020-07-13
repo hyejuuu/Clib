@@ -1,16 +1,23 @@
 //
-//  DirectLoginViewController.swift
+//  DirectSignUpViewController.swift
 //  Clib
 //
-//  Created by 이혜주 on 2020/05/31.
+//  Created by 이혜주 on 2020/07/11.
 //  Copyright © 2020 leehyeju. All rights reserved.
 //
 
 import UIKit
 import FirebaseAuth
 
-class DirectLoginViewController: UIViewController {
-
+class DirectSignUpViewController: UIViewController {
+    
+    private let nextButton: UIButton = {
+        let button = UIButton()
+        button.setTitleColor(.black, for: .normal)
+        button.setTitle("다음", for: .normal)
+        return button
+    }()
+    
     private let emailTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
@@ -59,36 +66,6 @@ class DirectLoginViewController: UIViewController {
         return stackView
     }()
     
-    private let loginButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("로그인", for: .normal)
-        button.layer.borderColor = UIColor.gray.cgColor
-        button.layer.borderWidth = 0.5
-        button.setTitleColor(.black, for: .normal)
-        button.layer.cornerRadius = 8
-        return button
-    }()
-    
-    private let signupButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("회원가입", for: .normal)
-        button.backgroundColor = .brown
-        button.setTitleColor(.white, for: .normal)
-        button.layer.cornerRadius = 8
-        return button
-    }()
-    
-    private let buttonStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .vertical
-        stackView.distribution = .fillEqually
-        stackView.spacing = 10
-        return stackView
-    }()
-    
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -101,14 +78,13 @@ class DirectLoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: nextButton)
         setupLayout()
     }
     
     private func setupLayout() {
         view.backgroundColor = .white
-        
-        loginButton.addTarget(self, action: #selector(touchUpLoginButton), for: .touchUpInside)
-        signupButton.addTarget(self, action: #selector(touchUpSignUpButton), for: .touchUpInside)
+        nextButton.addTarget(self, action: #selector(touchUpNextButton), for: .touchUpInside)
         
         emailStackView.addArrangedSubview(emailTextField)
         emailStackView.addArrangedSubview(emailTextFieldUnderLine)
@@ -116,12 +92,8 @@ class DirectLoginViewController: UIViewController {
         passwordStackView.addArrangedSubview(passwordTextField)
         passwordStackView.addArrangedSubview(passwordTextFieldUnderLine)
         
-        buttonStackView.addArrangedSubview(loginButton)
-        buttonStackView.addArrangedSubview(signupButton)
-        
         stackView.addArrangedSubview(emailStackView)
         stackView.addArrangedSubview(passwordStackView)
-        stackView.addArrangedSubview(buttonStackView)
         
         view.addSubview(stackView)
         
@@ -130,9 +102,6 @@ class DirectLoginViewController: UIViewController {
             .isActive = true
         passwordStackView.heightAnchor.constraint(
             equalToConstant: 49)
-            .isActive = true
-        buttonStackView.heightAnchor.constraint(
-            equalToConstant: 110)
             .isActive = true
         
         stackView.centerXAnchor.constraint(
@@ -150,7 +119,7 @@ class DirectLoginViewController: UIViewController {
             constant: -50)
             .isActive = true
         stackView.heightAnchor.constraint(
-            equalToConstant: 270)
+            equalToConstant: 130)
             .isActive = true
         
         emailTextFieldUnderLine.heightAnchor.constraint(
@@ -163,29 +132,49 @@ class DirectLoginViewController: UIViewController {
             equalTo: emailStackView.trailingAnchor)
             .isActive = true
         
-        passwordTextFieldUnderLine.heightAnchor.constraint(equalToConstant: 1).isActive = true
-        passwordTextFieldUnderLine.leadingAnchor.constraint(equalTo: passwordStackView.leadingAnchor).isActive = true
-        passwordTextFieldUnderLine.trailingAnchor.constraint(equalTo: passwordStackView.trailingAnchor).isActive = true
+        passwordTextFieldUnderLine.heightAnchor.constraint(
+            equalToConstant: 1)
+            .isActive = true
+        passwordTextFieldUnderLine.leadingAnchor.constraint(
+            equalTo: passwordStackView.leadingAnchor)
+            .isActive = true
+        passwordTextFieldUnderLine.trailingAnchor.constraint(
+            equalTo: passwordStackView.trailingAnchor)
+            .isActive = true
     }
     
-    @objc private func touchUpLoginButton() {
-        guard let idText = emailTextField.text,
-            idText.isEmpty == false,
-            let passwordText = passwordTextField.text,
-            passwordText.isEmpty == false else {
-            return
+    @objc private func touchUpNextButton() {
+        guard let email = emailTextField.text,
+            let password = passwordTextField.text,
+            email.isEmpty == false,
+            password.isEmpty == false else {
+                let alertController = UIAlertController(title: "알림",
+                                                        message: "모든 항목을 채워주세요",
+                                                        preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "확인", style: .cancel)
+                alertController.addAction(okAction)
+                present(alertController, animated: true)
+                return
         }
-        Auth.auth().signIn(withEmail: idText,
-                           password: passwordText) { (result, error) in
-                            print(result)
+        
+        Auth.auth().createUser(withEmail: email, password: password) { [weak self] user, error in
+            if error != nil {
+                return
+            }
+
+            Auth.auth().signIn(withEmail: email,
+                               password: password) { [weak self] result, error in
+                                if error != nil {
+                                    return
+                                }
+
+                                DispatchQueue.main.async {
+                                    let tabBarViewController = TabBarViewController()
+                                    UIApplication.shared.keyWindow?.rootViewController = tabBarViewController
+                                }
+            }
+            
         }
-        let tabBarViewController = TabBarViewController()
-        UIApplication.shared.keyWindow?.rootViewController = tabBarViewController
-    }
-    
-    @objc private func touchUpSignUpButton() {
-        let directSignUpViewController = DirectSignUpViewController()
-        navigationController?.pushViewController(directSignUpViewController, animated: true)
     }
 
 }

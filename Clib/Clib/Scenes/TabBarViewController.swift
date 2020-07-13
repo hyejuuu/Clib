@@ -15,9 +15,14 @@ class TabBarViewController: UITabBarController {
         
         UITabBar.appearance().barTintColor = .white
         
+        checkExistUser()
         setupLayout()
         makeViewControllers()
         UITabBar.appearance().tintColor = #colorLiteral(red: 0.1991617382, green: 0.247386992, blue: 0.3030927181, alpha: 1)
+    }
+    
+    private func checkExistUser() {
+        // uid가 있는지 확인하고 nil이면 nickNameSignUpViewController 띄우기
     }
     
     private func setupLayout() {

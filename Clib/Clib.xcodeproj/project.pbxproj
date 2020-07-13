@@ -16,6 +16,8 @@
 		D11456EB24A35B920068851F /* BookTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D11456EA24A35B920068851F /* BookTableViewCell.swift */; };
 		D11456EE24A3806E0068851F /* ButtonsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D11456ED24A3806E0068851F /* ButtonsTableViewCell.swift */; };
 		D11456F024B9B0BC0068851F /* AladinDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D11456EF24B9B0BC0068851F /* AladinDetailViewController.swift */; };
+		D11456F224B9B9B30068851F /* DirectSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D11456F124B9B9B30068851F /* DirectSignUpViewController.swift */; };
+		D11456F424B9BBE10068851F /* NickNameSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D11456F324B9BBE10068851F /* NickNameSignUpViewController.swift */; };
 		D15FDE2324839AE000512969 /* LoginMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D15FDE2224839AE000512969 /* LoginMenuViewController.swift */; };
 		D15FDE2524839D5100512969 /* DirectLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D15FDE2424839D5100512969 /* DirectLoginViewController.swift */; };
 		D15FDE29248405E300512969 /* BookReportListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D15FDE28248405E300512969 /* BookReportListViewController.swift */; };
@@ -78,6 +80,8 @@
 		C90455C924A253E400E6D6CC /* Clib.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Clib.entitlements; sourceTree = "<group>"; };
 		D10B5DA624C5F40600901202 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		D10D75D7247BF091007A3366 /* MainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewCell.swift; sourceTree = "<group>"; };
+		D11456F124B9B9B30068851F /* DirectSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectSignUpViewController.swift; sourceTree = "<group>"; };
+		D11456F324B9BBE10068851F /* NickNameSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NickNameSignUpViewController.swift; sourceTree = "<group>"; };
 		D11456E824A34ACF0068851F /* SeeMoreBooksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeeMoreBooksViewController.swift; sourceTree = "<group>"; };
 		D11456EA24A35B920068851F /* BookTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookTableViewCell.swift; sourceTree = "<group>"; };
 		D11456ED24A3806E0068851F /* ButtonsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsTableViewCell.swift; sourceTree = "<group>"; };
@@ -210,6 +214,8 @@
 			children = (
 				D15FDE2224839AE000512969 /* LoginMenuViewController.swift */,
 				D15FDE2424839D5100512969 /* DirectLoginViewController.swift */,
+				D11456F124B9B9B30068851F /* DirectSignUpViewController.swift */,
+				D11456F324B9BBE10068851F /* NickNameSignUpViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -694,6 +700,7 @@
 			files = (
 				D1B5DE13247BBD9C00EFD62E /* AppDelegate.swift in Sources */,
 				D1D100C6247C218100E18A24 /* BookList.swift in Sources */,
+				D11456F224B9B9B30068851F /* DirectSignUpViewController.swift in Sources */,
 				D1D100C3247C216300E18A24 /* ImageManager.swift in Sources */,
 				D11456EB24A35B920068851F /* BookTableViewCell.swift in Sources */,
 				D10B5DA724C5F40600901202 /* Model.xcdatamodeld in Sources */,
@@ -714,6 +721,7 @@
 				D15FDE2324839AE000512969 /* LoginMenuViewController.swift in Sources */,
 				D15FDE2524839D5100512969 /* DirectLoginViewController.swift in Sources */,
 				D1D100C1247C214800E18A24 /* BookService.swift in Sources */,
+				D11456F424B9BBE10068851F /* NickNameSignUpViewController.swift in Sources */,
 				D1D100CA247C21BD00E18A24 /* ImageManagerProtocol.swift in Sources */,
 				D1D100B8247C1C5900E18A24 /* BookCollectionViewCell.swift in Sources */,
 				D15FDE31248699BE00512969 /* TocViewController.swift in Sources */,
