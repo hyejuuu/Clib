@@ -10,6 +10,7 @@
 		551B7910E1AC4064B95D0B28 /* Pods_Clib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D987D8949B4F8DEA4BA2D291 /* Pods_Clib.framework */; };
 		5B4012A097E22E9A8408AF14 /* Pods_Clib_ClibUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11743450AF3DA5B8D02D83EE /* Pods_Clib_ClibUITests.framework */; };
 		6775C565331B16A018171D26 /* Pods_ClibTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEBD051581A2828878DB9816 /* Pods_ClibTests.framework */; };
+		D10B5DA724C5F40600901202 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D10B5DA524C5F40600901202 /* Model.xcdatamodeld */; };
 		D10D75D8247BF091007A3366 /* MainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10D75D7247BF091007A3366 /* MainTableViewCell.swift */; };
 		D15FDE2324839AE000512969 /* LoginMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D15FDE2224839AE000512969 /* LoginMenuViewController.swift */; };
 		D15FDE2524839D5100512969 /* DirectLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D15FDE2424839D5100512969 /* DirectLoginViewController.swift */; };
@@ -71,6 +72,7 @@
 		C4FDAD4DFA71A031B10BA83E /* Pods-ClibTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClibTests.debug.xcconfig"; path = "Target Support Files/Pods-ClibTests/Pods-ClibTests.debug.xcconfig"; sourceTree = "<group>"; };
 		C58EB64ACD882BE0AD0CBF0F /* Pods-Clib-ClibUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Clib-ClibUITests.release.xcconfig"; path = "Target Support Files/Pods-Clib-ClibUITests/Pods-Clib-ClibUITests.release.xcconfig"; sourceTree = "<group>"; };
 		C90455C924A253E400E6D6CC /* Clib.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Clib.entitlements; sourceTree = "<group>"; };
+		D10B5DA624C5F40600901202 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		D10D75D7247BF091007A3366 /* MainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewCell.swift; sourceTree = "<group>"; };
 		D15FDE2224839AE000512969 /* LoginMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginMenuViewController.swift; sourceTree = "<group>"; };
 		D15FDE2424839D5100512969 /* DirectLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectLoginViewController.swift; sourceTree = "<group>"; };
@@ -250,6 +252,7 @@
 				D1F31C292483988B0025525C /* GoogleService-Info.plist */,
 				D1D100B9247C20DC00E18A24 /* books.json */,
 				D15FDE2E248566C800512969 /* String+.swift */,
+				D10B5DA524C5F40600901202 /* Model.xcdatamodeld */,
 			);
 			path = Clib;
 			sourceTree = "<group>";
@@ -672,6 +675,7 @@
 				D1B5DE13247BBD9C00EFD62E /* AppDelegate.swift in Sources */,
 				D1D100C6247C218100E18A24 /* BookList.swift in Sources */,
 				D1D100C3247C216300E18A24 /* ImageManager.swift in Sources */,
+				D10B5DA724C5F40600901202 /* Model.xcdatamodeld in Sources */,
 				D1D100D1247C267200E18A24 /* MainCellViewModel.swift in Sources */,
 				D1D100CD247C264B00E18A24 /* BookCellViewModel.swift in Sources */,
 				D1D100B4247BF17800E18A24 /* LogoHeaderView.swift in Sources */,
@@ -1032,6 +1036,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		D10B5DA524C5F40600901202 /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				D10B5DA624C5F40600901202 /* Model.xcdatamodel */,
+			);
+			currentVersion = D10B5DA624C5F40600901202 /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = D1B5DE07247BBD9C00EFD62E /* Project object */;
 }
