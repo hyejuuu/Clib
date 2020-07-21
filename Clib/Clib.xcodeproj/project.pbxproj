@@ -11,6 +11,10 @@
 		5B4012A097E22E9A8408AF14 /* Pods_Clib_ClibUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11743450AF3DA5B8D02D83EE /* Pods_Clib_ClibUITests.framework */; };
 		6775C565331B16A018171D26 /* Pods_ClibTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEBD051581A2828878DB9816 /* Pods_ClibTests.framework */; };
 		D10B5DA724C5F40600901202 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D10B5DA524C5F40600901202 /* Model.xcdatamodeld */; };
+		D10B5DAD24C605BC00901202 /* PhraseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10B5DAC24C605BC00901202 /* PhraseViewController.swift */; };
+		D10B5DAF24C60AF900901202 /* PhraseHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10B5DAE24C60AF900901202 /* PhraseHeaderView.swift */; };
+		D10B5DB124C60EB500901202 /* PhraseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10B5DB024C60EB400901202 /* PhraseTableViewCell.swift */; };
+		D10B5DB324C6179000901202 /* PhraseFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10B5DB224C6179000901202 /* PhraseFooterView.swift */; };
 		D10D75D8247BF091007A3366 /* MainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10D75D7247BF091007A3366 /* MainTableViewCell.swift */; };
 		D11456E924A34ACF0068851F /* SeeMoreBooksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D11456E824A34ACF0068851F /* SeeMoreBooksViewController.swift */; };
 		D11456EB24A35B920068851F /* BookTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D11456EA24A35B920068851F /* BookTableViewCell.swift */; };
@@ -79,13 +83,17 @@
 		C58EB64ACD882BE0AD0CBF0F /* Pods-Clib-ClibUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Clib-ClibUITests.release.xcconfig"; path = "Target Support Files/Pods-Clib-ClibUITests/Pods-Clib-ClibUITests.release.xcconfig"; sourceTree = "<group>"; };
 		C90455C924A253E400E6D6CC /* Clib.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Clib.entitlements; sourceTree = "<group>"; };
 		D10B5DA624C5F40600901202 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		D10B5DAC24C605BC00901202 /* PhraseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhraseViewController.swift; sourceTree = "<group>"; };
+		D10B5DAE24C60AF900901202 /* PhraseHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhraseHeaderView.swift; sourceTree = "<group>"; };
+		D10B5DB024C60EB400901202 /* PhraseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhraseTableViewCell.swift; sourceTree = "<group>"; };
+		D10B5DB224C6179000901202 /* PhraseFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhraseFooterView.swift; sourceTree = "<group>"; };
 		D10D75D7247BF091007A3366 /* MainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewCell.swift; sourceTree = "<group>"; };
-		D11456F124B9B9B30068851F /* DirectSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectSignUpViewController.swift; sourceTree = "<group>"; };
-		D11456F324B9BBE10068851F /* NickNameSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NickNameSignUpViewController.swift; sourceTree = "<group>"; };
 		D11456E824A34ACF0068851F /* SeeMoreBooksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeeMoreBooksViewController.swift; sourceTree = "<group>"; };
 		D11456EA24A35B920068851F /* BookTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookTableViewCell.swift; sourceTree = "<group>"; };
 		D11456ED24A3806E0068851F /* ButtonsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsTableViewCell.swift; sourceTree = "<group>"; };
 		D11456EF24B9B0BC0068851F /* AladinDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AladinDetailViewController.swift; sourceTree = "<group>"; };
+		D11456F124B9B9B30068851F /* DirectSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectSignUpViewController.swift; sourceTree = "<group>"; };
+		D11456F324B9BBE10068851F /* NickNameSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NickNameSignUpViewController.swift; sourceTree = "<group>"; };
 		D15FDE2224839AE000512969 /* LoginMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginMenuViewController.swift; sourceTree = "<group>"; };
 		D15FDE2424839D5100512969 /* DirectLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectLoginViewController.swift; sourceTree = "<group>"; };
 		D15FDE28248405E300512969 /* BookReportListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookReportListViewController.swift; sourceTree = "<group>"; };
@@ -417,6 +425,10 @@
 			isa = PBXGroup;
 			children = (
 				D1F31C252482B40C0025525C /* BookReportViewController.swift */,
+				D10B5DAC24C605BC00901202 /* PhraseViewController.swift */,
+				D10B5DAE24C60AF900901202 /* PhraseHeaderView.swift */,
+				D10B5DB024C60EB400901202 /* PhraseTableViewCell.swift */,
+				D10B5DB224C6179000901202 /* PhraseFooterView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -708,6 +720,7 @@
 				D1D100CD247C264B00E18A24 /* BookCellViewModel.swift in Sources */,
 				D1D100B4247BF17800E18A24 /* LogoHeaderView.swift in Sources */,
 				D15FDE29248405E300512969 /* BookReportListViewController.swift in Sources */,
+				D10B5DB324C6179000901202 /* PhraseFooterView.swift in Sources */,
 				D1D100CF247C265D00E18A24 /* MainViewModel.swift in Sources */,
 				D1D100BD247C210E00E18A24 /* Network.swift in Sources */,
 				D1D100B6247C0F8400E18A24 /* MainSectionHeaderView.swift in Sources */,
@@ -722,14 +735,17 @@
 				D15FDE2524839D5100512969 /* DirectLoginViewController.swift in Sources */,
 				D1D100C1247C214800E18A24 /* BookService.swift in Sources */,
 				D11456F424B9BBE10068851F /* NickNameSignUpViewController.swift in Sources */,
+				D10B5DAF24C60AF900901202 /* PhraseHeaderView.swift in Sources */,
 				D1D100CA247C21BD00E18A24 /* ImageManagerProtocol.swift in Sources */,
 				D1D100B8247C1C5900E18A24 /* BookCollectionViewCell.swift in Sources */,
 				D15FDE31248699BE00512969 /* TocViewController.swift in Sources */,
 				D11456EE24A3806E0068851F /* ButtonsTableViewCell.swift in Sources */,
 				D1F31C28248384B90025525C /* BookDetailHeaderView.swift in Sources */,
+				D10B5DAD24C605BC00901202 /* PhraseViewController.swift in Sources */,
 				D1F31C222482B0D90025525C /* BookDetailViewController.swift in Sources */,
 				D10D75D8247BF091007A3366 /* MainTableViewCell.swift in Sources */,
 				D1D100C8247C21AD00E18A24 /* BookServiceProtocol.swift in Sources */,
+				D10B5DB124C60EB500901202 /* PhraseTableViewCell.swift in Sources */,
 				D15FDE2D248564CD00512969 /* DetailContentsTableViewCell.swift in Sources */,
 				D1B5DE43247BBDB400EFD62E /* MainViewController.swift in Sources */,
 			);

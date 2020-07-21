@@ -11,6 +11,7 @@ import UIKit
 class ButtonsTableViewCell: UITableViewCell {
     
     var writeCallBack: (()->())?
+    var isbn: String?
     var itemId: String?
     
     private let topLineView: UIView = {

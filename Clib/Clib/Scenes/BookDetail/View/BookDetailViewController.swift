@@ -226,7 +226,8 @@ extension BookDetailViewController: UITableViewDataSource {
         
         switch indexPath.section {
         case 0:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "buttonTableViewCell") as? ButtonsTableViewCell, let itemId = bookData?.itemId else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "buttonTableViewCell") as? ButtonsTableViewCell,
+                let itemId = bookData?.itemId else {
                 return UITableViewCell()
             }
 
@@ -237,9 +238,11 @@ extension BookDetailViewController: UITableViewDataSource {
                     
                 }
                 let reportAction = UIAlertAction(title: "독후감 작성", style: .default) { [weak self] _ in
-                    let bookReportViewController = BookReportViewController()
-                    bookReportViewController.modalPresentationStyle = .fullScreen
-                    self?.present(bookReportViewController, animated: true)
+                    let phraseViewController = PhraseViewController()
+                    phraseViewController.isbn = self?.bookData?.isbn
+                    let phraseNavigator = UINavigationController(rootViewController: phraseViewController)
+                    phraseNavigator.modalPresentationStyle = .fullScreen
+                    self?.present(phraseNavigator, animated: true)
                 }
                 let cancelAction = UIAlertAction(title: "취소", style: .cancel)
                 alertController.addAction(reviewAction)
@@ -250,6 +253,7 @@ extension BookDetailViewController: UITableViewDataSource {
             }
             
             cell.itemId = String(itemId)
+            cell.isbn = isbn
             cell.selectionStyle = .none
             
             return cell

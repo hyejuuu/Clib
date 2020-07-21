@@ -7,14 +7,25 @@
 //
 
 import UIKit
+import CoreData
 
 class BookReportViewController: UIViewController {
-
-    private let closeButton: UIButton = {
+    
+    var isbn: String?
+    var phrases: [Phrase]?
+    
+    private let completeButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("닫기", for: .normal)
+        button.setTitle("완료", for: .normal)
         button.setTitleColor(.black, for: .normal)
+        return button
+    }()
+    
+    private let backButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(#imageLiteral(resourceName: "back"), for: .normal)
         return button
     }()
     
@@ -22,6 +33,9 @@ class BookReportViewController: UIViewController {
         let textview = UITextView()
         textview.translatesAutoresizingMaskIntoConstraints = false
         textview.font = .systemFont(ofSize: 18)
+        textview.layer.borderWidth = 1.0
+        textview.layer.borderColor = UIColor.lightGray.cgColor
+        textview.layer.cornerRadius = 5
         return textview
     }()
     
@@ -32,37 +46,89 @@ class BookReportViewController: UIViewController {
     }
     
     private func setupLayout() {
-        closeButton.addTarget(self,
-                              action: #selector(touchUpCloseButton),
-                              for: .touchUpInside)
+        navigationItem.title = "독후감 작성"
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backButton)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: completeButton)
+        
+        completeButton.addTarget(self,
+                                 action: #selector(touchUpCompleteButton),
+                                 for: .touchUpInside)
+        
+        backButton.addTarget(self,
+                             action: #selector(touchUpBackButton),
+                             for: .touchUpInside)
         
         view.backgroundColor = .white
         
-        view.addSubview(closeButton)
         view.addSubview(bookReportTextView)
         
-        closeButton.topAnchor.constraint(
+        bookReportTextView.topAnchor.constraint(
             equalTo: view.safeAreaLayoutGuide.topAnchor,
             constant: 10)
             .isActive = true
-        closeButton.leadingAnchor.constraint(
+        bookReportTextView.leadingAnchor.constraint(
             equalTo: view.safeAreaLayoutGuide.leadingAnchor,
             constant: 10)
             .isActive = true
-        closeButton.widthAnchor.constraint(
-            equalToConstant: 50)
+        bookReportTextView.trailingAnchor.constraint(
+            equalTo: view.safeAreaLayoutGuide.trailingAnchor,
+            constant: -10)
             .isActive = true
-        closeButton.heightAnchor.constraint(
-            equalToConstant: 30)
+        bookReportTextView.bottomAnchor.constraint(
+            equalTo: view.safeAreaLayoutGuide.bottomAnchor,
+            constant: -10)
             .isActive = true
-        
-        bookReportTextView.topAnchor.constraint(equalTo: closeButton.bottomAnchor, constant: 10).isActive = true
-        bookReportTextView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10).isActive = true
-        bookReportTextView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10).isActive = true
-        bookReportTextView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10).isActive = true
     }
+    
+    @objc private func touchUpBackButton() {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    @objc private func touchUpCompleteButton() {
+        // core data에 저장
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        
+        if let phrases = phrases {
 
-    @objc private func touchUpCloseButton() {
+            let phraseEntity = NSEntityDescription.entity(forEntityName: "Phrase", in: context)
+            
+            if let phraseEntity = phraseEntity {
+                
+                phrases.forEach {
+                    let phrase = NSManagedObject(entity: phraseEntity, insertInto: context)
+                    
+                    phrase.setValue(isbn, forKey: "isbn")
+                    phrase.setValue($0.page, forKey: "page")
+                    phrase.setValue($0.contents, forKey: "contents")
+
+                    do {
+                        try context.save()
+                    } catch {
+                        print(error.localizedDescription)
+                    }
+                }
+                
+            }
+        }
+        
+        let entity = NSEntityDescription.entity(forEntityName: "BookReport", in: context)
+        
+        if let entity = entity {
+            let bookreport = NSManagedObject(entity: entity, insertInto: context)
+            
+            bookreport.setValue(isbn, forKey: "isbn")
+            bookreport.setValue(bookReportTextView.text, forKey: "contents")
+            
+            do {
+                try context.save()
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+
+        
         dismiss(animated: true)
     }
 }

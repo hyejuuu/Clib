@@ -7,12 +7,46 @@
 //
 
 import UIKit
+import CoreData
 
 class TabBarViewController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+//        
+//        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+//        let context = appDelegate.persistentContainer.viewContext
+//        
+//        let request: NSFetchRequest<NSFetchRequestResult> = PhraseEntity.fetchRequest()
+//        let delete = NSBatchDeleteRequest(fetchRequest: request)
+//        
+//        do {
+//            try context.execute(delete)
+//        } catch {
+//            print(error.localizedDescription)
+//        }
+//
+//        
+//        let request2: NSFetchRequest<NSFetchRequestResult> = BookReportEntity.fetchRequest()
+//        let delete2 = NSBatchDeleteRequest(fetchRequest: request2)
+//        
+//        do {
+//            try context.execute(delete2)
+//        } catch {
+//            print(error.localizedDescription)
+//        }
         
+//
+//        do {
+//            let bookReport = try context.fetch(PhraseEntity.fetchRequest()) as! [PhraseEntity]
+//            bookReport.forEach {
+//                print($0.page)
+//                print($0.contents)
+//            }
+//        } catch {
+//            print(error.localizedDescription)
+//        }
+
         UITabBar.appearance().barTintColor = .white
         
         checkExistUser()

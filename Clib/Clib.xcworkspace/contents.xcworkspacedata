@@ -2,10 +2,16 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:Clib/BookReport+CoreDataClass.swift">
+      location = "group:Clib/PhraseEntity+CoreDataClass.swift">
    </FileRef>
    <FileRef
-      location = "group:Clib/BookReport+CoreDataProperties.swift">
+      location = "group:Clib/PhraseEntity+CoreDataProperties.swift">
+   </FileRef>
+   <FileRef
+      location = "group:/Users/hyeju/Documents/Clib/Clib/Clib/BookReportEntity+CoreDataClass.swift">
+   </FileRef>
+   <FileRef
+      location = "group:/Users/hyeju/Documents/Clib/Clib/Clib/BookReportEntity+CoreDataProperties.swift">
    </FileRef>
    <FileRef
       location = "group:Clib.xcodeproj">
