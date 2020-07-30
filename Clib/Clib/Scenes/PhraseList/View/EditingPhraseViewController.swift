@@ -1,5 +1,5 @@
 //
-//  EditingBookReportViewController.swift
+//  EditingPhraseViewController.swift
 //  Clib
 //
 //  Created by 이혜주 on 2020/07/30.
@@ -7,13 +7,12 @@
 //
 
 import UIKit
-import CoreData
 
-class EditingBookReportViewController: UIViewController {
+class EditingPhraseViewController: UIViewController {
     
     var row: Int?
-    var bookReport: BookReport?
-    var callBack: ((BookReport)->())?
+    var phrase: Phrase?
+    var callBack: ((Phrase)->())?
     
     private let completeButton: UIButton = {
         let button = UIButton()
@@ -31,7 +30,17 @@ class EditingBookReportViewController: UIViewController {
         return button
     }()
     
-    private let bookReportTextView: UITextView = {
+    private let pageTextField: UITextField = {
+        let textfield = UITextField()
+        textfield.translatesAutoresizingMaskIntoConstraints = false
+        textfield.layer.borderWidth = 1.0
+        textfield.layer.borderColor = UIColor.lightGray.cgColor
+        textfield.layer.cornerRadius = 5
+        textfield.placeholder = "페이지"
+        return textfield
+    }()
+    
+    private let phraseTextView: UITextView = {
         let textview = UITextView()
         textview.translatesAutoresizingMaskIntoConstraints = false
         textview.font = .systemFont(ofSize: 18)
@@ -44,12 +53,13 @@ class EditingBookReportViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        bookReportTextView.text = bookReport?.contents
+        pageTextField.text = phrase?.page
+        phraseTextView.text = phrase?.contents
         setupLayout()
     }
     
     private func setupLayout() {
-        navigationItem.title = "독후감 수정"
+        navigationItem.title = "문장 수정"
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: cancelButton)
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: completeButton)
@@ -64,23 +74,37 @@ class EditingBookReportViewController: UIViewController {
         
         view.backgroundColor = .white
         
-        view.addSubview(bookReportTextView)
+        view.addSubview(pageTextField)
+        view.addSubview(phraseTextView)
         
-        bookReportTextView.topAnchor.constraint(
+        pageTextField.topAnchor.constraint(
             equalTo: view.safeAreaLayoutGuide.topAnchor,
-            constant: 10)
+            constant: 20)
             .isActive = true
-        bookReportTextView.leadingAnchor.constraint(
+        pageTextField.leadingAnchor.constraint(
             equalTo: view.safeAreaLayoutGuide.leadingAnchor,
+            constant: 20)
+            .isActive = true
+        pageTextField.trailingAnchor.constraint(
+            equalTo: view.safeAreaLayoutGuide.trailingAnchor,
+            constant: -20)
+            .isActive = true
+        
+        phraseTextView.topAnchor.constraint(
+            equalTo: pageTextField.bottomAnchor,
             constant: 10)
             .isActive = true
-        bookReportTextView.trailingAnchor.constraint(
-            equalTo: view.safeAreaLayoutGuide.trailingAnchor,
-            constant: -10)
+        phraseTextView.leadingAnchor.constraint(
+            equalTo: view.safeAreaLayoutGuide.leadingAnchor,
+            constant: 20)
             .isActive = true
-        bookReportTextView.bottomAnchor.constraint(
+        phraseTextView.trailingAnchor.constraint(
+            equalTo: view.safeAreaLayoutGuide.trailingAnchor,
+            constant: -20)
+            .isActive = true
+        phraseTextView.bottomAnchor.constraint(
             equalTo: view.safeAreaLayoutGuide.bottomAnchor,
-            constant: -10)
+            constant: -20)
             .isActive = true
     }
     
@@ -89,7 +113,7 @@ class EditingBookReportViewController: UIViewController {
     }
     
     @objc private func touchUpCompleteButton() {
-        guard let isbn = bookReport?.isbn else {
+        guard let isbn = phrase?.isbn else {
             return
         }
         
@@ -97,16 +121,17 @@ class EditingBookReportViewController: UIViewController {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
         
-        if let bookReportContents = bookReportTextView.text,
+        if let page = pageTextField.text,
+            let phraseContents = phraseTextView.text,
             let row = row {
             do {
-                let bookReportEntity = try context.fetch(BookReportEntity.fetchRequest()) as! [BookReportEntity]
+                let phraseEntity = try context.fetch(PhraseEntity.fetchRequest()) as! [PhraseEntity]
 
-                let object = bookReportEntity[row]
+                let object = phraseEntity[row]
                 
                 object.setValue(isbn, forKey: "isbn")
-                object.setValue(bookReport?.title, forKey: "title")
-                object.setValue(bookReportContents, forKey: "contents")
+                object.setValue(page, forKey: "page")
+                object.setValue(phraseContents, forKey: "contents")
             
                 do {
                     try context.save()
@@ -119,8 +144,9 @@ class EditingBookReportViewController: UIViewController {
             }
         }
 
-        bookReport?.contents = bookReportTextView.text
-        callBack?(bookReport!)
+        phrase?.page = pageTextField.text
+        phrase?.contents = phraseTextView.text
+        callBack?(phrase!)
         dismiss(animated: true)
     }
 }

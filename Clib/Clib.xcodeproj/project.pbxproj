@@ -62,6 +62,7 @@
 		D1F31C2A2483988B0025525C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D1F31C292483988B0025525C /* GoogleService-Info.plist */; };
 		D1F77E7F24D2C26600DDC31B /* PhraseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F77E7E24D2C26600DDC31B /* PhraseViewController.swift */; };
 		D1F77E8124D2D74200DDC31B /* EditingBookReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F77E8024D2D74200DDC31B /* EditingBookReportViewController.swift */; };
+		D1F77E8324D2DC2600DDC31B /* EditingPhraseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F77E8224D2DC2600DDC31B /* EditingPhraseViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -148,6 +149,7 @@
 		D1F31C292483988B0025525C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D1F77E7E24D2C26600DDC31B /* PhraseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhraseViewController.swift; sourceTree = "<group>"; };
 		D1F77E8024D2D74200DDC31B /* EditingBookReportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingBookReportViewController.swift; sourceTree = "<group>"; };
+		D1F77E8224D2DC2600DDC31B /* EditingPhraseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingPhraseViewController.swift; sourceTree = "<group>"; };
 		D987D8949B4F8DEA4BA2D291 /* Pods_Clib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Clib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB71EAE1474035D219357E0A /* Pods-Clib-ClibUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Clib-ClibUITests.debug.xcconfig"; path = "Target Support Files/Pods-Clib-ClibUITests/Pods-Clib-ClibUITests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -276,6 +278,7 @@
 				D17A1D5B24CC1B8700D6BDBA /* PhraseListViewController.swift */,
 				D17A1D5D24D2BD4E00D6BDBA /* PhraseTableViewCell.swift */,
 				D1F77E7E24D2C26600DDC31B /* PhraseViewController.swift */,
+				D1F77E8224D2DC2600DDC31B /* EditingPhraseViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -789,6 +792,7 @@
 				D10D75D8247BF091007A3366 /* MainTableViewCell.swift in Sources */,
 				D1D100C8247C21AD00E18A24 /* BookServiceProtocol.swift in Sources */,
 				D10B5DB124C60EB500901202 /* WritePhraseTableViewCell.swift in Sources */,
+				D1F77E8324D2DC2600DDC31B /* EditingPhraseViewController.swift in Sources */,
 				D15FDE2D248564CD00512969 /* DetailContentsTableViewCell.swift in Sources */,
 				D1B5DE43247BBDB400EFD62E /* MainViewController.swift in Sources */,
 				D17A1D5E24D2BD4E00D6BDBA /* PhraseTableViewCell.swift in Sources */,

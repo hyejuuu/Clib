@@ -108,7 +108,16 @@ class PhraseViewController: UIViewController {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
         let edtingAction = UIAlertAction(title: "문장 수정", style: .default) { [weak self] _ in
-            
+            let editingPhraseViewController = EditingPhraseViewController()
+            editingPhraseViewController.row = self?.row
+            editingPhraseViewController.phrase = self?.phrase
+            editingPhraseViewController.callBack = { [weak self] phrase in
+                self?.phrase = phrase
+                self?.phraseTableView.reloadData()
+            }
+            let editingPhraseNavigator = UINavigationController(rootViewController: editingPhraseViewController)
+            editingPhraseNavigator.modalPresentationStyle = .fullScreen
+            self?.present(editingPhraseNavigator, animated: true)
         }
         let deleteAction = UIAlertAction(title: "문장 삭제", style: .default) { [weak self] _ in
             guard let row = self?.row else { return }
