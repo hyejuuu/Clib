@@ -30,6 +30,8 @@ class BookReportListViewController: UIViewController {
         super.viewWillAppear(animated)
         
         tabBarController?.tabBar.isHidden = false
+        
+        bookReports = []
         fetchBookReportData()
     }
     
@@ -41,8 +43,6 @@ class BookReportListViewController: UIViewController {
     }
     
     private func fetchBookReportData() {
-        
-        bookReports = []
 
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext

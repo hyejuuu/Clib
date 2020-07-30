@@ -24,6 +24,7 @@ class PhraseListViewController: UIViewController {
         
         tabBarController?.tabBar.isHidden = false
         
+        phrases = []
         fetchPhraseData()
     }
     
@@ -35,7 +36,6 @@ class PhraseListViewController: UIViewController {
     }
     
     private func fetchPhraseData() {
-
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
 

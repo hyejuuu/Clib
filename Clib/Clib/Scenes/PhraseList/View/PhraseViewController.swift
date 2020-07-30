@@ -24,6 +24,14 @@ class PhraseViewController: UIViewController {
         return tableView
     }()
     
+    private let etcButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("...", for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -61,6 +69,12 @@ class PhraseViewController: UIViewController {
     }
     
     private func setupLayout() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: etcButton)
+        
+        etcButton.addTarget(self,
+                            action: #selector(touchUpEtcButton),
+                            for: .touchUpInside)
+        
         view.addSubview(phraseTableView)
         
         phraseTableView.topAnchor.constraint(
@@ -90,6 +104,42 @@ class PhraseViewController: UIViewController {
         }
     }
 
+    @objc private func touchUpEtcButton() {
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        let edtingAction = UIAlertAction(title: "문장 수정", style: .default) { [weak self] _ in
+            
+        }
+        let deleteAction = UIAlertAction(title: "문장 삭제", style: .default) { [weak self] _ in
+            guard let row = self?.row else { return }
+            
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            let context = appDelegate.persistentContainer.viewContext
+
+            do {
+                let phrase = try context.fetch(PhraseEntity.fetchRequest()) as! [PhraseEntity]
+                
+                context.delete(phrase[row])
+                
+                do {
+                    try context.save()
+                } catch {
+                    return
+                }
+                
+            } catch {
+                print(error.localizedDescription)
+            }
+
+            self?.navigationController?.popViewController(animated: true)
+        }
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel)
+        alertController.addAction(edtingAction)
+        alertController.addAction(deleteAction)
+        alertController.addAction(cancelAction)
+        
+        present(alertController, animated: true)
+    }
 }
 
 extension PhraseViewController: UITableViewDelegate {

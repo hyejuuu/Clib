@@ -29,7 +29,8 @@ class BookReportViewController: UIViewController {
     private let etcButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.titleLabel?.text = "..."
+        button.setTitle("...", for: .normal)
+        button.setTitleColor(.black, for: .normal)
         return button
     }()
     
@@ -37,7 +38,6 @@ class BookReportViewController: UIViewController {
         super.viewDidLoad()
         
         tabBarController?.tabBar.isHidden = true
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: etcButton)
 
         setupTableView()
         setupLayout()
@@ -71,6 +71,8 @@ class BookReportViewController: UIViewController {
     }
     
     private func setupLayout() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: etcButton)
+        
         etcButton.addTarget(self,
                             action: #selector(touchUpEtcButton),
                             for: .touchUpInside)
@@ -105,9 +107,9 @@ class BookReportViewController: UIViewController {
             let context = appDelegate.persistentContainer.viewContext
 
             do {
-                let phrase = try context.fetch(BookReportEntity.fetchRequest()) as! [BookReportEntity]
+                let bookReport = try context.fetch(BookReportEntity.fetchRequest()) as! [BookReportEntity]
                 
-                context.delete(phrase[row])
+                context.delete(bookReport[row])
                 
                 do {
                     try context.save()
