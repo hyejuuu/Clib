@@ -11,9 +11,9 @@
 		5B4012A097E22E9A8408AF14 /* Pods_Clib_ClibUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11743450AF3DA5B8D02D83EE /* Pods_Clib_ClibUITests.framework */; };
 		6775C565331B16A018171D26 /* Pods_ClibTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEBD051581A2828878DB9816 /* Pods_ClibTests.framework */; };
 		D10B5DA724C5F40600901202 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D10B5DA524C5F40600901202 /* Model.xcdatamodeld */; };
-		D10B5DAD24C605BC00901202 /* PhraseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10B5DAC24C605BC00901202 /* PhraseViewController.swift */; };
+		D10B5DAD24C605BC00901202 /* WritePhraseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10B5DAC24C605BC00901202 /* WritePhraseViewController.swift */; };
 		D10B5DAF24C60AF900901202 /* PhraseHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10B5DAE24C60AF900901202 /* PhraseHeaderView.swift */; };
-		D10B5DB124C60EB500901202 /* PhraseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10B5DB024C60EB400901202 /* PhraseTableViewCell.swift */; };
+		D10B5DB124C60EB500901202 /* WritePhraseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10B5DB024C60EB400901202 /* WritePhraseTableViewCell.swift */; };
 		D10B5DB324C6179000901202 /* PhraseFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10B5DB224C6179000901202 /* PhraseFooterView.swift */; };
 		D10D75D8247BF091007A3366 /* MainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10D75D7247BF091007A3366 /* MainTableViewCell.swift */; };
 		D11456E924A34ACF0068851F /* SeeMoreBooksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D11456E824A34ACF0068851F /* SeeMoreBooksViewController.swift */; };
@@ -29,6 +29,11 @@
 		D15FDE2D248564CD00512969 /* DetailContentsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D15FDE2C248564CD00512969 /* DetailContentsTableViewCell.swift */; };
 		D15FDE2F248566C800512969 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D15FDE2E248566C800512969 /* String+.swift */; };
 		D15FDE31248699BE00512969 /* TocViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D15FDE30248699BE00512969 /* TocViewController.swift */; };
+		D17A1D5424C89F1700D6BDBA /* BookReportTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17A1D5324C89F1700D6BDBA /* BookReportTableViewCell.swift */; };
+		D17A1D5624C9A4BC00D6BDBA /* StarRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17A1D5524C9A4BC00D6BDBA /* StarRatingView.swift */; };
+		D17A1D5824C9B1DF00D6BDBA /* BookReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17A1D5724C9B1DF00D6BDBA /* BookReportViewController.swift */; };
+		D17A1D5C24CC1B8700D6BDBA /* PhraseListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17A1D5B24CC1B8700D6BDBA /* PhraseListViewController.swift */; };
+		D17A1D5E24D2BD4E00D6BDBA /* PhraseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17A1D5D24D2BD4E00D6BDBA /* PhraseTableViewCell.swift */; };
 		D1B5DE13247BBD9C00EFD62E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1B5DE12247BBD9C00EFD62E /* AppDelegate.swift */; };
 		D1B5DE15247BBD9C00EFD62E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1B5DE14247BBD9C00EFD62E /* SceneDelegate.swift */; };
 		D1B5DE1A247BBD9C00EFD62E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D1B5DE18247BBD9C00EFD62E /* Main.storyboard */; };
@@ -52,9 +57,10 @@
 		D1D100D1247C267200E18A24 /* MainCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D100D0247C267200E18A24 /* MainCellViewModel.swift */; };
 		D1F31C1E24811A600025525C /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F31C1D24811A600025525C /* TabBarViewController.swift */; };
 		D1F31C222482B0D90025525C /* BookDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F31C212482B0D90025525C /* BookDetailViewController.swift */; };
-		D1F31C262482B40C0025525C /* BookReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F31C252482B40C0025525C /* BookReportViewController.swift */; };
+		D1F31C262482B40C0025525C /* WriteBookReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F31C252482B40C0025525C /* WriteBookReportViewController.swift */; };
 		D1F31C28248384B90025525C /* BookDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F31C27248384B90025525C /* BookDetailHeaderView.swift */; };
 		D1F31C2A2483988B0025525C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D1F31C292483988B0025525C /* GoogleService-Info.plist */; };
+		D1F77E7F24D2C26600DDC31B /* PhraseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F77E7E24D2C26600DDC31B /* PhraseViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,9 +89,9 @@
 		C58EB64ACD882BE0AD0CBF0F /* Pods-Clib-ClibUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Clib-ClibUITests.release.xcconfig"; path = "Target Support Files/Pods-Clib-ClibUITests/Pods-Clib-ClibUITests.release.xcconfig"; sourceTree = "<group>"; };
 		C90455C924A253E400E6D6CC /* Clib.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Clib.entitlements; sourceTree = "<group>"; };
 		D10B5DA624C5F40600901202 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
-		D10B5DAC24C605BC00901202 /* PhraseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhraseViewController.swift; sourceTree = "<group>"; };
+		D10B5DAC24C605BC00901202 /* WritePhraseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritePhraseViewController.swift; sourceTree = "<group>"; };
 		D10B5DAE24C60AF900901202 /* PhraseHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhraseHeaderView.swift; sourceTree = "<group>"; };
-		D10B5DB024C60EB400901202 /* PhraseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhraseTableViewCell.swift; sourceTree = "<group>"; };
+		D10B5DB024C60EB400901202 /* WritePhraseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WritePhraseTableViewCell.swift; sourceTree = "<group>"; };
 		D10B5DB224C6179000901202 /* PhraseFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhraseFooterView.swift; sourceTree = "<group>"; };
 		D10D75D7247BF091007A3366 /* MainTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewCell.swift; sourceTree = "<group>"; };
 		D11456E824A34ACF0068851F /* SeeMoreBooksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeeMoreBooksViewController.swift; sourceTree = "<group>"; };
@@ -101,6 +107,11 @@
 		D15FDE2C248564CD00512969 /* DetailContentsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailContentsTableViewCell.swift; sourceTree = "<group>"; };
 		D15FDE2E248566C800512969 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 		D15FDE30248699BE00512969 /* TocViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TocViewController.swift; sourceTree = "<group>"; };
+		D17A1D5324C89F1700D6BDBA /* BookReportTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookReportTableViewCell.swift; sourceTree = "<group>"; };
+		D17A1D5524C9A4BC00D6BDBA /* StarRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarRatingView.swift; sourceTree = "<group>"; };
+		D17A1D5724C9B1DF00D6BDBA /* BookReportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookReportViewController.swift; sourceTree = "<group>"; };
+		D17A1D5B24CC1B8700D6BDBA /* PhraseListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhraseListViewController.swift; sourceTree = "<group>"; };
+		D17A1D5D24D2BD4E00D6BDBA /* PhraseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhraseTableViewCell.swift; sourceTree = "<group>"; };
 		D1B5DE0F247BBD9C00EFD62E /* Clib.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Clib.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1B5DE12247BBD9C00EFD62E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D1B5DE14247BBD9C00EFD62E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -131,9 +142,10 @@
 		D1ED33BAFA106A274E818BB4 /* Pods-ClibTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClibTests.release.xcconfig"; path = "Target Support Files/Pods-ClibTests/Pods-ClibTests.release.xcconfig"; sourceTree = "<group>"; };
 		D1F31C1D24811A600025525C /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		D1F31C212482B0D90025525C /* BookDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDetailViewController.swift; sourceTree = "<group>"; };
-		D1F31C252482B40C0025525C /* BookReportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookReportViewController.swift; sourceTree = "<group>"; };
+		D1F31C252482B40C0025525C /* WriteBookReportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteBookReportViewController.swift; sourceTree = "<group>"; };
 		D1F31C27248384B90025525C /* BookDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDetailHeaderView.swift; sourceTree = "<group>"; };
 		D1F31C292483988B0025525C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		D1F77E7E24D2C26600DDC31B /* PhraseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhraseViewController.swift; sourceTree = "<group>"; };
 		D987D8949B4F8DEA4BA2D291 /* Pods_Clib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Clib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB71EAE1474035D219357E0A /* Pods-Clib-ClibUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Clib-ClibUITests.debug.xcconfig"; path = "Target Support Files/Pods-Clib-ClibUITests/Pods-Clib-ClibUITests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -240,6 +252,27 @@
 			isa = PBXGroup;
 			children = (
 				D15FDE28248405E300512969 /* BookReportListViewController.swift */,
+				D17A1D5324C89F1700D6BDBA /* BookReportTableViewCell.swift */,
+				D17A1D5524C9A4BC00D6BDBA /* StarRatingView.swift */,
+				D17A1D5724C9B1DF00D6BDBA /* BookReportViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		D17A1D5924CC1B6D00D6BDBA /* PhraseList */ = {
+			isa = PBXGroup;
+			children = (
+				D17A1D5A24CC1B7400D6BDBA /* View */,
+			);
+			path = PhraseList;
+			sourceTree = "<group>";
+		};
+		D17A1D5A24CC1B7400D6BDBA /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D17A1D5B24CC1B8700D6BDBA /* PhraseListViewController.swift */,
+				D17A1D5D24D2BD4E00D6BDBA /* PhraseTableViewCell.swift */,
+				D1F77E7E24D2C26600DDC31B /* PhraseViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -309,6 +342,7 @@
 		D1B5DE44247BEBB300EFD62E /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				D17A1D5924CC1B6D00D6BDBA /* PhraseList */,
 				D15FDE26248405C700512969 /* BookReportList */,
 				D15FDE2024839A7900512969 /* Login */,
 				D1F31C232482B3D30025525C /* BookReport */,
@@ -424,10 +458,10 @@
 		D1F31C242482B3FD0025525C /* View */ = {
 			isa = PBXGroup;
 			children = (
-				D1F31C252482B40C0025525C /* BookReportViewController.swift */,
-				D10B5DAC24C605BC00901202 /* PhraseViewController.swift */,
+				D1F31C252482B40C0025525C /* WriteBookReportViewController.swift */,
+				D10B5DAC24C605BC00901202 /* WritePhraseViewController.swift */,
 				D10B5DAE24C60AF900901202 /* PhraseHeaderView.swift */,
-				D10B5DB024C60EB400901202 /* PhraseTableViewCell.swift */,
+				D10B5DB024C60EB400901202 /* WritePhraseTableViewCell.swift */,
 				D10B5DB224C6179000901202 /* PhraseFooterView.swift */,
 			);
 			path = View;
@@ -716,8 +750,10 @@
 				D1D100C3247C216300E18A24 /* ImageManager.swift in Sources */,
 				D11456EB24A35B920068851F /* BookTableViewCell.swift in Sources */,
 				D10B5DA724C5F40600901202 /* Model.xcdatamodeld in Sources */,
+				D17A1D5824C9B1DF00D6BDBA /* BookReportViewController.swift in Sources */,
 				D1D100D1247C267200E18A24 /* MainCellViewModel.swift in Sources */,
 				D1D100CD247C264B00E18A24 /* BookCellViewModel.swift in Sources */,
+				D17A1D5C24CC1B8700D6BDBA /* PhraseListViewController.swift in Sources */,
 				D1D100B4247BF17800E18A24 /* LogoHeaderView.swift in Sources */,
 				D15FDE29248405E300512969 /* BookReportListViewController.swift in Sources */,
 				D10B5DB324C6179000901202 /* PhraseFooterView.swift in Sources */,
@@ -725,15 +761,17 @@
 				D1D100BD247C210E00E18A24 /* Network.swift in Sources */,
 				D1D100B6247C0F8400E18A24 /* MainSectionHeaderView.swift in Sources */,
 				D15FDE2F248566C800512969 /* String+.swift in Sources */,
+				D17A1D5424C89F1700D6BDBA /* BookReportTableViewCell.swift in Sources */,
 				D1F31C1E24811A600025525C /* TabBarViewController.swift in Sources */,
 				D11456E924A34ACF0068851F /* SeeMoreBooksViewController.swift in Sources */,
-				D1F31C262482B40C0025525C /* BookReportViewController.swift in Sources */,
+				D1F31C262482B40C0025525C /* WriteBookReportViewController.swift in Sources */,
 				D15FDE2B2484064200512969 /* BottomButtonItemsView.swift in Sources */,
 				D1B5DE15247BBD9C00EFD62E /* SceneDelegate.swift in Sources */,
 				D11456F024B9B0BC0068851F /* AladinDetailViewController.swift in Sources */,
 				D15FDE2324839AE000512969 /* LoginMenuViewController.swift in Sources */,
 				D15FDE2524839D5100512969 /* DirectLoginViewController.swift in Sources */,
 				D1D100C1247C214800E18A24 /* BookService.swift in Sources */,
+				D1F77E7F24D2C26600DDC31B /* PhraseViewController.swift in Sources */,
 				D11456F424B9BBE10068851F /* NickNameSignUpViewController.swift in Sources */,
 				D10B5DAF24C60AF900901202 /* PhraseHeaderView.swift in Sources */,
 				D1D100CA247C21BD00E18A24 /* ImageManagerProtocol.swift in Sources */,
@@ -741,13 +779,15 @@
 				D15FDE31248699BE00512969 /* TocViewController.swift in Sources */,
 				D11456EE24A3806E0068851F /* ButtonsTableViewCell.swift in Sources */,
 				D1F31C28248384B90025525C /* BookDetailHeaderView.swift in Sources */,
-				D10B5DAD24C605BC00901202 /* PhraseViewController.swift in Sources */,
+				D10B5DAD24C605BC00901202 /* WritePhraseViewController.swift in Sources */,
+				D17A1D5624C9A4BC00D6BDBA /* StarRatingView.swift in Sources */,
 				D1F31C222482B0D90025525C /* BookDetailViewController.swift in Sources */,
 				D10D75D8247BF091007A3366 /* MainTableViewCell.swift in Sources */,
 				D1D100C8247C21AD00E18A24 /* BookServiceProtocol.swift in Sources */,
-				D10B5DB124C60EB500901202 /* PhraseTableViewCell.swift in Sources */,
+				D10B5DB124C60EB500901202 /* WritePhraseTableViewCell.swift in Sources */,
 				D15FDE2D248564CD00512969 /* DetailContentsTableViewCell.swift in Sources */,
 				D1B5DE43247BBDB400EFD62E /* MainViewController.swift in Sources */,
+				D17A1D5E24D2BD4E00D6BDBA /* PhraseTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

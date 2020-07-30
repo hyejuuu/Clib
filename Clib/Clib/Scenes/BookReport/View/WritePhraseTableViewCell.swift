@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PhraseTableViewCell: UITableViewCell {
+class WritePhraseTableViewCell: UITableViewCell {
 
     var deleteCallback: (()->())?
     var pageSaveCallback: ((String?)->())?
@@ -157,10 +157,10 @@ class PhraseTableViewCell: UITableViewCell {
     }
 }
 
-extension PhraseTableViewCell: UITextFieldDelegate {
+extension WritePhraseTableViewCell: UITextFieldDelegate {
 }
 
-extension PhraseTableViewCell: UITextViewDelegate {
+extension WritePhraseTableViewCell: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         contentsSaveCallback?(textView.text)
     }

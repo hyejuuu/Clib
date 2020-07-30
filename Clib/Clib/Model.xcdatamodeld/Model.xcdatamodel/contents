@@ -3,6 +3,8 @@
     <entity name="BookReport" representedClassName="BookReportEntity" syncable="YES" codeGenerationType="class">
         <attribute name="contents" optional="YES" attributeType="String"/>
         <attribute name="isbn" optional="YES" attributeType="String"/>
+        <attribute name="rate" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
     </entity>
     <entity name="Phrase" representedClassName="PhraseEntity" syncable="YES" codeGenerationType="class">
         <attribute name="contents" optional="YES" attributeType="String"/>
@@ -10,7 +12,7 @@
         <attribute name="page" optional="YES" attributeType="String"/>
     </entity>
     <elements>
-        <element name="BookReport" positionX="-63" positionY="-18" width="128" height="73"/>
+        <element name="BookReport" positionX="-63" positionY="-18" width="128" height="103"/>
         <element name="Phrase" positionX="-54" positionY="9" width="128" height="88"/>
     </elements>
 </model>

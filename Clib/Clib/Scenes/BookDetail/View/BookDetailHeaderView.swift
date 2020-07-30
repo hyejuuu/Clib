@@ -70,6 +70,12 @@ class BookDetailHeaderView: UIView {
         return stackView
     }()
     
+    private let starRatingView: UIView = {
+        let starRatingView = StarRatingView(color: .yellow, isEnabled: true)
+        starRatingView.translatesAutoresizingMaskIntoConstraints = false
+        return starRatingView
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -88,6 +94,7 @@ class BookDetailHeaderView: UIView {
         
         addSubview(coverImageView)
         addSubview(stackView)
+        addSubview(starRatingView)
         
         coverImageView.topAnchor.constraint(
             equalTo: topAnchor,
@@ -105,9 +112,15 @@ class BookDetailHeaderView: UIView {
             equalTo: widthAnchor,
             multiplier: 0.3)
             .isActive = true
-        coverImageView.heightAnchor.constraint(equalTo: coverImageView.widthAnchor, multiplier: 1.3).isActive = true
+        coverImageView.heightAnchor.constraint(
+            equalTo: coverImageView.widthAnchor,
+            multiplier: 1.3)
+            .isActive = true
         
-        stackView.topAnchor.constraint(equalTo: coverImageView.bottomAnchor, constant: 15).isActive = true
+        stackView.topAnchor.constraint(
+            equalTo: coverImageView.bottomAnchor,
+            constant: 15)
+            .isActive = true
         stackView.leadingAnchor.constraint(
             equalTo: leadingAnchor,
             constant: 15)
@@ -116,10 +129,25 @@ class BookDetailHeaderView: UIView {
             equalTo: trailingAnchor,
             constant: -15)
             .isActive = true
-        stackView.bottomAnchor.constraint(
+        
+        starRatingView.topAnchor.constraint(
+            equalTo: stackView.bottomAnchor,
+            constant: 20)
+            .isActive = true
+        starRatingView.centerXAnchor.constraint(
+            equalTo: centerXAnchor)
+            .isActive = true
+        starRatingView.widthAnchor.constraint(
+            equalToConstant: 190)
+            .isActive = true
+        starRatingView.heightAnchor.constraint(
+            equalToConstant: 30)
+            .isActive = true
+        starRatingView.bottomAnchor.constraint(
             equalTo: bottomAnchor,
             constant: -30)
             .isActive = true
+        
     }
     
     private func setImage(urlString: String) {

@@ -9,15 +9,24 @@
 import UIKit
 import CoreData
 
-class BookReportViewController: UIViewController {
+class WriteBookReportViewController: UIViewController {
     
     var isbn: String?
+    var bookTitle: String?
     var phrases: [Phrase]?
     
     private let completeButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("완료", for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        return button
+    }()
+    
+    private let skipButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("스킵", for: .normal)
         button.setTitleColor(.black, for: .normal)
         return button
     }()
@@ -49,10 +58,15 @@ class BookReportViewController: UIViewController {
         navigationItem.title = "독후감 작성"
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backButton)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: completeButton)
+        navigationItem.rightBarButtonItems = [UIBarButtonItem(customView: completeButton),
+                                              UIBarButtonItem(customView: skipButton)]
         
         completeButton.addTarget(self,
-                                 action: #selector(touchUpCompleteButton),
+                                 action: #selector(touchUpCompleteOrSkipButton),
+                                 for: .touchUpInside)
+        
+        skipButton.addTarget(self,
+                                 action: #selector(touchUpCompleteOrSkipButton),
                                  for: .touchUpInside)
         
         backButton.addTarget(self,
@@ -85,7 +99,11 @@ class BookReportViewController: UIViewController {
         navigationController?.popViewController(animated: true)
     }
     
-    @objc private func touchUpCompleteButton() {
+    @objc private func touchUpCompleteOrSkipButton() {
+        guard let isbn = isbn else {
+            return
+        }
+        
         // core data에 저장
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
@@ -97,16 +115,18 @@ class BookReportViewController: UIViewController {
             if let phraseEntity = phraseEntity {
                 
                 phrases.forEach {
-                    let phrase = NSManagedObject(entity: phraseEntity, insertInto: context)
-                    
-                    phrase.setValue(isbn, forKey: "isbn")
-                    phrase.setValue($0.page, forKey: "page")
-                    phrase.setValue($0.contents, forKey: "contents")
+                    if let page = $0.page, let contents = $0.contents {
+                        let phrase = NSManagedObject(entity: phraseEntity, insertInto: context)
+                        
+                        phrase.setValue(isbn, forKey: "isbn")
+                        phrase.setValue(page, forKey: "page")
+                        phrase.setValue(contents, forKey: "contents")
 
-                    do {
-                        try context.save()
-                    } catch {
-                        print(error.localizedDescription)
+                        do {
+                            try context.save()
+                        } catch {
+                            print(error.localizedDescription)
+                        }
                     }
                 }
                 
@@ -115,11 +135,17 @@ class BookReportViewController: UIViewController {
         
         let entity = NSEntityDescription.entity(forEntityName: "BookReport", in: context)
         
-        if let entity = entity {
+        guard bookReportTextView.text.isEmpty == false else {
+            dismiss(animated: true)
+            return
+        }
+        
+        if let entity = entity, let bookReportContents = bookReportTextView.text {
             let bookreport = NSManagedObject(entity: entity, insertInto: context)
             
             bookreport.setValue(isbn, forKey: "isbn")
-            bookreport.setValue(bookReportTextView.text, forKey: "contents")
+            bookreport.setValue(bookTitle, forKey: "title")
+            bookreport.setValue(bookReportContents, forKey: "contents")
             
             do {
                 try context.save()

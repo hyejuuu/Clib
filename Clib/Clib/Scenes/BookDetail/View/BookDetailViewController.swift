@@ -177,7 +177,7 @@ extension BookDetailViewController: UITableViewDelegate {
                    heightForHeaderInSection section: Int) -> CGFloat {
         switch section {
         case 0:
-            return 300
+            return 330
         case 2, 3:
             return 50
         default:
@@ -238,8 +238,9 @@ extension BookDetailViewController: UITableViewDataSource {
                     
                 }
                 let reportAction = UIAlertAction(title: "독후감 작성", style: .default) { [weak self] _ in
-                    let phraseViewController = PhraseViewController()
-                    phraseViewController.isbn = self?.bookData?.isbn
+                    let phraseViewController = WritePhraseViewController()
+                    phraseViewController.isbn = self?.bookData?.isbn13
+                    phraseViewController.bookTitle = self?.bookData?.title
                     let phraseNavigator = UINavigationController(rootViewController: phraseViewController)
                     phraseNavigator.modalPresentationStyle = .fullScreen
                     self?.present(phraseNavigator, animated: true)
