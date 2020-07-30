@@ -11,8 +11,7 @@ import CoreData
 
 class BookReportViewController: UIViewController {
 
-    var isbn: String?
-    var contents: String?
+    var bookReport: BookReport?
     var bookData: Book?
     var row: Int?
     
@@ -45,7 +44,7 @@ class BookReportViewController: UIViewController {
     }
     
     private func requestBookData() {
-        guard let isbn = isbn else { return }
+        guard let isbn = bookReport?.isbn else { return }
         
         bookDetailService.fetchBookData(isbn: isbn) { [weak self] result in
             switch result {
@@ -97,7 +96,16 @@ class BookReportViewController: UIViewController {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
         let edtingAction = UIAlertAction(title: "독후감 수정", style: .default) { [weak self] _ in
-            
+            let editingBookReportViewController = EditingBookReportViewController()
+            editingBookReportViewController.row = self?.row
+            editingBookReportViewController.bookReport = self?.bookReport
+            editingBookReportViewController.callBack = { [weak self] bookReport in
+                self?.bookReport = bookReport
+                self?.bookReportTableView.reloadData()
+            }
+            let editingBookReportNavigatior = UINavigationController(rootViewController: editingBookReportViewController)
+            editingBookReportNavigatior.modalPresentationStyle = .fullScreen
+            self?.present(editingBookReportNavigatior, animated: true)
         }
         let deleteAction = UIAlertAction(title: "독후감 삭제", style: .default) { [weak self] _ in
             guard let row = self?.row else { return }
@@ -160,7 +168,7 @@ extension BookReportViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         
-        cell.textLabel?.text = contents
+        cell.textLabel?.text = bookReport?.contents
         return cell
     }
     

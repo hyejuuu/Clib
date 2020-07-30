@@ -99,8 +99,7 @@ extension BookReportListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let bookReportViewController = BookReportViewController()
-        bookReportViewController.isbn = bookReports[indexPath.row].isbn
-        bookReportViewController.contents = bookReports[indexPath.row].contents
+        bookReportViewController.bookReport = bookReports[indexPath.row]
         bookReportViewController.row = indexPath.row
         navigationController?.pushViewController(bookReportViewController, animated: true)
     }

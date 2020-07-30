@@ -61,6 +61,7 @@
 		D1F31C28248384B90025525C /* BookDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F31C27248384B90025525C /* BookDetailHeaderView.swift */; };
 		D1F31C2A2483988B0025525C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D1F31C292483988B0025525C /* GoogleService-Info.plist */; };
 		D1F77E7F24D2C26600DDC31B /* PhraseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F77E7E24D2C26600DDC31B /* PhraseViewController.swift */; };
+		D1F77E8124D2D74200DDC31B /* EditingBookReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F77E8024D2D74200DDC31B /* EditingBookReportViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -146,6 +147,7 @@
 		D1F31C27248384B90025525C /* BookDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDetailHeaderView.swift; sourceTree = "<group>"; };
 		D1F31C292483988B0025525C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D1F77E7E24D2C26600DDC31B /* PhraseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhraseViewController.swift; sourceTree = "<group>"; };
+		D1F77E8024D2D74200DDC31B /* EditingBookReportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingBookReportViewController.swift; sourceTree = "<group>"; };
 		D987D8949B4F8DEA4BA2D291 /* Pods_Clib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Clib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB71EAE1474035D219357E0A /* Pods-Clib-ClibUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Clib-ClibUITests.debug.xcconfig"; path = "Target Support Files/Pods-Clib-ClibUITests/Pods-Clib-ClibUITests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -255,6 +257,7 @@
 				D17A1D5324C89F1700D6BDBA /* BookReportTableViewCell.swift */,
 				D17A1D5524C9A4BC00D6BDBA /* StarRatingView.swift */,
 				D17A1D5724C9B1DF00D6BDBA /* BookReportViewController.swift */,
+				D1F77E8024D2D74200DDC31B /* EditingBookReportViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -752,6 +755,7 @@
 				D10B5DA724C5F40600901202 /* Model.xcdatamodeld in Sources */,
 				D17A1D5824C9B1DF00D6BDBA /* BookReportViewController.swift in Sources */,
 				D1D100D1247C267200E18A24 /* MainCellViewModel.swift in Sources */,
+				D1F77E8124D2D74200DDC31B /* EditingBookReportViewController.swift in Sources */,
 				D1D100CD247C264B00E18A24 /* BookCellViewModel.swift in Sources */,
 				D17A1D5C24CC1B8700D6BDBA /* PhraseListViewController.swift in Sources */,
 				D1D100B4247BF17800E18A24 /* LogoHeaderView.swift in Sources */,
