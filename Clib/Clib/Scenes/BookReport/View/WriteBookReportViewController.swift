@@ -15,6 +15,9 @@ class WriteBookReportViewController: UIViewController {
     var imageUrl: String?
     var bookTitle: String?
     
+    private var isUpdate: Bool = false
+    private var updateObject: BookReportEntity?
+    
     private let completeButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -44,7 +47,35 @@ class WriteBookReportViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        fetchMyBookReport()
         setupLayout()
+    }
+    
+    private func fetchMyBookReport() {
+        guard let isbn = isbn else {
+            return
+        }
+        
+        // core data에 저장
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        let context = appDelegate?.persistentContainer.viewContext
+        
+        do {
+            let bookReportEntity = try context?.fetch(BookReportEntity.fetchRequest()) as? [BookReportEntity]
+
+            let result = bookReportEntity?.filter { $0.isbn == isbn }
+            
+            guard let object = result?.first else {
+                return
+            }
+            
+            updateObject = object
+            isUpdate = true
+            bookReportTextView.text = object.contents
+            
+        } catch {
+            print(error.localizedDescription)
+        }
     }
     
     private func setupLayout() {
@@ -88,16 +119,6 @@ class WriteBookReportViewController: UIViewController {
     }
     
     @objc private func touchUpCompleteButton() {
-        guard let isbn = isbn, let imageUrl = imageUrl else {
-            return
-        }
-        
-        // core data에 저장
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate.persistentContainer.viewContext
-        
-        let entity = NSEntityDescription.entity(forEntityName: "BookReport", in: context)
-        
         guard bookReportTextView.text.isEmpty == false else {
             let alertController = UIAlertController(title: nil, message: "독후감 내용을 적어주세요:(", preferredStyle: .alert)
             let okAction = UIAlertAction(title: "확인", style: .cancel)
@@ -106,22 +127,45 @@ class WriteBookReportViewController: UIViewController {
             return
         }
         
-        if let entity = entity, let bookReportContents = bookReportTextView.text {
-            let bookreport = NSManagedObject(entity: entity, insertInto: context)
-            
-            bookreport.setValue(isbn, forKey: "isbn")
-            bookreport.setValue(bookTitle, forKey: "title")
-            bookreport.setValue(bookReportContents, forKey: "contents")
-            bookreport.setValue(imageUrl, forKey: "imageUrl")
+        guard let isbn = isbn, let imageUrl = imageUrl else {
+            return
+        }
+
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        guard let context = appDelegate?.persistentContainer.viewContext else {
+            return
+        }
+        
+        if isUpdate {
+            updateObject?.setValue(isbn, forKey: "isbn")
+            updateObject?.setValue(bookTitle, forKey: "title")
+            updateObject?.setValue(bookReportTextView.text, forKey: "contents")
+            updateObject?.setValue(imageUrl, forKey: "imageUrl")
             
             do {
                 try context.save()
             } catch {
-                print(error.localizedDescription)
+                return
+            }
+        } else {
+
+            let entity = NSEntityDescription.entity(forEntityName: "BookReport", in: context)
+        
+            if let entity = entity, let bookReportContents = bookReportTextView.text {
+                let bookreport = NSManagedObject(entity: entity, insertInto: context)
+                
+                bookreport.setValue(isbn, forKey: "isbn")
+                bookreport.setValue(bookTitle, forKey: "title")
+                bookreport.setValue(bookReportContents, forKey: "contents")
+                bookreport.setValue(imageUrl, forKey: "imageUrl")
+                
+                do {
+                    try context.save()
+                } catch {
+                    print(error.localizedDescription)
+                }
             }
         }
-
-        
         dismiss(animated: true)
     }
 }
