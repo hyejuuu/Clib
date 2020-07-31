@@ -17,7 +17,7 @@ class PhraseViewController: UIViewController {
     private let bookDetailService: BookServiceProtocol = BookService()
     
     private let phraseTableView: UITableView = {
-        let tableView = UITableView()
+        let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.tableFooterView = UIView()
         tableView.backgroundColor = .white
@@ -64,8 +64,8 @@ class PhraseViewController: UIViewController {
         phraseTableView.delegate = self
         phraseTableView.dataSource = self
         
-        phraseTableView.register(UITableViewCell.self,
-                                     forCellReuseIdentifier: "PhraseCell")
+        phraseTableView.register(PhraseContentsTableViewCell.self,
+                                 forCellReuseIdentifier: "PhraseCell")
     }
     
     private func setupLayout() {
@@ -90,19 +90,19 @@ class PhraseViewController: UIViewController {
             equalTo: view.safeAreaLayoutGuide.bottomAnchor)
             .isActive = true
     }
-    
-    public func scrollViewDidScroll(_ scrollView: UIScrollView){
-        // let scrollHeaderHeight = friendsTableView.sectionHeaderHeight
-        let scrollHeaderHeight: CGFloat = 330
-        
-        if scrollView.contentOffset.y <= scrollHeaderHeight {
-            if scrollView.contentOffset.y >= 0 {
-                scrollView.contentInset = UIEdgeInsets(top: -scrollView.contentOffset.y, left: 0, bottom: 0, right: 0)
-            }
-        } else if scrollView.contentOffset.y >= scrollHeaderHeight {
-            scrollView.contentInset = UIEdgeInsets(top: -scrollHeaderHeight, left: 0, bottom: 0, right: 0)
-        }
-    }
+//
+//    public func scrollViewDidScroll(_ scrollView: UIScrollView){
+//        // let scrollHeaderHeight = friendsTableView.sectionHeaderHeight
+//        let scrollHeaderHeight: CGFloat = 330
+//
+//        if scrollView.contentOffset.y <= scrollHeaderHeight {
+//            if scrollView.contentOffset.y >= 0 {
+//                scrollView.contentInset = UIEdgeInsets(top: -scrollView.contentOffset.y, left: 0, bottom: 0, right: 0)
+//            }
+//        } else if scrollView.contentOffset.y >= scrollHeaderHeight {
+//            scrollView.contentInset = UIEdgeInsets(top: -scrollHeaderHeight, left: 0, bottom: 0, right: 0)
+//        }
+//    }
 
     @objc private func touchUpEtcButton() {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
@@ -163,6 +163,12 @@ extension PhraseViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 330
     }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        guard let contentsHeight = phrase?.contents?.fetchEstimateCGRectWith(fontSize: 15, width: view.frame.width - 40).height else { return 0 }
+        let height: CGFloat = 100 + contentsHeight
+        return height
+    }
 }
 
 extension PhraseViewController: UITableViewDataSource {
@@ -171,11 +177,11 @@ extension PhraseViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "PhraseCell") as? UITableViewCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "PhraseCell") as? PhraseContentsTableViewCell else {
             return UITableViewCell()
         }
         
-        cell.textLabel?.text = phrase?.contents
+        cell.configure(page: phrase?.page, contents: phrase?.contents)
         return cell
     }
     

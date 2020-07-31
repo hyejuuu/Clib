@@ -7,31 +7,34 @@
 //
 
 import UIKit
+import CoreData
 
 struct Phrase {
     var isbn: String?
     var page: String?
     var contents: String?
+    var imageUrl: String?
 }
 
 class WritePhraseViewController: UIViewController {
     
     var bookTitle: String?
     var isbn: String?
+    var imageUrl: String?
     var phrases: [Phrase] = []
     
     private let nextButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("다음", for: .normal)
+        button.setTitle("완료", for: .normal)
         button.setTitleColor(.black, for: .normal)
         return button
     }()
     
-    private let closeButton: UIButton = {
+    private let cancelButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("닫기", for: .normal)
+        button.setTitle("취소", for: .normal)
         button.setTitleColor(.black, for: .normal)
         return button
     }()
@@ -61,10 +64,10 @@ class WritePhraseViewController: UIViewController {
     private func setupLayout() {
         navigationItem.title = "기억에 남는 구절"
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: closeButton)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: cancelButton)
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: nextButton)
         
-        closeButton.addTarget(self,
+        cancelButton.addTarget(self,
                               action: #selector(touchUpCloseButton),
                               for: .touchUpInside)
         
@@ -96,15 +99,42 @@ class WritePhraseViewController: UIViewController {
     }
     
     @objc private func touchUpNextButton() {
-        if phrases.count == 0 || (phrases.last?.page == nil && phrases.last?.contents == nil) {
-            phrases = []
+        guard phrases.count != 0 && phrases.last?.page != nil && phrases.last?.contents != nil else {
+            let alertController = UIAlertController(title: nil, message: "페이지와 명언을 모두 채워주세요:(", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "확인", style: .cancel)
+            alertController.addAction(okAction)
+            present(alertController, animated: true)
+            return
         }
         
-        let bookReportViewController = WriteBookReportViewController()
-        bookReportViewController.isbn = isbn
-        bookReportViewController.bookTitle = bookTitle
-        bookReportViewController.phrases = phrases
-        navigationController?.pushViewController(bookReportViewController, animated: true)
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        
+
+        let phraseEntity = NSEntityDescription.entity(forEntityName: "Phrase", in: context)
+        
+        if let phraseEntity = phraseEntity {
+            
+            phrases.forEach {
+                if let page = $0.page, let contents = $0.contents {
+                    let phrase = NSManagedObject(entity: phraseEntity, insertInto: context)
+                    
+                    phrase.setValue(isbn, forKey: "isbn")
+                    phrase.setValue(page, forKey: "page")
+                    phrase.setValue(contents, forKey: "contents")
+                    phrase.setValue(imageUrl, forKey: "imageUrl")
+
+                    do {
+                        try context.save()
+                    } catch {
+                        print(error.localizedDescription)
+                    }
+                }
+            }
+            
+        }
+        
+        dismiss(animated: true)
     }
 
 }

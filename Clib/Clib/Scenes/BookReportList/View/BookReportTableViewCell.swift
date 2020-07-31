@@ -10,6 +10,8 @@ import UIKit
 
 class BookReportTableViewCell: UITableViewCell {
     
+    private let imageManager: ImageManagerProtocol = ImageManager()
+    
     private let coverImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -52,7 +54,24 @@ class BookReportTableViewCell: UITableViewCell {
         titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20).isActive = true
     }
     
+    private func setImage(urlString: String) {
+        imageManager.fetchImage(urlString: urlString) { [weak self] result in
+            switch result {
+            case .failure(let error):
+                print(error)
+                return
+            case .success(let image):
+                DispatchQueue.main.async {
+                    self?.coverImageView.image = image
+                }
+            }
+        }
+    }
+    
     func configure(_ bookReport: BookReport) {
-        titleLabel.text = bookReport.title
+        guard let title = bookReport.title,
+            let imageUrl = bookReport.imageUrl else { return }
+        titleLabel.text = title
+        setImage(urlString: imageUrl)
     }
 }

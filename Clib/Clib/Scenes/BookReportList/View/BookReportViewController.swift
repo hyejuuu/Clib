@@ -65,7 +65,7 @@ class BookReportViewController: UIViewController {
         bookReportTableView.delegate = self
         bookReportTableView.dataSource = self
         
-        bookReportTableView.register(UITableViewCell.self,
+        bookReportTableView.register(BookReportContentsTableViewCell.self,
                                      forCellReuseIdentifier: "BookReportCell")
     }
     
@@ -156,6 +156,12 @@ extension BookReportViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 330
     }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        guard let contentsHeight = bookReport?.contents?.fetchEstimateCGRectWith(fontSize: 15, width: view.frame.width - 40).height else { return 0 }
+        let height: CGFloat = 85 + contentsHeight
+        return height
+    }
 }
 
 extension BookReportViewController: UITableViewDataSource {
@@ -164,11 +170,10 @@ extension BookReportViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "BookReportCell") as? UITableViewCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "BookReportCell") as? BookReportContentsTableViewCell else {
             return UITableViewCell()
         }
-        
-        cell.textLabel?.text = bookReport?.contents
+        cell.configure(contents: bookReport?.contents)
         return cell
     }
     

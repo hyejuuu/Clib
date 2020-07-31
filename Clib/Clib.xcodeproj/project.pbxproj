@@ -63,6 +63,8 @@
 		D1F77E7F24D2C26600DDC31B /* PhraseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F77E7E24D2C26600DDC31B /* PhraseViewController.swift */; };
 		D1F77E8124D2D74200DDC31B /* EditingBookReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F77E8024D2D74200DDC31B /* EditingBookReportViewController.swift */; };
 		D1F77E8324D2DC2600DDC31B /* EditingPhraseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F77E8224D2DC2600DDC31B /* EditingPhraseViewController.swift */; };
+		D1F77E8A24D30C5500DDC31B /* BookReportContentsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F77E8924D30C5500DDC31B /* BookReportContentsTableViewCell.swift */; };
+		D1F77E8C24D30E9000DDC31B /* PhraseContentsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F77E8B24D30E9000DDC31B /* PhraseContentsTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -150,6 +152,8 @@
 		D1F77E7E24D2C26600DDC31B /* PhraseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhraseViewController.swift; sourceTree = "<group>"; };
 		D1F77E8024D2D74200DDC31B /* EditingBookReportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingBookReportViewController.swift; sourceTree = "<group>"; };
 		D1F77E8224D2DC2600DDC31B /* EditingPhraseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditingPhraseViewController.swift; sourceTree = "<group>"; };
+		D1F77E8924D30C5500DDC31B /* BookReportContentsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookReportContentsTableViewCell.swift; sourceTree = "<group>"; };
+		D1F77E8B24D30E9000DDC31B /* PhraseContentsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhraseContentsTableViewCell.swift; sourceTree = "<group>"; };
 		D987D8949B4F8DEA4BA2D291 /* Pods_Clib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Clib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB71EAE1474035D219357E0A /* Pods-Clib-ClibUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Clib-ClibUITests.debug.xcconfig"; path = "Target Support Files/Pods-Clib-ClibUITests/Pods-Clib-ClibUITests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -260,6 +264,7 @@
 				D17A1D5524C9A4BC00D6BDBA /* StarRatingView.swift */,
 				D17A1D5724C9B1DF00D6BDBA /* BookReportViewController.swift */,
 				D1F77E8024D2D74200DDC31B /* EditingBookReportViewController.swift */,
+				D1F77E8924D30C5500DDC31B /* BookReportContentsTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -279,6 +284,7 @@
 				D17A1D5D24D2BD4E00D6BDBA /* PhraseTableViewCell.swift */,
 				D1F77E7E24D2C26600DDC31B /* PhraseViewController.swift */,
 				D1F77E8224D2DC2600DDC31B /* EditingPhraseViewController.swift */,
+				D1F77E8B24D30E9000DDC31B /* PhraseContentsTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -750,6 +756,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D1F77E8C24D30E9000DDC31B /* PhraseContentsTableViewCell.swift in Sources */,
 				D1B5DE13247BBD9C00EFD62E /* AppDelegate.swift in Sources */,
 				D1D100C6247C218100E18A24 /* BookList.swift in Sources */,
 				D11456F224B9B9B30068851F /* DirectSignUpViewController.swift in Sources */,
@@ -778,6 +785,7 @@
 				D15FDE2324839AE000512969 /* LoginMenuViewController.swift in Sources */,
 				D15FDE2524839D5100512969 /* DirectLoginViewController.swift in Sources */,
 				D1D100C1247C214800E18A24 /* BookService.swift in Sources */,
+				D1F77E8A24D30C5500DDC31B /* BookReportContentsTableViewCell.swift in Sources */,
 				D1F77E7F24D2C26600DDC31B /* PhraseViewController.swift in Sources */,
 				D11456F424B9BBE10068851F /* NickNameSignUpViewController.swift in Sources */,
 				D10B5DAF24C60AF900901202 /* PhraseHeaderView.swift in Sources */,

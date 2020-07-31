@@ -13,6 +13,7 @@ struct BookReport {
     var title: String?
     var rate: Float?
     var contents: String?
+    var imageUrl: String?
 }
 
 class BookReportListViewController: UIViewController {
@@ -54,7 +55,8 @@ class BookReportListViewController: UIViewController {
                 bookReports.append(BookReport(isbn: $0.isbn,
                                               title: $0.title,
                                               rate: $0.rate,
-                                              contents: $0.contents))
+                                              contents: $0.contents,
+                                              imageUrl: $0.imageUrl))
             }
             
             bookReportTableView.reloadData()

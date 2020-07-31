@@ -234,16 +234,25 @@ extension BookDetailViewController: UITableViewDataSource {
             cell.writeCallBack = { [weak self] in
 
                 let alertController = UIAlertController(title: "작성하고자 하는 유형을 선택해주세요", message: nil, preferredStyle: .actionSheet)
-                let reviewAction = UIAlertAction(title: "후기 작성", style: .default) { [weak self] _ in
-                    
-                }
-                let reportAction = UIAlertAction(title: "독후감 작성", style: .default) { [weak self] _ in
+                let reviewAction = UIAlertAction(title: "명언 작성", style: .default) { [weak self] _ in
                     let phraseViewController = WritePhraseViewController()
                     phraseViewController.isbn = self?.bookData?.isbn13
                     phraseViewController.bookTitle = self?.bookData?.title
+                    phraseViewController.imageUrl = self?.bookData?.cover
                     let phraseNavigator = UINavigationController(rootViewController: phraseViewController)
                     phraseNavigator.modalPresentationStyle = .fullScreen
                     self?.present(phraseNavigator, animated: true)
+                }
+                let reportAction = UIAlertAction(title: "독후감 작성", style: .default) { [weak self] _ in
+                    let bookReportViewController = WriteBookReportViewController()
+                    bookReportViewController.isbn = self?.bookData?.isbn13
+                    bookReportViewController.bookTitle = self?.bookData?.title
+                    bookReportViewController.imageUrl = self?.bookData?.cover
+                    
+                    let bookReportNavigator = UINavigationController(rootViewController: bookReportViewController)
+                    bookReportNavigator.modalPresentationStyle = .fullScreen
+                    self?.present(bookReportNavigator, animated: true)
+                    
                 }
                 let cancelAction = UIAlertAction(title: "취소", style: .cancel)
                 alertController.addAction(reviewAction)

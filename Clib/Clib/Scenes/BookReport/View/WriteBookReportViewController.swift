@@ -12,8 +12,8 @@ import CoreData
 class WriteBookReportViewController: UIViewController {
     
     var isbn: String?
+    var imageUrl: String?
     var bookTitle: String?
-    var phrases: [Phrase]?
     
     private let completeButton: UIButton = {
         let button = UIButton()
@@ -23,18 +23,11 @@ class WriteBookReportViewController: UIViewController {
         return button
     }()
     
-    private let skipButton: UIButton = {
+    private let cancelButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("스킵", for: .normal)
+        button.setTitle("취소", for: .normal)
         button.setTitleColor(.black, for: .normal)
-        return button
-    }()
-    
-    private let backButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(#imageLiteral(resourceName: "back"), for: .normal)
         return button
     }()
     
@@ -57,20 +50,15 @@ class WriteBookReportViewController: UIViewController {
     private func setupLayout() {
         navigationItem.title = "독후감 작성"
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backButton)
-        navigationItem.rightBarButtonItems = [UIBarButtonItem(customView: completeButton),
-                                              UIBarButtonItem(customView: skipButton)]
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: cancelButton)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: completeButton)
         
         completeButton.addTarget(self,
-                                 action: #selector(touchUpCompleteOrSkipButton),
+                                 action: #selector(touchUpCompleteButton),
                                  for: .touchUpInside)
         
-        skipButton.addTarget(self,
-                                 action: #selector(touchUpCompleteOrSkipButton),
-                                 for: .touchUpInside)
-        
-        backButton.addTarget(self,
-                             action: #selector(touchUpBackButton),
+        cancelButton.addTarget(self,
+                             action: #selector(touchUpCancelButton),
                              for: .touchUpInside)
         
         view.backgroundColor = .white
@@ -95,12 +83,12 @@ class WriteBookReportViewController: UIViewController {
             .isActive = true
     }
     
-    @objc private func touchUpBackButton() {
-        navigationController?.popViewController(animated: true)
+    @objc private func touchUpCancelButton() {
+        dismiss(animated: true)
     }
     
-    @objc private func touchUpCompleteOrSkipButton() {
-        guard let isbn = isbn else {
+    @objc private func touchUpCompleteButton() {
+        guard let isbn = isbn, let imageUrl = imageUrl else {
             return
         }
         
@@ -108,35 +96,13 @@ class WriteBookReportViewController: UIViewController {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
         
-        if let phrases = phrases {
-
-            let phraseEntity = NSEntityDescription.entity(forEntityName: "Phrase", in: context)
-            
-            if let phraseEntity = phraseEntity {
-                
-                phrases.forEach {
-                    if let page = $0.page, let contents = $0.contents {
-                        let phrase = NSManagedObject(entity: phraseEntity, insertInto: context)
-                        
-                        phrase.setValue(isbn, forKey: "isbn")
-                        phrase.setValue(page, forKey: "page")
-                        phrase.setValue(contents, forKey: "contents")
-
-                        do {
-                            try context.save()
-                        } catch {
-                            print(error.localizedDescription)
-                        }
-                    }
-                }
-                
-            }
-        }
-        
         let entity = NSEntityDescription.entity(forEntityName: "BookReport", in: context)
         
         guard bookReportTextView.text.isEmpty == false else {
-            dismiss(animated: true)
+            let alertController = UIAlertController(title: nil, message: "독후감 내용을 적어주세요:(", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "확인", style: .cancel)
+            alertController.addAction(okAction)
+            present(alertController, animated: true)
             return
         }
         
@@ -146,6 +112,7 @@ class WriteBookReportViewController: UIViewController {
             bookreport.setValue(isbn, forKey: "isbn")
             bookreport.setValue(bookTitle, forKey: "title")
             bookreport.setValue(bookReportContents, forKey: "contents")
+            bookreport.setValue(imageUrl, forKey: "imageUrl")
             
             do {
                 try context.save()

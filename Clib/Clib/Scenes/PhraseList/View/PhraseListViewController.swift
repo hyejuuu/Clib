@@ -45,7 +45,8 @@ class PhraseListViewController: UIViewController {
             phrase.forEach {
                 phrases.append(Phrase(isbn: $0.isbn,
                                       page: $0.page,
-                                      contents: $0.contents))
+                                      contents: $0.contents,
+                                      imageUrl: $0.imageUrl))
             }
             
             phraseListTableView.reloadData()
@@ -80,7 +81,6 @@ class PhraseListViewController: UIViewController {
             equalTo: view.safeAreaLayoutGuide.bottomAnchor)
             .isActive = true
     }
-
 }
 
 extension PhraseListViewController: UITableViewDelegate {

@@ -10,6 +10,8 @@ import UIKit
 
 class PhraseTableViewCell: UITableViewCell {
     
+    private let imageManager: ImageManagerProtocol = ImageManager()
+    
     private let coverImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -93,10 +95,26 @@ class PhraseTableViewCell: UITableViewCell {
         
     }
     
+    private func setImage(urlString: String) {
+        imageManager.fetchImage(urlString: urlString) { [weak self] result in
+            switch result {
+            case .failure(let error):
+                print(error)
+                return
+            case .success(let image):
+                DispatchQueue.main.async {
+                    self?.coverImageView.image = image
+                }
+            }
+        }
+    }
+    
     func configure(_ phrase: Phrase) {
         guard let page = phrase.page,
-            let contents = phrase.contents else { return }
+            let contents = phrase.contents,
+            let imageUrl = phrase.imageUrl else { return }
         pageLabel.text = "p.\(page)"
         contentsLabel.text = contents
+        setImage(urlString: imageUrl)
     }
 }

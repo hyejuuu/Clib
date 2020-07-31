@@ -113,7 +113,7 @@ class EditingPhraseViewController: UIViewController {
     }
     
     @objc private func touchUpCompleteButton() {
-        guard let isbn = phrase?.isbn else {
+        guard let isbn = phrase?.isbn, let imageUrl = phrase?.imageUrl else {
             return
         }
         
@@ -132,6 +132,7 @@ class EditingPhraseViewController: UIViewController {
                 object.setValue(isbn, forKey: "isbn")
                 object.setValue(page, forKey: "page")
                 object.setValue(phraseContents, forKey: "contents")
+                object.setValue(imageUrl, forKey: "imageUrl")
             
                 do {
                     try context.save()

@@ -19,5 +19,6 @@ extension PhraseEntity {
     @NSManaged public var contents: String?
     @NSManaged public var isbn: String?
     @NSManaged public var page: String?
+    @NSManaged public var imageUrl: String?
 
 }
