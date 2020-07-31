@@ -15,6 +15,8 @@ class BookDetailViewController: UIViewController {
     var bookData: Book?
     var isbn: String?
     private var starRating: Float = 0.0
+    private var isUpdate: Bool = false
+    private var updateObject: BookReportEntity?
     
     private let sectionTitles = ["줄거리", "리뷰"]
     
@@ -71,32 +73,23 @@ class BookDetailViewController: UIViewController {
     }
     
     private func fetchMyStarRating() {
-//
-//        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-//        let context = appDelegate.persistentContainer.viewContext
-//
-//        do {
-//            let bookReportEntity = try context.fetch(BookReportEntity.fetchRequest()) as! [BookReportEntity]
-//
-//            let object = bookReportEntity
-//
-//            object.setValue(isbn, forKey: "isbn")
-//            object.setValue(bookReport?.title, forKey: "title")
-//            object.setValue(bookReportContents, forKey: "contents")
-//            object.setValue(imageUrl, forKey: "imageUrl")
-//
-//            do {
-//                try context.save()
-//            } catch {
-//                return
-//            }
-//
-//        } catch {
-//            print(error.localizedDescription)
-//        }
-//
-//        bookReport?.contents = bookReportTextView.text
-//        callBack?(bookReport!)
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        let context = appDelegate?.persistentContainer.viewContext
+
+        do {
+            let bookReportEntity = try context?.fetch(BookReportEntity.fetchRequest()) as? [BookReportEntity]
+
+            let result = bookReportEntity?.filter { $0.isbn == isbn }
+            
+            guard let object = result?.first else { return }
+            
+            updateObject = object
+            isUpdate = true
+            starRating = object.rate
+
+        } catch {
+            print(error.localizedDescription)
+        }
     }
     
     private func setupTableView() {
@@ -185,20 +178,33 @@ class BookDetailViewController: UIViewController {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
         
-        let entity = NSEntityDescription.entity(forEntityName: "BookReport", in: context)
-        
-        if let entity = entity, let bookTitle = bookData?.title {
-            let bookreport = NSManagedObject(entity: entity, insertInto: context)
-            
-            bookreport.setValue(isbn, forKey: "isbn")
-            bookreport.setValue(bookTitle, forKey: "title")
-            bookreport.setValue(starRating, forKey: "rate")
-            bookreport.setValue(imageUrl, forKey: "imageUrl")
+        if isUpdate {
+            updateObject?.setValue(isbn, forKey: "isbn")
+            updateObject?.setValue(bookData?.title, forKey: "title")
+            updateObject?.setValue(starRating, forKey: "rate")
+            updateObject?.setValue(imageUrl, forKey: "imageUrl")
             
             do {
                 try context.save()
             } catch {
                 print(error.localizedDescription)
+            }
+        } else {
+            let entity = NSEntityDescription.entity(forEntityName: "BookReport", in: context)
+            
+            if let entity = entity, let bookTitle = bookData?.title {
+                let bookreport = NSManagedObject(entity: entity, insertInto: context)
+                
+                bookreport.setValue(isbn, forKey: "isbn")
+                bookreport.setValue(bookTitle, forKey: "title")
+                bookreport.setValue(starRating, forKey: "rate")
+                bookreport.setValue(imageUrl, forKey: "imageUrl")
+                
+                do {
+                    try context.save()
+                } catch {
+                    print(error.localizedDescription)
+                }
             }
         }
     }

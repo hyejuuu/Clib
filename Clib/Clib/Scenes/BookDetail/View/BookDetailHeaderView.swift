@@ -10,8 +10,18 @@ import UIKit
 
 class BookDetailHeaderView: UIView {
 
-    var rating: Float?
-    var ratingCallback: ((Float)->())?
+    var rating: Float? {
+        willSet {
+            starRatingView.rating = newValue ?? 0.0
+        }
+    }
+    var ratingCallback: ((Float)->())? {
+        willSet {
+            if newValue != nil {
+                starRatingView.ratingCallback = newValue
+            }
+        }
+    }
     
     private let imageManager: ImageManagerProtocol = ImageManager()
     
@@ -90,9 +100,6 @@ class BookDetailHeaderView: UIView {
     }
     
     private func setupLayout() {
-        starRatingView.rating = rating ?? 0.0
-        starRatingView.ratingCallback = ratingCallback
-        
         stackView.addArrangedSubview(categoryLabel)
         stackView.addArrangedSubview(titleLabel)
         stackView.addArrangedSubview(authorLabel)

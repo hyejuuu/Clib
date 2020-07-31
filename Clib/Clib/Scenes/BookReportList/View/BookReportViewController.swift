@@ -15,6 +15,8 @@ class BookReportViewController: UIViewController {
     var bookData: Book?
     var row: Int?
     private var starRating: Float = 0.0
+    private var isUpdate: Bool = false
+    private var updateObject: BookReportEntity?
     
     private let bookDetailService: BookServiceProtocol = BookService()
     
@@ -36,7 +38,7 @@ class BookReportViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
+
         // 별점 저장
         if starRating != 0.0 {
             saveStarRating(starRating)
@@ -49,8 +51,29 @@ class BookReportViewController: UIViewController {
         tabBarController?.tabBar.isHidden = true
 
         setupTableView()
+        fetchMyStarRating()
         setupLayout()
         requestBookData()
+    }
+    
+    private func fetchMyStarRating() {
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        let context = appDelegate?.persistentContainer.viewContext
+
+        do {
+            let bookReportEntity = try context?.fetch(BookReportEntity.fetchRequest()) as? [BookReportEntity]
+
+            let result = bookReportEntity?.filter { $0.isbn == bookReport?.isbn }
+            
+            guard let object = result?.first else { return }
+            
+            updateObject = object
+            isUpdate = true
+            starRating = object.rate
+
+        } catch {
+            print(error.localizedDescription)
+        }
     }
     
     private func requestBookData() {
@@ -105,7 +128,7 @@ class BookReportViewController: UIViewController {
     }
     
     private func saveStarRating(_ score: Float) {
-        guard let isbn = bookReport?.isbn, let imageUrl = bookReport?.imageUrl else {
+        guard let isbn = bookReport?.isbn, let imageUrl = bookData?.cover else {
             return
         }
         
@@ -113,23 +136,37 @@ class BookReportViewController: UIViewController {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
         
-        let entity = NSEntityDescription.entity(forEntityName: "BookReport", in: context)
-        
-        if let entity = entity, let bookTitle = bookData?.title {
-            let bookreport = NSManagedObject(entity: entity, insertInto: context)
-            
-            bookreport.setValue(isbn, forKey: "isbn")
-            bookreport.setValue(bookTitle, forKey: "title")
-            bookreport.setValue(starRating, forKey: "rate")
-            bookreport.setValue(imageUrl, forKey: "imageUrl")
+        if isUpdate {
+            updateObject?.setValue(isbn, forKey: "isbn")
+            updateObject?.setValue(bookData?.title, forKey: "title")
+            updateObject?.setValue(starRating, forKey: "rate")
+            updateObject?.setValue(imageUrl, forKey: "imageUrl")
             
             do {
                 try context.save()
             } catch {
                 print(error.localizedDescription)
             }
+        } else {
+            let entity = NSEntityDescription.entity(forEntityName: "BookReport", in: context)
+            
+            if let entity = entity, let bookTitle = bookData?.title {
+                let bookreport = NSManagedObject(entity: entity, insertInto: context)
+                
+                bookreport.setValue(isbn, forKey: "isbn")
+                bookreport.setValue(bookTitle, forKey: "title")
+                bookreport.setValue(starRating, forKey: "rate")
+                bookreport.setValue(imageUrl, forKey: "imageUrl")
+                
+                do {
+                    try context.save()
+                } catch {
+                    print(error.localizedDescription)
+                }
+            }
         }
     }
+    
     
     @objc private func touchUpEtcButton() {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
