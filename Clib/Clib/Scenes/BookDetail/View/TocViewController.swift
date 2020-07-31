@@ -29,6 +29,7 @@ class TocViewController: UIViewController, WKUIDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        navigationController?.navigationBar.isHidden = false
         webView.uiDelegate = self
         navigationItem.title = "목차"
         setupLayout()

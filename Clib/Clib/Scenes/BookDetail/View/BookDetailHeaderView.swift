@@ -10,6 +10,9 @@ import UIKit
 
 class BookDetailHeaderView: UIView {
 
+    var rating: Float?
+    var ratingCallback: ((Float)->())?
+    
     private let imageManager: ImageManagerProtocol = ImageManager()
     
     private let coverImageView: UIImageView = {
@@ -70,7 +73,7 @@ class BookDetailHeaderView: UIView {
         return stackView
     }()
     
-    private let starRatingView: UIView = {
+    private let starRatingView: StarRatingView = {
         let starRatingView = StarRatingView(color: .yellow, isEnabled: true)
         starRatingView.translatesAutoresizingMaskIntoConstraints = false
         return starRatingView
@@ -87,6 +90,9 @@ class BookDetailHeaderView: UIView {
     }
     
     private func setupLayout() {
+        starRatingView.rating = rating ?? 0.0
+        starRatingView.ratingCallback = ratingCallback
+        
         stackView.addArrangedSubview(categoryLabel)
         stackView.addArrangedSubview(titleLabel)
         stackView.addArrangedSubview(authorLabel)

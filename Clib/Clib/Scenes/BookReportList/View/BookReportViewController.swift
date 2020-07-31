@@ -14,6 +14,7 @@ class BookReportViewController: UIViewController {
     var bookReport: BookReport?
     var bookData: Book?
     var row: Int?
+    private var starRating: Float = 0.0
     
     private let bookDetailService: BookServiceProtocol = BookService()
     
@@ -32,6 +33,15 @@ class BookReportViewController: UIViewController {
         button.setTitleColor(.black, for: .normal)
         return button
     }()
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        // 별점 저장
+        if starRating != 0.0 {
+            saveStarRating(starRating)
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,6 +80,8 @@ class BookReportViewController: UIViewController {
     }
     
     private func setupLayout() {
+        starRating = bookReport?.rate ?? 0.0
+        
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: etcButton)
         
         etcButton.addTarget(self,
@@ -91,7 +103,34 @@ class BookReportViewController: UIViewController {
             equalTo: view.safeAreaLayoutGuide.bottomAnchor)
             .isActive = true
     }
-
+    
+    private func saveStarRating(_ score: Float) {
+        guard let isbn = bookReport?.isbn, let imageUrl = bookReport?.imageUrl else {
+            return
+        }
+        
+        // core data에 저장
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        
+        let entity = NSEntityDescription.entity(forEntityName: "BookReport", in: context)
+        
+        if let entity = entity, let bookTitle = bookData?.title {
+            let bookreport = NSManagedObject(entity: entity, insertInto: context)
+            
+            bookreport.setValue(isbn, forKey: "isbn")
+            bookreport.setValue(bookTitle, forKey: "title")
+            bookreport.setValue(starRating, forKey: "rate")
+            bookreport.setValue(imageUrl, forKey: "imageUrl")
+            
+            do {
+                try context.save()
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
     @objc private func touchUpEtcButton() {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
@@ -149,6 +188,10 @@ extension BookReportViewController: UITableViewDelegate {
         guard let bookData = bookData else { return UIView() }
         
         let header = BookDetailHeaderView()
+        header.rating = starRating
+        header.ratingCallback = { [weak self] score in
+            self?.starRating = score
+        }
         header.configure(book: bookData)
         return header
     }
@@ -158,6 +201,9 @@ extension BookReportViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if bookReport?.contents == nil {
+            return 85 + "아직 작성된 독후감이 없습니다.\n독후감을 작성해보세요 :)".fetchEstimateCGRectWith(fontSize: 15, width: view.frame.width - 40).height
+        }
         guard let contentsHeight = bookReport?.contents?.fetchEstimateCGRectWith(fontSize: 15, width: view.frame.width - 40).height else { return 0 }
         let height: CGFloat = 85 + contentsHeight
         return height

@@ -7,12 +7,14 @@
 //
 
 import UIKit
+import CoreData
 
 class BookDetailViewController: UIViewController {
 
     private let bookDetailService: BookServiceProtocol = BookService()
     var bookData: Book?
     var isbn: String?
+    private var starRating: Float = 0.0
     
     private let sectionTitles = ["줄거리", "리뷰"]
     
@@ -50,14 +52,51 @@ class BookDetailViewController: UIViewController {
         tabBarController?.tabBar.isHidden = true
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        // 별점 저장
+        if starRating != 0.0 {
+            saveStarRating(starRating)
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        tabBarController?.tabBar.isHidden = true
 
         setupTableView()
+        fetchMyStarRating()
         requestBookDetailData()
         setupLayout()
+    }
+    
+    private func fetchMyStarRating() {
+//
+//        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+//        let context = appDelegate.persistentContainer.viewContext
+//
+//        do {
+//            let bookReportEntity = try context.fetch(BookReportEntity.fetchRequest()) as! [BookReportEntity]
+//
+//            let object = bookReportEntity
+//
+//            object.setValue(isbn, forKey: "isbn")
+//            object.setValue(bookReport?.title, forKey: "title")
+//            object.setValue(bookReportContents, forKey: "contents")
+//            object.setValue(imageUrl, forKey: "imageUrl")
+//
+//            do {
+//                try context.save()
+//            } catch {
+//                return
+//            }
+//
+//        } catch {
+//            print(error.localizedDescription)
+//        }
+//
+//        bookReport?.contents = bookReportTextView.text
+//        callBack?(bookReport!)
     }
     
     private func setupTableView() {
@@ -137,6 +176,33 @@ class BookDetailViewController: UIViewController {
         }
     }
     
+    private func saveStarRating(_ score: Float) {
+        guard let isbn = isbn, let imageUrl = bookData?.cover else {
+            return
+        }
+        
+        // core data에 저장
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        
+        let entity = NSEntityDescription.entity(forEntityName: "BookReport", in: context)
+        
+        if let entity = entity, let bookTitle = bookData?.title {
+            let bookreport = NSManagedObject(entity: entity, insertInto: context)
+            
+            bookreport.setValue(isbn, forKey: "isbn")
+            bookreport.setValue(bookTitle, forKey: "title")
+            bookreport.setValue(starRating, forKey: "rate")
+            bookreport.setValue(imageUrl, forKey: "imageUrl")
+            
+            do {
+                try context.save()
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
     @objc private func touchUpBackButton() {
         navigationController?.popViewController(animated: true)
     }
@@ -162,6 +228,10 @@ extension BookDetailViewController: UITableViewDelegate {
             guard let bookData = bookData else { return UIView() }
             
             let header = BookDetailHeaderView()
+            header.rating = starRating
+            header.ratingCallback = { [weak self] score in
+                self?.starRating = score
+            }
             header.configure(book: bookData)
             return header
         case 2, 3:

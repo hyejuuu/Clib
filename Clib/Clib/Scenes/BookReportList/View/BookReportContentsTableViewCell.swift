@@ -63,6 +63,9 @@ class BookReportContentsTableViewCell: UITableViewCell {
     }
     
     func configure(contents: String?) {
-        contentsLabel.text = contents
+        if contents == nil {
+            contentsLabel.textColor = .gray
+        }
+        contentsLabel.text = contents ?? "아직 작성된 독후감이 없습니다.\n독후감을 작성해보세요 :)"
     }
 }
