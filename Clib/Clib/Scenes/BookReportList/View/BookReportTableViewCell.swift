@@ -28,6 +28,25 @@ class BookReportTableViewCell: UITableViewCell {
         return label
     }()
     
+    private let starRateButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(UIImage(named: "iconStarYellow"), for: .normal)
+        button.setTitleColor(.gray, for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 14)
+        button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -10, bottom: 0, right: 0)
+        return button
+    }()
+    
+    private let contentsStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.spacing = 5
+        stackView.alignment = .leading
+        return stackView
+    }()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -41,17 +60,44 @@ class BookReportTableViewCell: UITableViewCell {
     private func setupLayout() {
         selectionStyle = .none
         
+        contentsStackView.addArrangedSubview(titleLabel)
+        contentsStackView.addArrangedSubview(starRateButton)
+        
         contentView.addSubview(coverImageView)
-        contentView.addSubview(titleLabel)
+        contentView.addSubview(contentsStackView)
         
-        coverImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
-        coverImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20).isActive = true
-        coverImageView.widthAnchor.constraint(equalToConstant: 50).isActive = true
-        coverImageView.heightAnchor.constraint(equalTo: coverImageView.widthAnchor, multiplier: 1.3).isActive = true
+        coverImageView.centerYAnchor.constraint(
+            equalTo: contentView.centerYAnchor)
+            .isActive = true
+        coverImageView.leadingAnchor.constraint(
+            equalTo: contentView.leadingAnchor,
+            constant: 20)
+            .isActive = true
+        coverImageView.widthAnchor.constraint(
+            equalToConstant: 50)
+            .isActive = true
+        coverImageView.heightAnchor.constraint(
+            equalTo: coverImageView.widthAnchor,
+            multiplier: 1.3)
+            .isActive = true
         
-        titleLabel.centerYAnchor.constraint(equalTo: coverImageView.centerYAnchor).isActive = true
-        titleLabel.leadingAnchor.constraint(equalTo: coverImageView.trailingAnchor, constant: 15).isActive = true
-        titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20).isActive = true
+        contentsStackView.topAnchor.constraint(
+            equalTo: coverImageView.topAnchor,
+            constant: 5)
+            .isActive = true
+        contentsStackView.bottomAnchor.constraint(
+            lessThanOrEqualTo: coverImageView.bottomAnchor,
+            constant: -5)
+            .isActive = true
+        contentsStackView.leadingAnchor.constraint(
+            equalTo: coverImageView.trailingAnchor,
+            constant: 15)
+            .isActive = true
+        contentsStackView.trailingAnchor.constraint(
+            equalTo: contentView.trailingAnchor,
+            constant: -20)
+            .isActive = true
+        
     }
     
     private func setImage(urlString: String) {
@@ -70,8 +116,10 @@ class BookReportTableViewCell: UITableViewCell {
     
     func configure(_ bookReport: BookReport) {
         guard let title = bookReport.title,
-            let imageUrl = bookReport.imageUrl else { return }
+            let imageUrl = bookReport.imageUrl,
+            let rate = bookReport.rate else { return }
         titleLabel.text = title
         setImage(urlString: imageUrl)
+        starRateButton.setTitle(String(rate), for: .normal)
     }
 }
