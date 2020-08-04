@@ -14,4 +14,5 @@ protocol BookServiceProtocol {
     func fetchSearchedBookList(searchString: String,
                                completion: @escaping (Result<BookList, Error>) -> Void)
     func fetchBookData(isbn: String, completion: @escaping (Result<Book, Error>) -> Void)
+    func fetchBookDataWithBigImage(isbn: String, completion: @escaping (Result<Book, Error>) -> Void)
 }

@@ -109,6 +109,40 @@ class BookService: BookServiceProtocol {
         }
     }
     
+    func fetchBookDataWithBigImage(isbn: String,
+                                   completion: @escaping (Result<Book, Error>) -> Void) {
+        guard let url = "http://aladin.co.kr/ttb/api/ItemLookUp.aspx?ttbkey=ttbhhhuul0980981654002&itemIdType=ISBN13&ItemId=\(isbn)&output=js&Version=20131101&Cover=Big&OptResult=Toc,Story,fulldescription".getCleanedURL() else {
+            completion(.failure(NSError(domain: "unknown", code: 0, userInfo: nil)))
+            return
+        }
+        
+        let request = URLRequest(url: url)
+        
+        network.dispatch(request: request) { (data, response, error) in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            guard let data = data else {
+                completion(.failure(NSError(domain: "unknown", code: 0, userInfo: nil)))
+                return
+            }
+            
+            guard let bookList = try? JSONDecoder().decode(BookList.self, from: data) else {
+                completion(.failure(NSError(domain: "decodingFailure", code: 0, userInfo: nil)))
+                return
+            }
+            
+            guard let bookData = bookList.item.first else {
+                completion(.failure(NSError(domain: "unknown", code: 0, userInfo: nil)))
+                return
+            }
+            
+            completion(.success(bookData))
+        }
+    }
+    
     func fetchBookData(isbn: String,
                        completion: @escaping (Result<Book, Error>) -> Void) {
         guard let url = "http://aladin.co.kr/ttb/api/ItemLookUp.aspx?ttbkey=ttbhhhuul0980981654002&itemIdType=ISBN13&ItemId=\(isbn)&output=js&Version=20131101&Cover=MidBig&OptResult=Toc,Story,fulldescription".getCleanedURL() else {

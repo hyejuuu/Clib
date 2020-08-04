@@ -226,6 +226,12 @@ extension BookReportViewController: UITableViewDelegate {
         
         let header = BookDetailHeaderView()
         header.rating = starRating
+        header.gestureCallBack = { [weak self] in
+            let imageDetailViewController = ImageDetailViewController()
+            imageDetailViewController.isbn = self?.bookData?.isbn13
+            imageDetailViewController.modalPresentationStyle = .fullScreen
+            self?.present(imageDetailViewController, animated: true)
+        }
         header.ratingCallback = { [weak self] score in
             self?.starRating = score
         }

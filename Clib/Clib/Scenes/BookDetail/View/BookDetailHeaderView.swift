@@ -23,7 +23,10 @@ class BookDetailHeaderView: UIView {
         }
     }
     
+    var gestureCallBack: (()->())?
+    
     private let imageManager: ImageManagerProtocol = ImageManager()
+    private let imageViewTapGesture = UITapGestureRecognizer()
     
     private let coverImageView: UIImageView = {
         let imageView = UIImageView()
@@ -31,6 +34,7 @@ class BookDetailHeaderView: UIView {
         imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 5
         imageView.clipsToBounds = true
+        imageView.isUserInteractionEnabled = true
         return imageView
     }()
     
@@ -92,6 +96,7 @@ class BookDetailHeaderView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        imageViewTapGesture.delegate = self
         setupLayout()
     }
     
@@ -100,6 +105,8 @@ class BookDetailHeaderView: UIView {
     }
     
     private func setupLayout() {
+        coverImageView.addGestureRecognizer(imageViewTapGesture)
+        
         stackView.addArrangedSubview(categoryLabel)
         stackView.addArrangedSubview(titleLabel)
         stackView.addArrangedSubview(authorLabel)
@@ -183,5 +190,12 @@ class BookDetailHeaderView: UIView {
         let categoryComponents = book.categoryName.components(separatedBy: ">")
         categoryLabel.text = categoryComponents.count != 1 ? categoryComponents[1] : categoryComponents[0]
         setImage(urlString: book.cover)
+    }
+}
+
+extension BookDetailHeaderView: UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        gestureCallBack?()
+        return false
     }
 }

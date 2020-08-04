@@ -156,6 +156,12 @@ extension PhraseViewController: UITableViewDelegate {
         guard let bookData = bookData else { return UIView() }
         
         let header = BookDetailHeaderView()
+        header.gestureCallBack = { [weak self] in
+            let imageDetailViewController = ImageDetailViewController()
+            imageDetailViewController.isbn = self?.bookData?.isbn13
+            imageDetailViewController.modalPresentationStyle = .fullScreen
+            self?.present(imageDetailViewController, animated: true)
+        }
         header.configure(book: bookData)
         return header
     }

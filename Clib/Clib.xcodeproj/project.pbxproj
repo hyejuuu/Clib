@@ -24,6 +24,7 @@
 		D11456F424B9BBE10068851F /* NickNameSignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D11456F324B9BBE10068851F /* NickNameSignUpViewController.swift */; };
 		D12FC1E724D7F1CB00482FE0 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D12FC1E624D7F1CB00482FE0 /* MyPageViewController.swift */; };
 		D12FC1E924D7F38200482FE0 /* SavedBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D12FC1E824D7F38200482FE0 /* SavedBookViewController.swift */; };
+		D13CFD0024D967A900A473A5 /* ImageDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D13CFCFF24D967A900A473A5 /* ImageDetailViewController.swift */; };
 		D140B84724D962E200429E82 /* TotalBookCountHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D140B84624D962E200429E82 /* TotalBookCountHeaderView.swift */; };
 		D15FDE2324839AE000512969 /* LoginMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D15FDE2224839AE000512969 /* LoginMenuViewController.swift */; };
 		D15FDE2524839D5100512969 /* DirectLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D15FDE2424839D5100512969 /* DirectLoginViewController.swift */; };
@@ -109,6 +110,7 @@
 		D11456F324B9BBE10068851F /* NickNameSignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NickNameSignUpViewController.swift; sourceTree = "<group>"; };
 		D12FC1E624D7F1CB00482FE0 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		D12FC1E824D7F38200482FE0 /* SavedBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedBookViewController.swift; sourceTree = "<group>"; };
+		D13CFCFF24D967A900A473A5 /* ImageDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDetailViewController.swift; sourceTree = "<group>"; };
 		D140B84624D962E200429E82 /* TotalBookCountHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalBookCountHeaderView.swift; sourceTree = "<group>"; };
 		D15FDE2224839AE000512969 /* LoginMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginMenuViewController.swift; sourceTree = "<group>"; };
 		D15FDE2424839D5100512969 /* DirectLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectLoginViewController.swift; sourceTree = "<group>"; };
@@ -480,6 +482,7 @@
 				D15FDE2C248564CD00512969 /* DetailContentsTableViewCell.swift */,
 				D15FDE30248699BE00512969 /* TocViewController.swift */,
 				D11456EF24B9B0BC0068851F /* AladinDetailViewController.swift */,
+				D13CFCFF24D967A900A473A5 /* ImageDetailViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -800,11 +803,12 @@
 				D1D100BD247C210E00E18A24 /* Network.swift in Sources */,
 				D1D100B6247C0F8400E18A24 /* MainSectionHeaderView.swift in Sources */,
 				D15FDE2F248566C800512969 /* String+.swift in Sources */,
+				D13CFD0024D967A900A473A5 /* ImageDetailViewController.swift in Sources */,
 				D17A1D5424C89F1700D6BDBA /* BookReportTableViewCell.swift in Sources */,
 				D1F31C1E24811A600025525C /* TabBarViewController.swift in Sources */,
 				D11456E924A34ACF0068851F /* SeeMoreBooksViewController.swift in Sources */,
 				D1F31C262482B40C0025525C /* WriteBookReportViewController.swift in Sources */,
-				D1F31C262482B40C0025525C /* BookReportViewController.swift in Sources */,
+				D1F31C262482B40C0025525C /* WriteBookReportViewController.swift in Sources */,
 				D15FDE2B2484064200512969 /* BottomButtonItemsView.swift in Sources */,
 				D1B5DE15247BBD9C00EFD62E /* SceneDelegate.swift in Sources */,
 				D11456F024B9B0BC0068851F /* AladinDetailViewController.swift in Sources */,
