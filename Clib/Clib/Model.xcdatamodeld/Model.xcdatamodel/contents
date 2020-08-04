@@ -7,6 +7,9 @@
         <attribute name="rate" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="title" optional="YES" attributeType="String"/>
     </entity>
+    <entity name="BooksToRead" representedClassName="BooksToReadEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="isbn" optional="YES" attributeType="String"/>
+    </entity>
     <entity name="Phrase" representedClassName="PhraseEntity" syncable="YES" codeGenerationType="class">
         <attribute name="contents" optional="YES" attributeType="String"/>
         <attribute name="imageUrl" optional="YES" attributeType="String"/>
@@ -16,5 +19,6 @@
     <elements>
         <element name="BookReport" positionX="-63" positionY="-18" width="128" height="118"/>
         <element name="Phrase" positionX="-54" positionY="9" width="128" height="103"/>
+        <element name="BooksToRead" positionX="-54" positionY="27" width="128" height="58"/>
     </elements>
 </model>

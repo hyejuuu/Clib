@@ -7,9 +7,11 @@
 //
 
 import UIKit
+import CoreData
 
 class ButtonsTableViewCell: UITableViewCell {
     
+    var bookMarkCallBack: ((Bool)->())?
     var writeCallBack: (()->())?
     var isbn: String?
     var itemId: String?
@@ -31,7 +33,6 @@ class ButtonsTableViewCell: UITableViewCell {
     private let bookMarkButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("책 저장", for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.layer.cornerRadius = 8
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
@@ -149,7 +150,13 @@ class ButtonsTableViewCell: UITableViewCell {
     }
     
     @objc private func touchUpBookMarkButton() {
-        
+        if bookMarkButton.titleLabel?.text == "목록에 저장" {
+            bookMarkCallBack?(true)
+            bookMarkButton.setTitle("목록에서 삭제", for: .normal)
+        } else {
+            bookMarkCallBack?(false)
+            bookMarkButton.setTitle("목록에 저장", for: .normal)
+        }
     }
     
     @objc private func touchUpWriteButton() {
@@ -162,5 +169,13 @@ class ButtonsTableViewCell: UITableViewCell {
            UIApplication.shared.canOpenURL(url) else { return }
 
         UIApplication.shared.open(url, options: [:], completionHandler: nil)
+    }
+    
+    func configure(_ isSave: Bool) {
+        if isSave {
+            bookMarkButton.setTitle("목록에서 삭제", for: .normal)
+        } else {
+            bookMarkButton.setTitle("목록에 저장", for: .normal)
+        }
     }
 }

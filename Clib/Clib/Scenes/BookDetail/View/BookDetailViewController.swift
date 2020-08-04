@@ -209,6 +209,21 @@ class BookDetailViewController: UIViewController {
         }
     }
     
+    private func isOnMyList() -> Bool {
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        guard let context = appDelegate?.persistentContainer.viewContext else { return false }
+        
+        do {
+            let booksToReadEntity = try context.fetch(BooksToReadEntity.fetchRequest()) as? [BooksToReadEntity]
+            
+            return booksToReadEntity?.map { $0.isbn }.contains(isbn) ?? false
+            
+        } catch {
+            print(error.localizedDescription)
+        }
+        return false
+    }
+    
     @objc private func touchUpBackButton() {
         navigationController?.popViewController(animated: true)
     }
@@ -307,6 +322,8 @@ extension BookDetailViewController: UITableViewDataSource {
                 return UITableViewCell()
             }
 
+            cell.configure(isOnMyList())
+            
             cell.writeCallBack = { [weak self] in
 
                 let alertController = UIAlertController(title: "작성하고자 하는 유형을 선택해주세요", message: nil, preferredStyle: .actionSheet)
@@ -336,6 +353,50 @@ extension BookDetailViewController: UITableViewDataSource {
                 alertController.addAction(cancelAction)
                 
                 self?.present(alertController, animated: true)
+            }
+            
+            cell.bookMarkCallBack = { [weak self] isSave in
+
+                if isSave {
+                    let appDelegate = UIApplication.shared.delegate as? AppDelegate
+                    guard let context = appDelegate?.persistentContainer.viewContext else { return }
+                
+                    let entity = NSEntityDescription.entity(forEntityName: "BooksToRead", in: context)
+                
+                    if let entity = entity {
+                        let bookreport = NSManagedObject(entity: entity, insertInto: context)
+                        
+                        bookreport.setValue(self?.isbn, forKey: "isbn")
+                        
+                        do {
+                            try context.save()
+                        } catch {
+                            print(error.localizedDescription)
+                        }
+                    }
+                } else {
+                    let appDelegate = UIApplication.shared.delegate as? AppDelegate
+                    guard let context = appDelegate?.persistentContainer.viewContext else { return }
+                
+                    do {
+                        let booksToReadEntity = try context.fetch(BooksToReadEntity.fetchRequest()) as? [BooksToReadEntity]
+                        
+                        let result = booksToReadEntity?.filter { $0.isbn == self?.isbn }
+                        
+                        guard let object = result?.first else { return }
+                        
+                        context.delete(object)
+                        
+                        do {
+                            try context.save()
+                        } catch {
+                            return
+                        }
+                        
+                    } catch {
+                        print(error.localizedDescription)
+                    }
+                }
             }
             
             cell.itemId = String(itemId)

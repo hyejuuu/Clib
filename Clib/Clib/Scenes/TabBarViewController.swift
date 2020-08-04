@@ -78,10 +78,19 @@ class TabBarViewController: UITabBarController {
         let phraseNavigationController
             = UINavigationController(rootViewController: phraseListViewController)
         
+        let myPageListViewController = MyPageViewController()
+        phraseListViewController.tabBarItem = UITabBarItem(title: "마이페이지",
+                                                     image: UIImage(),
+                                                     tag: 0)
+        
+        let myPageNavigationController
+            = UINavigationController(rootViewController: myPageListViewController)
+        
         
         let viewControllers = [mainNavigationController,
                                bookReportNavigationController,
-                               phraseNavigationController]
+                               phraseNavigationController,
+                               myPageNavigationController]
         
         setViewControllers(viewControllers, animated: false)
         
