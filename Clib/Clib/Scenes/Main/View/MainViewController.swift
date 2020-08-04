@@ -179,6 +179,32 @@ extension MainViewController: UITableViewDelegate {
             return 230
         }
     }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        if tableView == searchTableView {
+            return UIView()
+        }
+        
+        switch section {
+        case tableView.numberOfSections - 1:
+            return AladinFooterView()
+        default:
+            return UIView()
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        if tableView == searchTableView {
+            return 0
+        }
+        
+        switch section {
+        case tableView.numberOfSections - 1:
+            return 50
+        default:
+            return 0
+        }
+    }
 }
 
 extension MainViewController: UITableViewDataSource {
