@@ -105,6 +105,16 @@ extension BookReportListViewController: UITableViewDelegate {
         bookReportViewController.row = indexPath.row
         navigationController?.pushViewController(bookReportViewController, animated: true)
     }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let header = TotalBookCountHeaderView()
+        header.configure(count: bookReports.count)
+        return header
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 60
+    }
 }
 
 extension BookReportListViewController: UITableViewDataSource {
