@@ -110,6 +110,7 @@ class BookDetailViewController: UIViewController {
         view.addSubview(detailTableView)
         view.addSubview(backButton)
         view.addSubview(shareButton)
+        shareButton.addTarget(self, action: #selector(touchUpShareButton), for: .touchUpInside)
         backButton.addTarget(self, action: #selector(touchUpBackButton), for: .touchUpInside)
         
         backButton.topAnchor.constraint(
@@ -222,6 +223,18 @@ class BookDetailViewController: UIViewController {
             print(error.localizedDescription)
         }
         return false
+    }
+    
+    @objc private func touchUpShareButton() {
+        guard let text = bookData?.link else {
+            return
+        }
+        
+        let activityVC = UIActivityViewController(activityItems: [text], applicationActivities: nil)
+        
+        activityVC.excludedActivityTypes = [ UIActivity.ActivityType.airDrop ]
+        
+        present(activityVC, animated: true)
     }
     
     @objc private func touchUpBackButton() {
