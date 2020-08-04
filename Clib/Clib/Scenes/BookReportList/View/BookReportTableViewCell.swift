@@ -38,6 +38,14 @@ class BookReportTableViewCell: UITableViewCell {
         return button
     }()
     
+    private let editDateLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .systemFont(ofSize: 14)
+        label.textColor = .gray
+        return label
+    }()
+    
     private let contentsStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -62,6 +70,7 @@ class BookReportTableViewCell: UITableViewCell {
         
         contentsStackView.addArrangedSubview(titleLabel)
         contentsStackView.addArrangedSubview(starRateButton)
+        contentsStackView.addArrangedSubview(editDateLabel)
         
         contentView.addSubview(coverImageView)
         contentView.addSubview(contentsStackView)
@@ -74,7 +83,7 @@ class BookReportTableViewCell: UITableViewCell {
             constant: 20)
             .isActive = true
         coverImageView.widthAnchor.constraint(
-            equalToConstant: 50)
+            equalToConstant: 60)
             .isActive = true
         coverImageView.heightAnchor.constraint(
             equalTo: coverImageView.widthAnchor,
@@ -117,9 +126,15 @@ class BookReportTableViewCell: UITableViewCell {
     func configure(_ bookReport: BookReport) {
         guard let title = bookReport.title,
             let imageUrl = bookReport.imageUrl,
-            let rate = bookReport.rate else { return }
+            let rate = bookReport.rate,
+            let date = bookReport.editDate else { return }
         titleLabel.text = title
         setImage(urlString: imageUrl)
         starRateButton.setTitle(String(rate), for: .normal)
+
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy.MM.dd"
+
+        editDateLabel.text = dateFormatter.string(from: date)
     }
 }

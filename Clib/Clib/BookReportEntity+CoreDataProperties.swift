@@ -17,9 +17,10 @@ extension BookReportEntity {
     }
 
     @NSManaged public var contents: String?
-    @NSManaged public var isbn: String?
+    @NSManaged public var itemId: String?
     @NSManaged public var title: String?
     @NSManaged public var rate: Float?
     @NSManaged public var imageUrl: String?
+    @NSManaged public var editDate: Date?
 
 }

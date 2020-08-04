@@ -89,7 +89,11 @@ class EditingBookReportViewController: UIViewController {
     }
     
     @objc private func touchUpCompleteButton() {
-        guard let isbn = bookReport?.isbn, let imageUrl = bookReport?.imageUrl else {
+        guard bookReport?.contents != bookReportTextView.text else {
+            return
+        }
+        
+        guard let itemId = bookReport?.itemId, let imageUrl = bookReport?.imageUrl else {
             return
         }
         
@@ -104,10 +108,11 @@ class EditingBookReportViewController: UIViewController {
 
                 let object = bookReportEntity[row]
                 
-                object.setValue(isbn, forKey: "isbn")
+                object.setValue(itemId, forKey: "itemId")
                 object.setValue(bookReport?.title, forKey: "title")
                 object.setValue(bookReportContents, forKey: "contents")
                 object.setValue(imageUrl, forKey: "imageUrl")
+                object.setValue(Date(), forKey: "editDate")
             
                 do {
                     try context.save()

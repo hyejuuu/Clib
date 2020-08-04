@@ -43,7 +43,7 @@ class PhraseListViewController: UIViewController {
             let phrase = try context.fetch(PhraseEntity.fetchRequest()) as! [PhraseEntity]
             
             phrase.forEach {
-                phrases.append(Phrase(isbn: $0.isbn,
+                phrases.append(Phrase(itemId: $0.itemId,
                                       page: $0.page,
                                       contents: $0.contents,
                                       imageUrl: $0.imageUrl))

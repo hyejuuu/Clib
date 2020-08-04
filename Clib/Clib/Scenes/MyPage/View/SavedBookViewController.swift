@@ -9,7 +9,7 @@
 import UIKit
 
 struct BooksToRead {
-    let isbn: String?
+    let itemId: String?
 }
 
 class SavedBookViewController: UIViewController {
@@ -30,7 +30,7 @@ class SavedBookViewController: UIViewController {
         navigationController?.navigationBar.isHidden = false
         tabBarController?.tabBar.isHidden = true
         
-        fetchSavedBookData(fetchSavedBookIsbn())
+        fetchSavedBookData(fetchSavedBookItemId())
     }
     
     override func viewDidLoad() {
@@ -40,7 +40,7 @@ class SavedBookViewController: UIViewController {
         setupLayout()
     }
     
-    private func fetchSavedBookIsbn() -> [String]? {
+    private func fetchSavedBookItemId() -> [String]? {
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         guard let context = appDelegate?.persistentContainer.viewContext else {
             return nil
@@ -49,7 +49,7 @@ class SavedBookViewController: UIViewController {
         do {
             let booksToReadEntity = try context.fetch(BooksToReadEntity.fetchRequest()) as? [BooksToReadEntity]
 
-            return booksToReadEntity?.map { ($0.isbn ?? "") }
+            return booksToReadEntity?.map { ($0.itemId ?? "") }
 
         } catch {
             print(error.localizedDescription)
@@ -58,13 +58,13 @@ class SavedBookViewController: UIViewController {
         return nil
     }
     
-    private func fetchSavedBookData(_ isbns: [String]?) {
-        guard let isbns = isbns else { return }
+    private func fetchSavedBookData(_ itemIds: [String]?) {
+        guard let itemIds = itemIds else { return }
         
         savedBooks = []
         
-        isbns.map {
-            bookDetailService.fetchBookData(isbn: $0) { [weak self] result in
+        itemIds.map {
+            bookDetailService.fetchBookData(itemId: $0) { [weak self] result in
                 switch result {
                 case .failure(let error):
                     print(error)
@@ -103,7 +103,7 @@ class SavedBookViewController: UIViewController {
 extension SavedBookViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let bookDetailViewController = BookDetailViewController()
-        bookDetailViewController.isbn = savedBooks[indexPath.row].isbn13
+        bookDetailViewController.itemId = String(savedBooks[indexPath.row].itemId)
         navigationController?.pushViewController(bookDetailViewController, animated: true)
     }
 }

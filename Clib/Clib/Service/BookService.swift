@@ -109,9 +109,9 @@ class BookService: BookServiceProtocol {
         }
     }
     
-    func fetchBookDataWithBigImage(isbn: String,
+    func fetchBookDataWithBigImage(itemId: String,
                                    completion: @escaping (Result<Book, Error>) -> Void) {
-        guard let url = "http://aladin.co.kr/ttb/api/ItemLookUp.aspx?ttbkey=ttbhhhuul0980981654002&itemIdType=ISBN13&ItemId=\(isbn)&output=js&Version=20131101&Cover=Big&OptResult=Toc,Story,fulldescription".getCleanedURL() else {
+        guard let url = "http://aladin.co.kr/ttb/api/ItemLookUp.aspx?ttbkey=ttbhhhuul0980981654002&itemIdType=ItemId&ItemId=\(itemId)&output=js&Version=20131101&Cover=Big&OptResult=Toc,Story,fulldescription".getCleanedURL() else {
             completion(.failure(NSError(domain: "unknown", code: 0, userInfo: nil)))
             return
         }
@@ -143,9 +143,9 @@ class BookService: BookServiceProtocol {
         }
     }
     
-    func fetchBookData(isbn: String,
+    func fetchBookData(itemId: String,
                        completion: @escaping (Result<Book, Error>) -> Void) {
-        guard let url = "http://aladin.co.kr/ttb/api/ItemLookUp.aspx?ttbkey=ttbhhhuul0980981654002&itemIdType=ISBN13&ItemId=\(isbn)&output=js&Version=20131101&Cover=MidBig&OptResult=Toc,Story,fulldescription".getCleanedURL() else {
+        guard let url = "http://aladin.co.kr/ttb/api/ItemLookUp.aspx?ttbkey=ttbhhhuul0980981654002&itemIdType=ItemId&ItemId=\(itemId)&output=js&Version=20131101&Cover=MidBig&OptResult=Toc,Story,fulldescription".getCleanedURL() else {
             completion(.failure(NSError(domain: "unknown", code: 0, userInfo: nil)))
             return
         }

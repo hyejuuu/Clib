@@ -67,23 +67,12 @@ class BookDetailHeaderView: UIView {
         return label
     }()
     
-    let rateAndReviewCountLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 15, weight: .semibold)
-        label.textColor = #colorLiteral(red: 0.3921568627, green: 0.3921568627, blue: 0.3921568627, alpha: 1)
-        label.numberOfLines = 2
-        label.textAlignment = .center
-        label.text = "5.0 1,222"
-        return label
-    }()
-    
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.spacing = 5
-        stackView.distribution = .fillEqually
+        stackView.distribution = .fillProportionally
         return stackView
     }()
     
@@ -110,7 +99,6 @@ class BookDetailHeaderView: UIView {
         stackView.addArrangedSubview(categoryLabel)
         stackView.addArrangedSubview(titleLabel)
         stackView.addArrangedSubview(authorLabel)
-        stackView.addArrangedSubview(rateAndReviewCountLabel)
         
         addSubview(coverImageView)
         addSubview(stackView)
@@ -187,6 +175,7 @@ class BookDetailHeaderView: UIView {
     func configure(book: Book) {
         titleLabel.text = book.title
         authorLabel.text = book.author
+        
         let categoryComponents = book.categoryName.components(separatedBy: ">")
         categoryLabel.text = categoryComponents.count != 1 ? categoryComponents[1] : categoryComponents[0]
         setImage(urlString: book.cover)

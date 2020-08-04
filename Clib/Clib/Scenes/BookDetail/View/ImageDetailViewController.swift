@@ -10,7 +10,7 @@ import UIKit
 
 class ImageDetailViewController: UIViewController {
 
-    var isbn: String?
+    var itemId: String?
     private let bookService: BookServiceProtocol = BookService()
     private let imageManager: ImageManagerProtocol = ImageManager()
     
@@ -51,9 +51,9 @@ class ImageDetailViewController: UIViewController {
     }
     
     private func fetchCoverImage() {
-        guard let isbn = isbn else { return }
+        guard let itemId = itemId else { return }
         
-        bookService.fetchBookDataWithBigImage(isbn: isbn) { [weak self] result in
+        bookService.fetchBookDataWithBigImage(itemId: itemId) { [weak self] result in
             switch result {
             case .success(let bookData):
                 self?.setImage(urlString: bookData.cover)

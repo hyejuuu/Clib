@@ -63,7 +63,7 @@ class BookReportViewController: UIViewController {
         do {
             let bookReportEntity = try context?.fetch(BookReportEntity.fetchRequest()) as? [BookReportEntity]
 
-            let result = bookReportEntity?.filter { $0.isbn == bookReport?.isbn }
+            let result = bookReportEntity?.filter { $0.itemId == bookReport?.itemId }
             
             guard let object = result?.first else { return }
             
@@ -77,9 +77,9 @@ class BookReportViewController: UIViewController {
     }
     
     private func requestBookData() {
-        guard let isbn = bookReport?.isbn else { return }
+        guard let itemId = bookReport?.itemId else { return }
         
-        bookDetailService.fetchBookData(isbn: isbn) { [weak self] result in
+        bookDetailService.fetchBookData(itemId: itemId) { [weak self] result in
             switch result {
             case .failure(let error):
                 print(error)
@@ -128,7 +128,7 @@ class BookReportViewController: UIViewController {
     }
     
     private func saveStarRating(_ score: Float) {
-        guard let isbn = bookReport?.isbn, let imageUrl = bookData?.cover else {
+        guard let itemId = bookReport?.itemId, let imageUrl = bookData?.cover else {
             return
         }
         
@@ -137,7 +137,7 @@ class BookReportViewController: UIViewController {
         let context = appDelegate.persistentContainer.viewContext
         
         if isUpdate {
-            updateObject?.setValue(isbn, forKey: "isbn")
+            updateObject?.setValue(itemId, forKey: "itemId")
             updateObject?.setValue(bookData?.title, forKey: "title")
             updateObject?.setValue(starRating, forKey: "rate")
             updateObject?.setValue(imageUrl, forKey: "imageUrl")
@@ -153,7 +153,7 @@ class BookReportViewController: UIViewController {
             if let entity = entity, let bookTitle = bookData?.title {
                 let bookreport = NSManagedObject(entity: entity, insertInto: context)
                 
-                bookreport.setValue(isbn, forKey: "isbn")
+                bookreport.setValue(itemId, forKey: "itemId")
                 bookreport.setValue(bookTitle, forKey: "title")
                 bookreport.setValue(starRating, forKey: "rate")
                 bookreport.setValue(imageUrl, forKey: "imageUrl")
@@ -228,7 +228,7 @@ extension BookReportViewController: UITableViewDelegate {
         header.rating = starRating
         header.gestureCallBack = { [weak self] in
             let imageDetailViewController = ImageDetailViewController()
-            imageDetailViewController.isbn = self?.bookData?.isbn13
+            imageDetailViewController.itemId = String(bookData.itemId)
             imageDetailViewController.modalPresentationStyle = .fullScreen
             self?.present(imageDetailViewController, animated: true)
         }
@@ -240,7 +240,14 @@ extension BookReportViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 330
+        guard let height
+            = bookData?.title
+                .fetchEstimateCGRectWith(fontSize: 18,
+                                         width: view.frame.width - 30,
+                                         weight: .bold).height else {
+                                            return 350
+        }
+        return height + 350
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

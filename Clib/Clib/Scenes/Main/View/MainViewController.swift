@@ -148,7 +148,7 @@ extension MainViewController: UITableViewDelegate {
         guard tableView == searchTableView else { return }
         
         let bookDetailViewController = BookDetailViewController()
-        bookDetailViewController.isbn = searchedBookList[indexPath.row].isbn13
+        bookDetailViewController.itemId = String(searchedBookList[indexPath.row].itemId)
         navigationController?.pushViewController(bookDetailViewController, animated: true)
     }
     
@@ -243,7 +243,7 @@ extension MainViewController: UITableViewDataSource {
         
         cell.selectCallBack = { [weak self] bookData in
             let bookDetailViewController = BookDetailViewController()
-            bookDetailViewController.isbn = bookData.isbn13
+            bookDetailViewController.itemId = String(bookData.itemId)
             self?.navigationController?.pushViewController(bookDetailViewController, animated: true)
         }
         

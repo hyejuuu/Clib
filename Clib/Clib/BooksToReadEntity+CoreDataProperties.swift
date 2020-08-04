@@ -16,6 +16,6 @@ extension BooksToReadEntity {
         return NSFetchRequest<BooksToReadEntity>(entityName: "BooksToRead")
     }
 
-    @NSManaged public var isbn: String?
+    @NSManaged public var itemId: String?
 
 }

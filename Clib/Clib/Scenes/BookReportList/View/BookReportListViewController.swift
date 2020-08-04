@@ -9,11 +9,12 @@
 import UIKit
 
 struct BookReport {
-    var isbn: String?
+    var itemId: String?
     var title: String?
     var rate: Float?
     var contents: String?
     var imageUrl: String?
+    var editDate: Date?
 }
 
 class BookReportListViewController: UIViewController {
@@ -52,11 +53,12 @@ class BookReportListViewController: UIViewController {
             let bookReport = try context.fetch(BookReportEntity.fetchRequest()) as! [BookReportEntity]
             
             bookReport.forEach {
-                bookReports.append(BookReport(isbn: $0.isbn,
+                bookReports.append(BookReport(itemId: $0.itemId,
                                               title: $0.title,
                                               rate: $0.rate,
                                               contents: $0.contents,
-                                              imageUrl: $0.imageUrl))
+                                              imageUrl: $0.imageUrl,
+                                              editDate: $0.editDate))
             }
             
             bookReportTableView.reloadData()
@@ -96,7 +98,7 @@ class BookReportListViewController: UIViewController {
 
 extension BookReportListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 110
+        return 120
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

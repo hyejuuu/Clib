@@ -11,7 +11,7 @@ import CoreData
 
 class WriteBookReportViewController: UIViewController {
     
-    var isbn: String?
+    var itemId: String?
     var imageUrl: String?
     var bookTitle: String?
     
@@ -52,7 +52,7 @@ class WriteBookReportViewController: UIViewController {
     }
     
     private func fetchMyBookReport() {
-        guard let isbn = isbn else {
+        guard let itemId = itemId else {
             return
         }
         
@@ -63,7 +63,7 @@ class WriteBookReportViewController: UIViewController {
         do {
             let bookReportEntity = try context?.fetch(BookReportEntity.fetchRequest()) as? [BookReportEntity]
 
-            let result = bookReportEntity?.filter { $0.isbn == isbn }
+            let result = bookReportEntity?.filter { $0.itemId == itemId }
             
             guard let object = result?.first else {
                 return
@@ -127,7 +127,7 @@ class WriteBookReportViewController: UIViewController {
             return
         }
         
-        guard let isbn = isbn, let imageUrl = imageUrl else {
+        guard let itemId = itemId, let imageUrl = imageUrl else {
             return
         }
 
@@ -137,10 +137,11 @@ class WriteBookReportViewController: UIViewController {
         }
         
         if isUpdate {
-            updateObject?.setValue(isbn, forKey: "isbn")
+            updateObject?.setValue(itemId, forKey: "itemId")
             updateObject?.setValue(bookTitle, forKey: "title")
             updateObject?.setValue(bookReportTextView.text, forKey: "contents")
             updateObject?.setValue(imageUrl, forKey: "imageUrl")
+            updateObject?.setValue(Date(), forKey: "editDate")
             
             do {
                 try context.save()
@@ -154,10 +155,11 @@ class WriteBookReportViewController: UIViewController {
             if let entity = entity, let bookReportContents = bookReportTextView.text {
                 let bookreport = NSManagedObject(entity: entity, insertInto: context)
                 
-                bookreport.setValue(isbn, forKey: "isbn")
+                bookreport.setValue(itemId, forKey: "itemId")
                 bookreport.setValue(bookTitle, forKey: "title")
                 bookreport.setValue(bookReportContents, forKey: "contents")
                 bookreport.setValue(imageUrl, forKey: "imageUrl")
+                bookreport.setValue(Date(), forKey: "editDate")
                 
                 do {
                     try context.save()

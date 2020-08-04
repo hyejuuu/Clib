@@ -13,7 +13,7 @@ class BookDetailViewController: UIViewController {
 
     private let bookDetailService: BookServiceProtocol = BookService()
     var bookData: Book?
-    var isbn: String?
+    var itemId: String?
     private var starRating: Float = 0.0
     private var isUpdate: Bool = false
     private var updateObject: BookReportEntity?
@@ -79,7 +79,7 @@ class BookDetailViewController: UIViewController {
         do {
             let bookReportEntity = try context?.fetch(BookReportEntity.fetchRequest()) as? [BookReportEntity]
 
-            let result = bookReportEntity?.filter { $0.isbn == isbn }
+            let result = bookReportEntity?.filter { $0.itemId == itemId }
             
             guard let object = result?.first else { return }
             
@@ -154,8 +154,8 @@ class BookDetailViewController: UIViewController {
     }
     
     private func requestBookDetailData() {
-        guard let isbn = isbn else { return }
-        bookDetailService.fetchBookData(isbn: isbn) { [weak self] result in
+        guard let itemId = itemId else { return }
+        bookDetailService.fetchBookData(itemId: itemId) { [weak self] result in
             switch result {
             case .failure(let error):
                 print(error)
@@ -171,7 +171,7 @@ class BookDetailViewController: UIViewController {
     }
     
     private func saveStarRating(_ score: Float) {
-        guard let isbn = isbn, let imageUrl = bookData?.cover else {
+        guard let itemId = itemId, let imageUrl = bookData?.cover else {
             return
         }
         
@@ -180,7 +180,7 @@ class BookDetailViewController: UIViewController {
         let context = appDelegate.persistentContainer.viewContext
         
         if isUpdate {
-            updateObject?.setValue(isbn, forKey: "isbn")
+            updateObject?.setValue(itemId, forKey: "itemId")
             updateObject?.setValue(bookData?.title, forKey: "title")
             updateObject?.setValue(starRating, forKey: "rate")
             updateObject?.setValue(imageUrl, forKey: "imageUrl")
@@ -196,7 +196,7 @@ class BookDetailViewController: UIViewController {
             if let entity = entity, let bookTitle = bookData?.title {
                 let bookreport = NSManagedObject(entity: entity, insertInto: context)
                 
-                bookreport.setValue(isbn, forKey: "isbn")
+                bookreport.setValue(itemId, forKey: "itemId")
                 bookreport.setValue(bookTitle, forKey: "title")
                 bookreport.setValue(starRating, forKey: "rate")
                 bookreport.setValue(imageUrl, forKey: "imageUrl")
@@ -217,7 +217,7 @@ class BookDetailViewController: UIViewController {
         do {
             let booksToReadEntity = try context.fetch(BooksToReadEntity.fetchRequest()) as? [BooksToReadEntity]
             
-            return booksToReadEntity?.map { $0.isbn }.contains(isbn) ?? false
+            return booksToReadEntity?.map { $0.itemId }.contains(itemId) ?? false
             
         } catch {
             print(error.localizedDescription)
@@ -264,7 +264,7 @@ extension BookDetailViewController: UITableViewDelegate {
             let header = BookDetailHeaderView()
             header.gestureCallBack = { [weak self] in
                 let imageDetailViewController = ImageDetailViewController()
-                imageDetailViewController.isbn = self?.isbn
+                imageDetailViewController.itemId = self?.itemId
                 imageDetailViewController.modalPresentationStyle = .fullScreen
                 self?.present(imageDetailViewController, animated: true)
             }
@@ -287,7 +287,14 @@ extension BookDetailViewController: UITableViewDelegate {
                    heightForHeaderInSection section: Int) -> CGFloat {
         switch section {
         case 0:
-            return 330
+            guard let height
+                = bookData?.title
+                    .fetchEstimateCGRectWith(fontSize: 18,
+                                             width: view.frame.width - 30,
+                                             weight: .bold).height else {
+                                                return 310
+            }
+            return height + 320
         case 2, 3:
             return 50
         default:
@@ -345,19 +352,28 @@ extension BookDetailViewController: UITableViewDataSource {
             
             cell.writeCallBack = { [weak self] in
 
-                let alertController = UIAlertController(title: "작성하고자 하는 유형을 선택해주세요", message: nil, preferredStyle: .actionSheet)
+                guard let bookData = self?.bookData else {
+                    return
+                }
+                
+                let alertController
+                    = UIAlertController(title: "작성하고자 하는 유형을 선택해주세요",
+                                        message: nil,
+                                        preferredStyle: .actionSheet)
+                
                 let reviewAction = UIAlertAction(title: "명언 작성", style: .default) { [weak self] _ in
                     let phraseViewController = WritePhraseViewController()
-                    phraseViewController.isbn = self?.bookData?.isbn13
+                    phraseViewController.itemId = String(bookData.itemId)
                     phraseViewController.bookTitle = self?.bookData?.title
                     phraseViewController.imageUrl = self?.bookData?.cover
                     let phraseNavigator = UINavigationController(rootViewController: phraseViewController)
                     phraseNavigator.modalPresentationStyle = .fullScreen
                     self?.present(phraseNavigator, animated: true)
                 }
+                
                 let reportAction = UIAlertAction(title: "독후감 작성", style: .default) { [weak self] _ in
                     let bookReportViewController = WriteBookReportViewController()
-                    bookReportViewController.isbn = self?.bookData?.isbn13
+                    bookReportViewController.itemId = String(bookData.itemId)
                     bookReportViewController.bookTitle = self?.bookData?.title
                     bookReportViewController.imageUrl = self?.bookData?.cover
                     
@@ -385,7 +401,7 @@ extension BookDetailViewController: UITableViewDataSource {
                     if let entity = entity {
                         let bookreport = NSManagedObject(entity: entity, insertInto: context)
                         
-                        bookreport.setValue(self?.isbn, forKey: "isbn")
+                        bookreport.setValue(self?.itemId, forKey: "itemId")
                         
                         do {
                             try context.save()
@@ -400,7 +416,7 @@ extension BookDetailViewController: UITableViewDataSource {
                     do {
                         let booksToReadEntity = try context.fetch(BooksToReadEntity.fetchRequest()) as? [BooksToReadEntity]
                         
-                        let result = booksToReadEntity?.filter { $0.isbn == self?.isbn }
+                        let result = booksToReadEntity?.filter { $0.itemId == self?.itemId }
                         
                         guard let object = result?.first else { return }
                         
@@ -419,7 +435,6 @@ extension BookDetailViewController: UITableViewDataSource {
             }
             
             cell.itemId = String(itemId)
-            cell.isbn = isbn
             cell.selectionStyle = .none
             
             return cell

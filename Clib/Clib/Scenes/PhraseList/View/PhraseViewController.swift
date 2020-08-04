@@ -43,9 +43,9 @@ class PhraseViewController: UIViewController {
     }
     
     private func requestBookData() {
-        guard let isbn = phrase?.isbn else { return }
+        guard let itemId = phrase?.itemId else { return }
         
-        bookDetailService.fetchBookData(isbn: isbn) { [weak self] result in
+        bookDetailService.fetchBookData(itemId: itemId) { [weak self] result in
             switch result {
             case .failure(let error):
                 print(error)
@@ -158,7 +158,7 @@ extension PhraseViewController: UITableViewDelegate {
         let header = BookDetailHeaderView()
         header.gestureCallBack = { [weak self] in
             let imageDetailViewController = ImageDetailViewController()
-            imageDetailViewController.isbn = self?.bookData?.isbn13
+            imageDetailViewController.itemId = String(bookData.itemId)
             imageDetailViewController.modalPresentationStyle = .fullScreen
             self?.present(imageDetailViewController, animated: true)
         }
@@ -167,7 +167,14 @@ extension PhraseViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 330
+        guard let height
+            = bookData?.title
+                .fetchEstimateCGRectWith(fontSize: 18,
+                                         width: view.frame.width - 30,
+                                         weight: .bold).height else {
+                                            return 350
+        }
+        return height + 350
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

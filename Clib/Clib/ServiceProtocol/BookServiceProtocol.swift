@@ -13,6 +13,6 @@ protocol BookServiceProtocol {
     func fetchNewBooks(maxResult: Int?, completion: @escaping (Result<BookList, Error>) -> Void)
     func fetchSearchedBookList(searchString: String,
                                completion: @escaping (Result<BookList, Error>) -> Void)
-    func fetchBookData(isbn: String, completion: @escaping (Result<Book, Error>) -> Void)
-    func fetchBookDataWithBigImage(isbn: String, completion: @escaping (Result<Book, Error>) -> Void)
+    func fetchBookData(itemId: String, completion: @escaping (Result<Book, Error>) -> Void)
+    func fetchBookDataWithBigImage(itemId: String, completion: @escaping (Result<Book, Error>) -> Void)
 }

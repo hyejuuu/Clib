@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 
 struct Phrase {
-    var isbn: String?
+    var itemId: String?
     var page: String?
     var contents: String?
     var imageUrl: String?
@@ -19,7 +19,7 @@ struct Phrase {
 class WritePhraseViewController: UIViewController {
     
     var bookTitle: String?
-    var isbn: String?
+    var itemId: String?
     var imageUrl: String?
     var phrases: [Phrase] = []
     
@@ -119,7 +119,7 @@ class WritePhraseViewController: UIViewController {
                 if let page = $0.page, let contents = $0.contents {
                     let phrase = NSManagedObject(entity: phraseEntity, insertInto: context)
                     
-                    phrase.setValue(isbn, forKey: "isbn")
+                    phrase.setValue(itemId, forKey: "itemId")
                     phrase.setValue(page, forKey: "page")
                     phrase.setValue(contents, forKey: "contents")
                     phrase.setValue(imageUrl, forKey: "imageUrl")

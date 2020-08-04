@@ -13,7 +13,6 @@ class ButtonsTableViewCell: UITableViewCell {
     
     var bookMarkCallBack: ((Bool)->())?
     var writeCallBack: (()->())?
-    var isbn: String?
     var itemId: String?
     
     private let topLineView: UIView = {
