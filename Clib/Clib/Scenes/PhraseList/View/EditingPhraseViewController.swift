@@ -119,22 +119,29 @@ class EditingPhraseViewController: UIViewController {
     }
     
     @objc private func touchUpCompleteButton() {
-        guard let itemId = phrase?.itemId,
-            let imageUrl = phrase?.imageUrl else {
+        guard var phrase = phrase,
+            let itemId = phrase.itemId,
+            let imageUrl = phrase.imageUrl else {
             return
         }
         
         // core data에 저장
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        guard let appDelegate
+            = UIApplication.shared.delegate
+                as? AppDelegate else {
+            return
+        }
         let context = appDelegate.persistentContainer.viewContext
         
         if let page = pageTextField.text,
             let phraseContents = phraseTextView.text,
             let row = row {
             do {
-                let phraseEntity
+                guard let phraseEntity
                     = try context.fetch(PhraseEntity.fetchRequest())
-                        as! [PhraseEntity]
+                        as? [PhraseEntity] else {
+                            return
+                }
 
                 let object = phraseEntity[row]
                 
@@ -158,9 +165,9 @@ class EditingPhraseViewController: UIViewController {
             }
         }
 
-        phrase?.page = pageTextField.text
-        phrase?.contents = phraseTextView.text
-        callBack?(phrase!)
+        phrase.page = pageTextField.text
+        phrase.contents = phraseTextView.text
+        callBack?(phrase)
         dismiss(animated: true)
     }
 }

@@ -139,7 +139,11 @@ class PhraseViewController: UIViewController {
         }
         
         // core data에 저장
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        guard let appDelegate
+            = UIApplication.shared.delegate
+                as? AppDelegate else {
+            return
+        }
         let context = appDelegate.persistentContainer.viewContext
         
         if isUpdate {
@@ -209,15 +213,23 @@ class PhraseViewController: UIViewController {
         }
         let deleteAction = UIAlertAction(title: "문장 삭제",
                                          style: .default) { [weak self] _ in
-            guard let row = self?.row else { return }
+            guard let row = self?.row else {
+                return
+            }
             
-            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            guard let appDelegate
+                = UIApplication.shared.delegate
+                    as? AppDelegate else {
+                return
+            }
             let context = appDelegate.persistentContainer.viewContext
 
             do {
-                let phrase
+                guard let phrase
                     = try context.fetch(PhraseEntity.fetchRequest())
-                        as! [PhraseEntity]
+                        as? [PhraseEntity] else {
+                            return
+                }
                 
                 context.delete(phrase[row])
                 

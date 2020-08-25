@@ -381,8 +381,8 @@
 		D1B5DE11247BBD9C00EFD62E /* Clib */ = {
 			isa = PBXGroup;
 			children = (
-				D1AAF0AA24F4E2DD0074BD80 /* Extension */,
 				C90455C924A253E400E6D6CC /* Clib.entitlements */,
+				D1AAF0AA24F4E2DD0074BD80 /* Extension */,
 				D1D100BF247C213600E18A24 /* ServiceProtocol */,
 				D1D100BE247C212E00E18A24 /* Service */,
 				D1D100BB247C210600E18A24 /* Network */,

@@ -114,7 +114,11 @@ class WritePhraseViewController: UIViewController {
             return
         }
         
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        guard let appDelegate
+            = UIApplication.shared.delegate
+                as? AppDelegate else {
+            return
+        }
         let context = appDelegate.persistentContainer.viewContext
 
         let phraseEntity = NSEntityDescription.entity(forEntityName: "Phrase",

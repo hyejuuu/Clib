@@ -144,7 +144,11 @@ class BookReportViewController: UIViewController {
         }
         
         // core data에 저장
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        guard let appDelegate
+            = UIApplication.shared.delegate
+                as? AppDelegate else {
+            return
+        }
         let context = appDelegate.persistentContainer.viewContext
         
         if isUpdate {
@@ -220,13 +224,19 @@ class BookReportViewController: UIViewController {
             }
             
             // coredata에서 독후감 삭제
-            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            guard let appDelegate
+                = UIApplication.shared.delegate
+                    as? AppDelegate else {
+                return
+            }
             let context = appDelegate.persistentContainer.viewContext
 
             do {
-                let bookReport
+                guard let bookReport
                     = try context.fetch(BookReportEntity.fetchRequest())
-                        as! [BookReportEntity]
+                        as? [BookReportEntity] else {
+                            return
+                }
                 
                 context.delete(bookReport[row])
                 

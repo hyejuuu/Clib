@@ -99,27 +99,34 @@ class EditingBookReportViewController: UIViewController {
             return
         }
         
-        guard let itemId = bookReport?.itemId,
-            let imageUrl = bookReport?.imageUrl else {
+        guard var bookReport = bookReport,
+            let itemId = bookReport.itemId,
+            let imageUrl = bookReport.imageUrl else {
             return
         }
         
         // core data에 저장
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        guard let appDelegate
+            = UIApplication.shared.delegate
+                as? AppDelegate else {
+            return
+        }
         let context = appDelegate.persistentContainer.viewContext
         
         if let bookReportContents = bookReportTextView.text,
             let row = row {
             do {
-                let bookReportEntity
+                guard let bookReportEntity
                     = try context.fetch(BookReportEntity.fetchRequest())
-                        as! [BookReportEntity]
+                        as? [BookReportEntity] else {
+                            return
+                }
 
                 let object = bookReportEntity[row]
                 
                 object.setValue(itemId,
                                 forKey: "itemId")
-                object.setValue(bookReport?.title,
+                object.setValue(bookReport.title,
                                 forKey: "title")
                 object.setValue(bookReportContents,
                                 forKey: "contents")
@@ -139,8 +146,8 @@ class EditingBookReportViewController: UIViewController {
             }
         }
 
-        bookReport?.contents = bookReportTextView.text
-        callBack?(bookReport!)
+        bookReport.contents = bookReportTextView.text
+        callBack?(bookReport)
         dismiss(animated: true)
     }
 }

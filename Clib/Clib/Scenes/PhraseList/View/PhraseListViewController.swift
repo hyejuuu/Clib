@@ -36,13 +36,17 @@ class PhraseListViewController: UIViewController {
     }
     
     private func fetchPhraseData() {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return
+        }
         let context = appDelegate.persistentContainer.viewContext
 
         do {
-            let phrase
+            guard let phrase
                 = try context.fetch(PhraseEntity.fetchRequest())
-                    as! [PhraseEntity]
+                    as? [PhraseEntity] else {
+                        return
+            }
             
             phrase.forEach {
                 phrases.append(Phrase(itemId: $0.itemId,

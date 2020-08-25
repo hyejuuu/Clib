@@ -37,13 +37,19 @@ class BookReportListViewController: UIViewController {
     
     private func fetchBookReportData() {
 
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        guard let appDelegate
+            = UIApplication.shared.delegate
+                as? AppDelegate else {
+            return
+        }
         let context = appDelegate.persistentContainer.viewContext
 
         do {
-            let bookReport
+            guard let bookReport
                 = try context.fetch(BookReportEntity.fetchRequest())
-                    as! [BookReportEntity]
+                    as? [BookReportEntity] else {
+                        return
+            }
             
             bookReport.forEach {
                 bookReports.append(BookReport(itemId: $0.itemId,
