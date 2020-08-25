@@ -14,28 +14,6 @@ class TabBarViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-//        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-//        let context = appDelegate.persistentContainer.viewContext
-//
-//        let request: NSFetchRequest<NSFetchRequestResult> = PhraseEntity.fetchRequest()
-//        let delete = NSBatchDeleteRequest(fetchRequest: request)
-//
-//        do {
-//            try context.execute(delete)
-//        } catch {
-//            print(error.localizedDescription)
-//        }
-//
-//
-//        let request2: NSFetchRequest<NSFetchRequestResult> = BookReportEntity.fetchRequest()
-//        let delete2 = NSBatchDeleteRequest(fetchRequest: request2)
-//
-//        do {
-//            try context.execute(delete2)
-//        } catch {
-//            print(error.localizedDescription)
-//        }
-
         UITabBar.appearance().barTintColor = .white
         
         checkExistUser()
@@ -79,7 +57,7 @@ class TabBarViewController: UITabBarController {
             = UINavigationController(rootViewController: phraseListViewController)
         
         let myPageListViewController = MyPageViewController()
-        phraseListViewController.tabBarItem = UITabBarItem(title: "마이페이지",
+        myPageListViewController.tabBarItem = UITabBarItem(title: "마이페이지",
                                                      image: UIImage(),
                                                      tag: 0)
         

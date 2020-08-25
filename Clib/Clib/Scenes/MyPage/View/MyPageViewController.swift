@@ -72,6 +72,7 @@ extension MyPageViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         cell.textLabel?.text = "저장한 책"
+        cell.selectionStyle = .none
         return cell
     }
 }

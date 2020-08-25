@@ -50,7 +50,6 @@ class SavedBookViewController: UIViewController {
             let booksToReadEntity = try context.fetch(BooksToReadEntity.fetchRequest()) as? [BooksToReadEntity]
 
             return booksToReadEntity?.map { ($0.itemId ?? "") }
-
         } catch {
             print(error.localizedDescription)
         }
@@ -63,7 +62,12 @@ class SavedBookViewController: UIViewController {
         
         savedBooks = []
         
-        itemIds.map {
+        guard itemIds.isEmpty == false else {
+            savedBookTableView.reloadData()
+            return
+        }
+        
+        itemIds.forEach {
             bookDetailService.fetchBookData(itemId: $0) { [weak self] result in
                 switch result {
                 case .failure(let error):

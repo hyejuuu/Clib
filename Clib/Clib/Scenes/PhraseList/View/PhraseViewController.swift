@@ -218,6 +218,10 @@ extension PhraseViewController: UITableViewDelegate {
         guard let bookData = bookData else { return UIView() }
         
         let header = BookDetailHeaderView()
+        header.rating = starRating
+        header.ratingCallback = { [weak self] score in
+            self?.starRating = score
+        }
         header.gestureCallBack = { [weak self] in
             let imageDetailViewController = ImageDetailViewController()
             imageDetailViewController.itemId = String(bookData.itemId)
