@@ -26,15 +26,18 @@ struct BookList: Codable {
 struct Book: Codable {
     let title: String
     let link: String
-    let author, pubDate, description, isbn: String
+    let author, pubDate, categoryName, description, isbn, isbn13: String
     let itemId, priceStandard: Int
     let mallType: MallType
     let cover: String
     let publisher: String
     let salesPoint: Int
     let customerReviewRank: Int
+    let fullDescription: String?
     let bestRank: Int?
     let seriesInfo: SeriesInfo?
+    let story: String?
+    let subInfo: SubInfo?
 }
 
 enum MallType: String, Codable {
@@ -46,4 +49,19 @@ struct SeriesInfo: Codable {
     let seriesId: Int
     let seriesLink: String
     let seriesName: String
+}
+
+// MARK: - SubInfo
+struct SubInfo: Codable {
+    let paperBookList: [PaperBookList]?
+    let toc: String?
+    let story: String?
+}
+
+// MARK: - PaperBookList
+struct PaperBookList: Codable {
+    let itemId: Int
+    let isbn: String
+    let priceSales: Int
+    let link: String
 }

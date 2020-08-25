@@ -7,8 +7,10 @@ target 'Clib' do
 
   # Pods for Clib
 
-  pod 'RxSwift'
-  pod 'RxCocoa'
+  pod 'Firebase/Analytics'
+  pod 'Firebase/Auth'
+  pod 'CryptoKit'
+  pod 'GoogleSignIn'
 
   target 'ClibTests' do
     inherit! :search_paths

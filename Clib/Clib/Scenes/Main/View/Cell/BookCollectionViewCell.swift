@@ -15,9 +15,25 @@ class BookCollectionViewCell: UICollectionViewCell {
     private let coverImageView: UIImageView = {
         let imageview = UIImageView()
         imageview.translatesAutoresizingMaskIntoConstraints = false
-        imageview.contentMode = .scaleAspectFit
+        imageview.contentMode = .scaleAspectFill
         imageview.clipsToBounds = true
+        imageview.layer.cornerRadius = 5
         return imageview
+    }()
+    
+    private let titleLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .systemFont(ofSize: 15)
+        return label
+    }()
+    
+    private let authorLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .systemFont(ofSize: 12)
+        label.textColor = .gray
+        return label
     }()
     
     override init(frame: CGRect) {
@@ -31,14 +47,30 @@ class BookCollectionViewCell: UICollectionViewCell {
     
     private func setupLayout() {
         contentView.addSubview(coverImageView)
+        contentView.addSubview(titleLabel)
+        contentView.addSubview(authorLabel)
         
         coverImageView.widthAnchor.constraint(
             equalTo: contentView.widthAnchor)
             .isActive = true
-        coverImageView.centerXAnchor.constraint(
-            equalTo: contentView.centerXAnchor)
+        coverImageView.heightAnchor.constraint(
+            equalTo: coverImageView.widthAnchor,
+            multiplier: 1.3)
             .isActive = true
-        coverImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+        coverImageView.topAnchor.constraint(
+            equalTo: contentView.topAnchor,
+            constant: 5)
+            .isActive = true
+        titleLabel.topAnchor.constraint(
+            equalTo: coverImageView.bottomAnchor,
+            constant: 5)
+            .isActive = true
+        titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 2).isActive = true
+        titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -2).isActive = true
+        authorLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 2).isActive = true
+        authorLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 2).isActive = true
+        authorLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -2).isActive = true
+        authorLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5).isActive = true
     }
     
     func setImage(urlString: String) {
@@ -54,4 +86,9 @@ class BookCollectionViewCell: UICollectionViewCell {
         }
     }
     
+    func configure(book: Book) {
+        setImage(urlString: book.cover)
+        titleLabel.text = book.title
+        authorLabel.text = book.author
+    }
 }
