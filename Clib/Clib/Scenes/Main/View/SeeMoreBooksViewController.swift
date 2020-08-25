@@ -11,8 +11,9 @@ import UIKit
 class SeeMoreBooksViewController: UIViewController {
 
     var bookListKind: BookListKind?
-    var bookList: [Book] = []
-    let bookService: BookServiceProtocol = BookService()
+    private var bookList: [Book] = []
+    
+    private let bookService: BookServiceProtocol = BookService()
     
     private let bookListTableView: UITableView = {
         let tableView = UITableView()
@@ -64,7 +65,8 @@ class SeeMoreBooksViewController: UIViewController {
     private func setupTableView() {
         bookListTableView.delegate = self
         bookListTableView.dataSource = self
-        bookListTableView.register(BookTableViewCell.self, forCellReuseIdentifier: "bookTableViewCell")
+        bookListTableView.register(BookTableViewCell.self,
+                                   forCellReuseIdentifier: "bookTableViewCell")
     }
     
     private func setupLayout() {
@@ -89,21 +91,34 @@ class SeeMoreBooksViewController: UIViewController {
 }
 
 extension SeeMoreBooksViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    func tableView(
+        _ tableView: UITableView,
+        heightForRowAt indexPath: IndexPath
+    ) -> CGFloat {
         return 150
     }
 }
 
 extension SeeMoreBooksViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(
+        _ tableView: UITableView,
+        numberOfRowsInSection section: Int
+    ) -> Int {
         return bookList.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "bookTableViewCell") as? BookTableViewCell else {
+    func tableView(
+        _ tableView: UITableView,
+        cellForRowAt indexPath: IndexPath
+    ) -> UITableViewCell {
+        guard let cell
+            = tableView.dequeueReusableCell(withIdentifier: "bookTableViewCell")
+                as? BookTableViewCell else {
             return UITableViewCell()
         }
+        
         cell.configure(book: bookList[indexPath.row])
+        
         return cell
     }
     

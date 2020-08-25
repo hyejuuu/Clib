@@ -17,33 +17,42 @@ class BottomButtonItemsView: UIView {
     private let writeReviewButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("후기 작성", for: .normal)
         button.backgroundColor = .brown
-        button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 8
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
+        button.setTitle("후기 작성",
+                        for: .normal)
+        button.setTitleColor(.white,
+                             for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 18,
+                                              weight: .semibold)
         return button
     }()
     
     private let writeBookReportButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("독후감 작성", for: .normal)
         button.backgroundColor = .brown
-        button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 8
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
+        button.setTitle("독후감 작성",
+                        for: .normal)
+        button.setTitleColor(.white,
+                             for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 18,
+                                              weight: .semibold)
         return button
     }()
     
     private let moveToSiteButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("자세히보기", for: .normal)
         button.backgroundColor = .brown
-        button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 8
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
+        button.setTitle("자세히보기",
+                        for: .normal)
+        button.setTitleColor(.white,
+                             for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 18,
+                                              weight: .semibold)
         return button
     }()
     

@@ -32,10 +32,22 @@ class TotalBookCountHeaderView: UIView {
         
         addSubview(countLabel)
         
-        countLabel.topAnchor.constraint(equalTo: topAnchor, constant: 10).isActive = true
-        countLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10).isActive = true
-        countLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10).isActive = true
-        countLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10).isActive = true
+        countLabel.topAnchor.constraint(
+            equalTo: topAnchor,
+            constant: 10)
+            .isActive = true
+        countLabel.leadingAnchor.constraint(
+            equalTo: leadingAnchor,
+            constant: 10)
+            .isActive = true
+        countLabel.trailingAnchor.constraint(
+            equalTo: trailingAnchor,
+            constant: -10)
+            .isActive = true
+        countLabel.bottomAnchor.constraint(
+            equalTo: bottomAnchor,
+            constant: -10)
+            .isActive = true
     }
     
     func configure(count: Int) {

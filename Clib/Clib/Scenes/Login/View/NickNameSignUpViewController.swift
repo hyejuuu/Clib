@@ -12,8 +12,10 @@ class NickNameSignUpViewController: UIViewController {
     
     private let completeButton: UIButton = {
         let button = UIButton()
-        button.setTitleColor(.black, for: .normal)
-        button.setTitle("완료", for: .normal)
+        button.setTitleColor(.black,
+                             for: .normal)
+        button.setTitle("완료",
+                        for: .normal)
         return button
     }()
     
@@ -44,7 +46,8 @@ class NickNameSignUpViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: completeButton)
+        navigationItem.rightBarButtonItem
+            = UIBarButtonItem(customView: completeButton)
         setupLayout()
     }
     

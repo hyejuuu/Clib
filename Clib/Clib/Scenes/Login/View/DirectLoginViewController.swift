@@ -62,10 +62,12 @@ class DirectLoginViewController: UIViewController {
     private let loginButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("로그인", for: .normal)
+        button.setTitle("로그인",
+                        for: .normal)
         button.layer.borderColor = UIColor.gray.cgColor
         button.layer.borderWidth = 0.5
-        button.setTitleColor(.black, for: .normal)
+        button.setTitleColor(.black,
+                             for: .normal)
         button.layer.cornerRadius = 8
         return button
     }()
@@ -73,9 +75,11 @@ class DirectLoginViewController: UIViewController {
     private let signupButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("회원가입", for: .normal)
+        button.setTitle("회원가입",
+                        for: .normal)
         button.backgroundColor = .brown
-        button.setTitleColor(.white, for: .normal)
+        button.setTitleColor(.white,
+                             for: .normal)
         button.layer.cornerRadius = 8
         return button
     }()
@@ -107,8 +111,12 @@ class DirectLoginViewController: UIViewController {
     private func setupLayout() {
         view.backgroundColor = .white
         
-        loginButton.addTarget(self, action: #selector(touchUpLoginButton), for: .touchUpInside)
-        signupButton.addTarget(self, action: #selector(touchUpSignUpButton), for: .touchUpInside)
+        loginButton.addTarget(self,
+                              action: #selector(touchUpLoginButton),
+                              for: .touchUpInside)
+        signupButton.addTarget(self,
+                               action: #selector(touchUpSignUpButton),
+                               for: .touchUpInside)
         
         emailStackView.addArrangedSubview(emailTextField)
         emailStackView.addArrangedSubview(emailTextFieldUnderLine)
@@ -163,9 +171,15 @@ class DirectLoginViewController: UIViewController {
             equalTo: emailStackView.trailingAnchor)
             .isActive = true
         
-        passwordTextFieldUnderLine.heightAnchor.constraint(equalToConstant: 1).isActive = true
-        passwordTextFieldUnderLine.leadingAnchor.constraint(equalTo: passwordStackView.leadingAnchor).isActive = true
-        passwordTextFieldUnderLine.trailingAnchor.constraint(equalTo: passwordStackView.trailingAnchor).isActive = true
+        passwordTextFieldUnderLine.heightAnchor.constraint(
+            equalToConstant: 1)
+            .isActive = true
+        passwordTextFieldUnderLine.leadingAnchor.constraint(
+            equalTo: passwordStackView.leadingAnchor)
+            .isActive = true
+        passwordTextFieldUnderLine.trailingAnchor.constraint(
+            equalTo: passwordStackView.trailingAnchor)
+            .isActive = true
     }
     
     @objc private func touchUpLoginButton() {
@@ -175,17 +189,20 @@ class DirectLoginViewController: UIViewController {
             passwordText.isEmpty == false else {
             return
         }
+        
         Auth.auth().signIn(withEmail: idText,
-                           password: passwordText) { (result, error) in
+                           password: passwordText) { result, error in
                             print(result)
         }
+        
         let tabBarViewController = TabBarViewController()
         UIApplication.shared.keyWindow?.rootViewController = tabBarViewController
     }
     
     @objc private func touchUpSignUpButton() {
         let directSignUpViewController = DirectSignUpViewController()
-        navigationController?.pushViewController(directSignUpViewController, animated: true)
+        navigationController?.pushViewController(directSignUpViewController,
+                                                 animated: true)
     }
 
 }

@@ -13,8 +13,10 @@ class DirectSignUpViewController: UIViewController {
     
     private let nextButton: UIButton = {
         let button = UIButton()
-        button.setTitleColor(.black, for: .normal)
-        button.setTitle("다음", for: .normal)
+        button.setTitleColor(.black,
+                             for: .normal)
+        button.setTitle("다음",
+                        for: .normal)
         return button
     }()
     
@@ -78,13 +80,16 @@ class DirectSignUpViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: nextButton)
+        navigationItem.rightBarButtonItem
+            = UIBarButtonItem(customView: nextButton)
         setupLayout()
     }
     
     private func setupLayout() {
         view.backgroundColor = .white
-        nextButton.addTarget(self, action: #selector(touchUpNextButton), for: .touchUpInside)
+        nextButton.addTarget(self,
+                             action: #selector(touchUpNextButton),
+                             for: .touchUpInside)
         
         emailStackView.addArrangedSubview(emailTextField)
         emailStackView.addArrangedSubview(emailTextFieldUnderLine)
@@ -148,30 +153,34 @@ class DirectSignUpViewController: UIViewController {
             let password = passwordTextField.text,
             email.isEmpty == false,
             password.isEmpty == false else {
-                let alertController = UIAlertController(title: "알림",
-                                                        message: "모든 항목을 채워주세요",
-                                                        preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "확인", style: .cancel)
+                let alertController
+                    = UIAlertController(title: "알림",
+                                        message: "모든 항목을 채워주세요",
+                                        preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "확인",
+                                             style: .cancel)
                 alertController.addAction(okAction)
-                present(alertController, animated: true)
+                present(alertController,
+                        animated: true)
                 return
         }
         
-        Auth.auth().createUser(withEmail: email, password: password) { [weak self] user, error in
+        Auth.auth().createUser(withEmail: email,
+                               password: password) { [weak self] user, error in
             if error != nil {
                 return
             }
 
             Auth.auth().signIn(withEmail: email,
                                password: password) { [weak self] result, error in
-                                if error != nil {
-                                    return
-                                }
+                if error != nil {
+                    return
+                }
 
-                                DispatchQueue.main.async {
-                                    let tabBarViewController = TabBarViewController()
-                                    UIApplication.shared.keyWindow?.rootViewController = tabBarViewController
-                                }
+                DispatchQueue.main.async {
+                    let tabBarViewController = TabBarViewController()
+                    UIApplication.shared.keyWindow?.rootViewController = tabBarViewController
+                }
             }
             
         }

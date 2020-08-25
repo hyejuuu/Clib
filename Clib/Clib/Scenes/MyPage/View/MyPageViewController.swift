@@ -34,7 +34,8 @@ class MyPageViewController: UIViewController {
         myPageTableView.delegate = self
         myPageTableView.dataSource = self
         
-        myPageTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        myPageTableView.register(UITableViewCell.self,
+                                 forCellReuseIdentifier: "cell")
     }
     
     private func setupLayout() {
@@ -42,16 +43,27 @@ class MyPageViewController: UIViewController {
         
         view.addSubview(myPageTableView)
         
-        myPageTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-        myPageTableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
-        myPageTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
-        myPageTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        myPageTableView.topAnchor.constraint(
+            equalTo: view.safeAreaLayoutGuide.topAnchor)
+            .isActive = true
+        myPageTableView.leadingAnchor.constraint(
+            equalTo: view.safeAreaLayoutGuide.leadingAnchor)
+            .isActive = true
+        myPageTableView.trailingAnchor.constraint(
+            equalTo: view.safeAreaLayoutGuide.trailingAnchor)
+            .isActive = true
+        myPageTableView.bottomAnchor.constraint(
+            equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            .isActive = true
     }
 
 }
 
 extension MyPageViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(
+        _ tableView: UITableView,
+        didSelectRowAt indexPath: IndexPath
+    ) {
         switch indexPath.row {
         case 0:
             navigationController?.pushViewController(SavedBookViewController(),
@@ -63,16 +75,25 @@ extension MyPageViewController: UITableViewDelegate {
 }
 
 extension MyPageViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(
+        _ tableView: UITableView,
+        numberOfRowsInSection section: Int
+    ) -> Int {
         return 1
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell") else {
+    func tableView(
+        _ tableView: UITableView,
+        cellForRowAt indexPath: IndexPath
+    ) -> UITableViewCell {
+        guard let cell
+            = tableView.dequeueReusableCell(withIdentifier: "cell") else {
             return UITableViewCell()
         }
+        
         cell.textLabel?.text = "저장한 책"
         cell.selectionStyle = .none
+        
         return cell
     }
 }

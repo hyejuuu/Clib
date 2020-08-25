@@ -47,7 +47,9 @@ class SavedBookViewController: UIViewController {
         }
         
         do {
-            let booksToReadEntity = try context.fetch(BooksToReadEntity.fetchRequest()) as? [BooksToReadEntity]
+            let booksToReadEntity
+                = try context.fetch(BooksToReadEntity.fetchRequest())
+                    as? [BooksToReadEntity]
 
             return booksToReadEntity?.map { ($0.itemId ?? "") }
         } catch {
@@ -57,7 +59,9 @@ class SavedBookViewController: UIViewController {
         return nil
     }
     
-    private func fetchSavedBookData(_ itemIds: [String]?) {
+    private func fetchSavedBookData(
+        _ itemIds: [String]?
+    ) {
         guard let itemIds = itemIds else { return }
         
         savedBooks = []
@@ -88,7 +92,8 @@ class SavedBookViewController: UIViewController {
         savedBookTableView.delegate = self
         savedBookTableView.dataSource = self
         
-        savedBookTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        savedBookTableView.register(UITableViewCell.self,
+                                    forCellReuseIdentifier: "cell")
     }
     
     private func setupLayout() {
@@ -96,32 +101,54 @@ class SavedBookViewController: UIViewController {
         
         view.addSubview(savedBookTableView)
         
-        savedBookTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-        savedBookTableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
-        savedBookTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
-        savedBookTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        savedBookTableView.topAnchor.constraint(
+            equalTo: view.safeAreaLayoutGuide.topAnchor)
+            .isActive = true
+        savedBookTableView.leadingAnchor.constraint(
+            equalTo: view.safeAreaLayoutGuide.leadingAnchor)
+            .isActive = true
+        savedBookTableView.trailingAnchor.constraint(
+            equalTo: view.safeAreaLayoutGuide.trailingAnchor)
+            .isActive = true
+        savedBookTableView.bottomAnchor.constraint(
+            equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            .isActive = true
     }
 
 }
 
 extension SavedBookViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(
+        _ tableView: UITableView,
+        didSelectRowAt indexPath: IndexPath
+    ) {
         let bookDetailViewController = BookDetailViewController()
-        bookDetailViewController.itemId = String(savedBooks[indexPath.row].itemId)
-        navigationController?.pushViewController(bookDetailViewController, animated: true)
+        bookDetailViewController.itemId
+            = String(savedBooks[indexPath.row].itemId)
+        navigationController?.pushViewController(bookDetailViewController,
+                                                 animated: true)
     }
 }
 
 extension SavedBookViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(
+        _ tableView: UITableView,
+        numberOfRowsInSection section: Int
+    ) -> Int {
         return savedBooks.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell") else {
+    func tableView(
+        _ tableView: UITableView,
+        cellForRowAt indexPath: IndexPath
+    ) -> UITableViewCell {
+        guard let cell
+            = tableView.dequeueReusableCell(withIdentifier: "cell") else {
             return UITableViewCell()
         }
+        
         cell.textLabel?.text = "\(savedBooks[indexPath.row].title)"
+        
         return cell
     }
 }

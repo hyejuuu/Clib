@@ -15,7 +15,9 @@ struct BookList: Codable {
     let title: String
     let link: String
     let pubDate: String
-    let totalResults, startIndex, itemsPerPage: Int
+    let totalResults: Int
+    let startIndex: Int
+    let itemsPerPage: Int
     let query: String
     let searchCategoryId: Int
     let searchCategoryName: String
@@ -26,8 +28,14 @@ struct BookList: Codable {
 struct Book: Codable {
     let title: String
     let link: String
-    let author, pubDate, categoryName, description, isbn, isbn13: String
-    let itemId, priceStandard: Int
+    let author: String
+    let pubDate: String
+    let categoryName: String
+    let description: String
+    let isbn: String
+    let isbn13: String
+    let itemId: Int
+    let priceStandard: Int
     let mallType: MallType
     let cover: String
     let publisher: String

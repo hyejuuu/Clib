@@ -13,7 +13,8 @@ class PhraseContentsTableViewCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "명언"
-        label.font = .systemFont(ofSize: 17, weight: .semibold)
+        label.font = .systemFont(ofSize: 17,
+                                 weight: .semibold)
         return label
     }()
     
@@ -32,8 +33,12 @@ class PhraseContentsTableViewCell: UITableViewCell {
         return label
     }()
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    override init(
+        style: UITableViewCell.CellStyle,
+        reuseIdentifier: String?
+    ) {
+        super.init(style: style,
+                   reuseIdentifier: reuseIdentifier)
         
         setupLayout()
     }

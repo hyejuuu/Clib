@@ -8,15 +8,6 @@
 
 import UIKit
 
-struct BookReport {
-    var itemId: String?
-    var title: String?
-    var rate: Float?
-    var contents: String?
-    var imageUrl: String?
-    var editDate: Date?
-}
-
 class BookReportListViewController: UIViewController {
     
     private var bookReports: [BookReport] = []
@@ -50,7 +41,9 @@ class BookReportListViewController: UIViewController {
         let context = appDelegate.persistentContainer.viewContext
 
         do {
-            let bookReport = try context.fetch(BookReportEntity.fetchRequest()) as! [BookReportEntity]
+            let bookReport
+                = try context.fetch(BookReportEntity.fetchRequest())
+                    as! [BookReportEntity]
             
             bookReport.forEach {
                 bookReports.append(BookReport(itemId: $0.itemId,
@@ -97,35 +90,56 @@ class BookReportListViewController: UIViewController {
 }
 
 extension BookReportListViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    func tableView(
+        _ tableView: UITableView,
+        heightForRowAt indexPath: IndexPath
+    ) -> CGFloat {
         return 120
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(
+        _ tableView: UITableView,
+        didSelectRowAt indexPath: IndexPath
+    ) {
         let bookReportViewController = BookReportViewController()
         bookReportViewController.bookReport = bookReports[indexPath.row]
         bookReportViewController.row = indexPath.row
-        navigationController?.pushViewController(bookReportViewController, animated: true)
+        navigationController?.pushViewController(bookReportViewController,
+                                                 animated: true)
     }
     
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    func tableView(
+        _ tableView: UITableView,
+        viewForHeaderInSection section: Int
+    ) -> UIView? {
         let header = TotalBookCountHeaderView()
         header.configure(count: bookReports.count)
         return header
     }
     
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(
+        _ tableView: UITableView,
+        heightForHeaderInSection section: Int
+    ) -> CGFloat {
         return 60
     }
 }
 
 extension BookReportListViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(
+        _ tableView: UITableView,
+        numberOfRowsInSection section: Int
+    ) -> Int {
         return bookReports.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "bookReportCell") as? BookReportTableViewCell else {
+    func tableView(
+        _ tableView: UITableView,
+        cellForRowAt indexPath: IndexPath
+    ) -> UITableViewCell {
+        guard let cell
+            = tableView.dequeueReusableCell(withIdentifier: "bookReportCell")
+                as? BookReportTableViewCell else {
             return UITableViewCell()
         }
         

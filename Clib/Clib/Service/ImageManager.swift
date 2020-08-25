@@ -13,10 +13,14 @@ class ImageManager: ImageManagerProtocol {
     private let cache = NSCache<NSString, UIImage>()
     private let network: Network = URLSession.shared
     
-    private func downloadImage(urlString: String,
-                       completion: @escaping (Result<UIImage, Error>) -> Void) {
+    private func downloadImage(
+        urlString: String,
+        completion: @escaping (Result<UIImage, Error>) -> Void
+    ) {
         guard let url = URL(string: urlString) else {
-            completion(.failure(NSError(domain: "urlFailure", code: 0, userInfo: nil)))
+            completion(.failure(NSError(domain: "urlFailure",
+                                        code: 0,
+                                        userInfo: nil)))
             return
         }
         
@@ -30,7 +34,9 @@ class ImageManager: ImageManagerProtocol {
             
             guard let data = data,
                 let image = UIImage(data: data) else {
-                completion(.failure(NSError(domain: "unknown", code: 0, userInfo: nil)))
+                completion(.failure(NSError(domain: "unknown",
+                                            code: 0,
+                                            userInfo: nil)))
                 return
             }
             
@@ -38,11 +44,18 @@ class ImageManager: ImageManagerProtocol {
         }
     }
     
-    private func storeImageToCache(urlString: String, image: UIImage) {
-        cache.setObject(image, forKey: urlString as NSString)
+    private func storeImageToCache(
+        urlString: String,
+        image: UIImage
+    ) {
+        cache.setObject(image,
+                        forKey: urlString as NSString)
     }
     
-    func fetchImage(urlString: String, completion: @escaping (Result<UIImage, Error>) -> Void) {
+    func fetchImage(
+        urlString: String,
+        completion: @escaping (Result<UIImage, Error>) -> Void
+    ) {
         if let image = cache.object(forKey: urlString as NSString) {
             completion(.success(image))
             return
@@ -53,15 +66,12 @@ class ImageManager: ImageManagerProtocol {
                     completion(.failure(error))
                     return
                 case .success(let image):
-                    self?.storeImageToCache(urlString: urlString, image: image)
+                    self?.storeImageToCache(urlString: urlString,
+                                            image: image)
                     
                     completion(.success(image))
                 }
             }
         }
-    }
-    
-    static func == (lhs: ImageManager, rhs: ImageManager) -> Bool {
-        return true
     }
 }

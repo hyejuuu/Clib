@@ -44,8 +44,12 @@ class PhraseTableViewCell: UITableViewCell {
         return stackView
     }()
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    override init(
+        style: UITableViewCell.CellStyle,
+        reuseIdentifier: String?
+    ) {
+        super.init(style: style,
+                   reuseIdentifier: reuseIdentifier)
         
         setupLayout()
     }
@@ -113,6 +117,7 @@ class PhraseTableViewCell: UITableViewCell {
         guard let page = phrase.page,
             let contents = phrase.contents,
             let imageUrl = phrase.imageUrl else { return }
+        
         pageLabel.text = "p.\(page)"
         contentsLabel.text = contents
         setImage(urlString: imageUrl)

@@ -18,16 +18,20 @@ class EditingBookReportViewController: UIViewController {
     private let completeButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("완료", for: .normal)
-        button.setTitleColor(.black, for: .normal)
+        button.setTitle("완료",
+                        for: .normal)
+        button.setTitleColor(.black,
+                             for: .normal)
         return button
     }()
     
     private let cancelButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("취소", for: .normal)
-        button.setTitleColor(.black, for: .normal)
+        button.setTitle("취소",
+                        for: .normal)
+        button.setTitleColor(.black,
+                             for: .normal)
         return button
     }()
     
@@ -51,16 +55,18 @@ class EditingBookReportViewController: UIViewController {
     private func setupLayout() {
         navigationItem.title = "독후감 수정"
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: cancelButton)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: completeButton)
+        navigationItem.leftBarButtonItem
+            = UIBarButtonItem(customView: cancelButton)
+        navigationItem.rightBarButtonItem
+            = UIBarButtonItem(customView: completeButton)
         
         completeButton.addTarget(self,
                                  action: #selector(touchUpCompleteButton),
                                  for: .touchUpInside)
         
         cancelButton.addTarget(self,
-                             action: #selector(touchUpCancelButton),
-                             for: .touchUpInside)
+                               action: #selector(touchUpCancelButton),
+                               for: .touchUpInside)
         
         view.backgroundColor = .white
         
@@ -93,7 +99,8 @@ class EditingBookReportViewController: UIViewController {
             return
         }
         
-        guard let itemId = bookReport?.itemId, let imageUrl = bookReport?.imageUrl else {
+        guard let itemId = bookReport?.itemId,
+            let imageUrl = bookReport?.imageUrl else {
             return
         }
         
@@ -104,15 +111,22 @@ class EditingBookReportViewController: UIViewController {
         if let bookReportContents = bookReportTextView.text,
             let row = row {
             do {
-                let bookReportEntity = try context.fetch(BookReportEntity.fetchRequest()) as! [BookReportEntity]
+                let bookReportEntity
+                    = try context.fetch(BookReportEntity.fetchRequest())
+                        as! [BookReportEntity]
 
                 let object = bookReportEntity[row]
                 
-                object.setValue(itemId, forKey: "itemId")
-                object.setValue(bookReport?.title, forKey: "title")
-                object.setValue(bookReportContents, forKey: "contents")
-                object.setValue(imageUrl, forKey: "imageUrl")
-                object.setValue(Date(), forKey: "editDate")
+                object.setValue(itemId,
+                                forKey: "itemId")
+                object.setValue(bookReport?.title,
+                                forKey: "title")
+                object.setValue(bookReportContents,
+                                forKey: "contents")
+                object.setValue(imageUrl,
+                                forKey: "imageUrl")
+                object.setValue(Date(),
+                                forKey: "editDate")
             
                 do {
                     try context.save()

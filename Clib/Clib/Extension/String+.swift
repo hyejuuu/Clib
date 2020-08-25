@@ -2,11 +2,32 @@
 //  String+.swift
 //  Clib
 //
-//  Created by 이혜주 on 2020/06/02.
+//  Created by 이혜주 on 2020/08/25.
 //  Copyright © 2020 leehyeju. All rights reserved.
 //
 
 import UIKit
+
+extension String {
+    func getCleanedURL() -> URL? {
+        guard self.isEmpty == false else {
+            return nil
+        }
+
+        if let url = URL(string: self) {
+            return url
+        } else {
+            if let urlEscapedString
+                = self.addingPercentEncoding(
+                    withAllowedCharacters: .urlQueryAllowed
+                ),
+                let escapedURL = URL(string: urlEscapedString) {
+                return escapedURL
+            }
+        }
+        return nil
+    }
+}
 
 extension String {
     func fetchEstimateCGRectWith(fontSize: CGFloat,

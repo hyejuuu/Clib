@@ -9,10 +9,24 @@
 import Foundation
 
 protocol BookServiceProtocol {
-    func fetchBestseller(maxResult: Int?, completion: @escaping (Result<BookList, Error>) -> Void)
-    func fetchNewBooks(maxResult: Int?, completion: @escaping (Result<BookList, Error>) -> Void)
-    func fetchSearchedBookList(searchString: String,
-                               completion: @escaping (Result<BookList, Error>) -> Void)
-    func fetchBookData(itemId: String, completion: @escaping (Result<Book, Error>) -> Void)
-    func fetchBookDataWithBigImage(itemId: String, completion: @escaping (Result<Book, Error>) -> Void)
+    func fetchBestseller(
+        maxResult: Int?,
+        completion: @escaping (Result<BookList, Error>) -> Void
+    )
+    func fetchNewBooks(
+        maxResult: Int?,
+        completion: @escaping (Result<BookList, Error>) -> Void
+    )
+    func fetchSearchedBookList(
+        searchString: String,
+        completion: @escaping (Result<BookList, Error>) -> Void
+    )
+    func fetchBookData(
+        itemId: String,
+        completion: @escaping (Result<Book, Error>) -> Void
+    )
+    func fetchBookDataWithBigImage(
+        itemId: String,
+        completion: @escaping (Result<Book, Error>) -> Void
+    )
 }

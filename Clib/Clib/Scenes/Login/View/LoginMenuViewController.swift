@@ -18,9 +18,11 @@ class LoginMenuViewController: UIViewController {
     private let appleLoginButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("apple로 로그인", for: .normal)
+        button.setTitle("apple로 로그인",
+                        for: .normal)
         button.backgroundColor = .black
-        button.setTitleColor(.white, for: .normal)
+        button.setTitleColor(.white,
+                             for: .normal)
         button.layer.cornerRadius = 8
         return button
     }()
@@ -28,10 +30,12 @@ class LoginMenuViewController: UIViewController {
     private let googleLoginButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("google로 로그인", for: .normal)
+        button.setTitle("google로 로그인",
+                        for: .normal)
         button.layer.borderColor = UIColor.gray.cgColor
         button.layer.borderWidth = 0.5
-        button.setTitleColor(.black, for: .normal)
+        button.setTitleColor(.black,
+                             for: .normal)
         button.layer.cornerRadius = 8
         return button
     }()
@@ -39,9 +43,11 @@ class LoginMenuViewController: UIViewController {
     private let directLoginButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("직접 로그인", for: .normal)
+        button.setTitle("직접 로그인",
+                        for: .normal)
         button.backgroundColor = .brown
-        button.setTitleColor(.white, for: .normal)
+        button.setTitleColor(.white,
+                             for: .normal)
         button.layer.cornerRadius = 8
         return button
     }()
@@ -74,14 +80,19 @@ class LoginMenuViewController: UIViewController {
         
         loginMenuStackView.leadingAnchor.constraint(
             equalTo: view.leadingAnchor,
-            constant: 50).isActive = true
+            constant: 50)
+            .isActive = true
         loginMenuStackView.trailingAnchor.constraint(
             equalTo: view.trailingAnchor,
-            constant: -50).isActive = true
+            constant: -50)
+            .isActive = true
         loginMenuStackView.bottomAnchor.constraint(
             equalTo: view.bottomAnchor,
-            constant: -80).isActive = true
-        loginMenuStackView.heightAnchor.constraint(equalToConstant: 180).isActive = true
+            constant: -80)
+            .isActive = true
+        loginMenuStackView.heightAnchor.constraint(
+            equalToConstant: 180)
+            .isActive = true
     }
     
     private func addButtonTargets() {
@@ -102,7 +113,8 @@ class LoginMenuViewController: UIViewController {
         let request = appleIDProvider.createRequest()
         request.requestedScopes = [.fullName, .email]
         request.nonce = nonce
-        let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+        let authorizationController
+            = ASAuthorizationController(authorizationRequests: [request])
         authorizationController.delegate = self
         authorizationController.presentationContextProvider = self
         authorizationController.performRequests()
@@ -173,27 +185,38 @@ extension LoginMenuViewController {
 }
 
 extension LoginMenuViewController: ASAuthorizationControllerDelegate {
-    func authorizationController(controller: ASAuthorizationController,
-                                 didCompleteWithAuthorization authorization: ASAuthorization) {
-        if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
-            UserDefaults.standard.set(appleIDCredential.user, forKey: "appleAuthorizedUserIdKey")
+    func authorizationController(
+        controller: ASAuthorizationController,
+        didCompleteWithAuthorization authorization: ASAuthorization
+    ) {
+        if let appleIDCredential
+            = authorization.credential
+                as? ASAuthorizationAppleIDCredential {
+            UserDefaults.standard.set(appleIDCredential.user,
+                                      forKey: "appleAuthorizedUserIdKey")
             guard let appleIDToken = appleIDCredential.identityToken else {
                 return
             }
-            guard let idTokenString = String(data: appleIDToken, encoding: .utf8) else {
+            
+            guard let idTokenString = String(data: appleIDToken,
+                                             encoding: .utf8) else {
                 return
             }
-            let firebaseCredential = OAuthProvider.credential(withProviderID: "apple.com",
-                                                              idToken: idTokenString,
-                                                              rawNonce: nonce)
-            Auth.auth().signIn(with: firebaseCredential) { (result, error) in
+            
+            let firebaseCredential
+                = OAuthProvider.credential(withProviderID: "apple.com",
+                                           idToken: idTokenString,
+                                           rawNonce: nonce)
+            Auth.auth().signIn(with: firebaseCredential) { result, error in
                 print("success")
             }
         }
     }
     
-    func authorizationController(controller: ASAuthorizationController,
-                                 didCompleteWithError error: Error) {
+    func authorizationController(
+        controller: ASAuthorizationController,
+        didCompleteWithError error: Error
+    ) {
         print("failed")
     }
 }
@@ -207,14 +230,21 @@ extension LoginMenuViewController: ASAuthorizationControllerPresentationContextP
 //MARK: google sign in
 
 extension LoginMenuViewController: GIDSignInDelegate {
-    func sign(_ signIn: GIDSignIn!,
-              didSignInFor user: GIDGoogleUser!,
-              withError error: Error!) {
-        guard user != nil else { return }
-        guard let authentication = user.authentication else { return }
-        let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
-                                                       accessToken: authentication.accessToken)
-        Auth.auth().signIn(with: credential) { (result, error) in
+    func sign(
+        _ signIn: GIDSignIn!,
+        didSignInFor user: GIDGoogleUser!,
+        withError error: Error!
+    ) {
+        guard user != nil else {
+            return
+        }
+        guard let authentication = user.authentication else {
+            return
+        }
+        let credential
+            = GoogleAuthProvider.credential(withIDToken: authentication.idToken,
+                                            accessToken: authentication.accessToken)
+        Auth.auth().signIn(with: credential) { result, error in
             print(result)
         }
     }

@@ -37,10 +37,22 @@ class PhraseHeaderView: UIView {
         
         addSubview(messageLabel)
         
-        messageLabel.topAnchor.constraint(equalTo: topAnchor, constant: 10).isActive = true
-        messageLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10).isActive = true
-        messageLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10).isActive = true
-        messageLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10).isActive = true
+        messageLabel.topAnchor.constraint(
+            equalTo: topAnchor,
+            constant: 10)
+            .isActive = true
+        messageLabel.leadingAnchor.constraint(
+            equalTo: leadingAnchor,
+            constant: 10)
+            .isActive = true
+        messageLabel.trailingAnchor.constraint(
+            equalTo: trailingAnchor,
+            constant: -10)
+            .isActive = true
+        messageLabel.bottomAnchor.constraint(
+            equalTo: bottomAnchor,
+            constant: -10)
+            .isActive = true
     }
 
 }

@@ -8,37 +8,40 @@
 
 import UIKit
 
-enum BookListKind: String, CaseIterable {
-    case bestSeller = "베스트셀러"
-    case new = "신간"
-}
-
 class MainTableViewCell: UITableViewCell {
     
-    private let bookService: BookServiceProtocol = BookService()
+    var selectCallBack: ((Book)->())?
+    var bookList: [Book] = []
+    
     var listKind: BookListKind? {
         didSet {
             requestBookList()
         }
     }
-    var selectCallBack: ((Book)->())?
     
-    var bookList: [Book] = []
+    private let bookService: BookServiceProtocol = BookService()
     
-    let sectionMenuCollectionView: UICollectionView = {
+    private let sectionMenuCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        let collectionView = UICollectionView(frame: .zero,
+                                              collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.backgroundColor = .white
-        collectionView.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+        collectionView.contentInset = UIEdgeInsets(top: 0,
+                                                   left: 20,
+                                                   bottom: 0,
+                                                   right: 20)
         return collectionView
     }()
     
-    override init(style: UITableViewCell.CellStyle,
-                  reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    override init(
+        style: UITableViewCell.CellStyle,
+        reuseIdentifier: String?
+    ) {
+        super.init(style: style,
+                   reuseIdentifier: reuseIdentifier)
     
         setupDelegateAndDataSource()
         setupCollectionView()
@@ -68,6 +71,7 @@ class MainTableViewCell: UITableViewCell {
                     return
                 case .success(let list):
                     self?.bookList = list.item
+                    
                     DispatchQueue.main.async {
                         self?.sectionMenuCollectionView.reloadData()
                     }
@@ -110,35 +114,49 @@ class MainTableViewCell: UITableViewCell {
 }
 
 extension MainTableViewCell: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 120, height: 210)
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        sizeForItemAt indexPath: IndexPath
+    ) -> CGSize {
+        return CGSize(width: 120,
+                      height: 210)
     }
     
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        minimumLineSpacingForSectionAt section: Int
+    ) -> CGFloat {
         return 15
     }
 }
 
 extension MainTableViewCell: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView,
-                        didSelectItemAt indexPath: IndexPath) {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        didSelectItemAt indexPath: IndexPath
+    ) {
         selectCallBack?(bookList[indexPath.item])
     }
 }
 
 extension MainTableViewCell: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView,
-                        numberOfItemsInSection section: Int) -> Int {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        numberOfItemsInSection section: Int
+    ) -> Int {
         return bookList.count
     }
     
-    func collectionView(_ collectionView: UICollectionView,
-                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "bookCollectionViewCell", for: indexPath) as? BookCollectionViewCell else {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        cellForItemAt indexPath: IndexPath
+    ) -> UICollectionViewCell {
+        guard let cell
+            = collectionView.dequeueReusableCell(withReuseIdentifier: "bookCollectionViewCell",
+                                                 for: indexPath)
+                as? BookCollectionViewCell else {
             return UICollectionViewCell()
         }
         

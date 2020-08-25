@@ -11,32 +11,37 @@ import CoreData
 
 class BookDetailViewController: UIViewController {
 
-    private let bookDetailService: BookServiceProtocol = BookService()
     var bookData: Book?
     var itemId: String?
+    
     private var starRating: Float = 0.0
     private var isUpdate: Bool = false
     private var updateObject: BookReportEntity?
     
+    private let bookDetailService: BookServiceProtocol = BookService()
     private let sectionTitles = ["줄거리", "리뷰"]
     
     private let backButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(#imageLiteral(resourceName: "back"), for: .normal)
+        button.setImage(#imageLiteral(resourceName: "back"),
+                        for: .normal)
         return button
     }()
     
     private let shareButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("공유", for: .normal)
-        button.setTitleColor(.black, for: .normal)
+        button.setTitle("공유",
+                        for: .normal)
+        button.setTitleColor(.black,
+                             for: .normal)
         return button
     }()
     
     let detailTableView: UITableView = {
-        let tableView = UITableView(frame: .zero, style: .grouped)
+        let tableView = UITableView(frame: .zero,
+                                    style: .grouped)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.backgroundColor = .white
         tableView.separatorColor = .clear
@@ -77,11 +82,15 @@ class BookDetailViewController: UIViewController {
         let context = appDelegate?.persistentContainer.viewContext
 
         do {
-            let bookReportEntity = try context?.fetch(BookReportEntity.fetchRequest()) as? [BookReportEntity]
+            let bookReportEntity
+                = try context?.fetch(BookReportEntity.fetchRequest())
+                    as? [BookReportEntity]
 
             let result = bookReportEntity?.filter { $0.itemId == itemId }
             
-            guard let object = result?.first else { return }
+            guard let object = result?.first else {
+                return
+            }
             
             updateObject = object
             isUpdate = true
@@ -110,8 +119,13 @@ class BookDetailViewController: UIViewController {
         view.addSubview(detailTableView)
         view.addSubview(backButton)
         view.addSubview(shareButton)
-        shareButton.addTarget(self, action: #selector(touchUpShareButton), for: .touchUpInside)
-        backButton.addTarget(self, action: #selector(touchUpBackButton), for: .touchUpInside)
+        
+        shareButton.addTarget(self,
+                              action: #selector(touchUpShareButton),
+                              for: .touchUpInside)
+        backButton.addTarget(self,
+                             action: #selector(touchUpBackButton),
+                             for: .touchUpInside)
         
         backButton.topAnchor.constraint(
             equalTo: view.safeAreaLayoutGuide.topAnchor)
@@ -154,7 +168,10 @@ class BookDetailViewController: UIViewController {
     }
     
     private func requestBookDetailData() {
-        guard let itemId = itemId else { return }
+        guard let itemId = itemId else {
+            return
+        }
+        
         bookDetailService.fetchBookData(itemId: itemId) { [weak self] result in
             switch result {
             case .failure(let error):
@@ -171,7 +188,8 @@ class BookDetailViewController: UIViewController {
     }
     
     private func saveStarRating(_ score: Float) {
-        guard let itemId = itemId, let imageUrl = bookData?.cover else {
+        guard let itemId = itemId,
+            let imageUrl = bookData?.cover else {
             return
         }
         
@@ -180,10 +198,14 @@ class BookDetailViewController: UIViewController {
         let context = appDelegate.persistentContainer.viewContext
         
         if isUpdate {
-            updateObject?.setValue(itemId, forKey: "itemId")
-            updateObject?.setValue(bookData?.title, forKey: "title")
-            updateObject?.setValue(starRating, forKey: "rate")
-            updateObject?.setValue(imageUrl, forKey: "imageUrl")
+            updateObject?.setValue(itemId,
+                                   forKey: "itemId")
+            updateObject?.setValue(bookData?.title,
+                                   forKey: "title")
+            updateObject?.setValue(starRating,
+                                   forKey: "rate")
+            updateObject?.setValue(imageUrl,
+                                   forKey: "imageUrl")
             
             do {
                 try context.save()
@@ -191,15 +213,23 @@ class BookDetailViewController: UIViewController {
                 print(error.localizedDescription)
             }
         } else {
-            let entity = NSEntityDescription.entity(forEntityName: "BookReport", in: context)
+            let entity
+                = NSEntityDescription.entity(forEntityName: "BookReport",
+                                             in: context)
             
-            if let entity = entity, let bookTitle = bookData?.title {
-                let bookreport = NSManagedObject(entity: entity, insertInto: context)
+            if let entity = entity,
+                let bookTitle = bookData?.title {
+                let bookreport = NSManagedObject(entity: entity,
+                                                 insertInto: context)
                 
-                bookreport.setValue(itemId, forKey: "itemId")
-                bookreport.setValue(bookTitle, forKey: "title")
-                bookreport.setValue(starRating, forKey: "rate")
-                bookreport.setValue(imageUrl, forKey: "imageUrl")
+                bookreport.setValue(itemId,
+                                    forKey: "itemId")
+                bookreport.setValue(bookTitle,
+                                    forKey: "title")
+                bookreport.setValue(starRating,
+                                    forKey: "rate")
+                bookreport.setValue(imageUrl,
+                                    forKey: "imageUrl")
                 
                 do {
                     try context.save()
@@ -212,12 +242,18 @@ class BookDetailViewController: UIViewController {
     
     private func isOnMyList() -> Bool {
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
-        guard let context = appDelegate?.persistentContainer.viewContext else { return false }
+        guard let context
+            = appDelegate?.persistentContainer.viewContext else {
+                return false
+        }
         
         do {
-            let booksToReadEntity = try context.fetch(BooksToReadEntity.fetchRequest()) as? [BooksToReadEntity]
+            let booksToReadEntity
+                = try context.fetch(BooksToReadEntity.fetchRequest())
+                    as? [BooksToReadEntity]
             
-            return booksToReadEntity?.map { $0.itemId }.contains(itemId) ?? false
+            return booksToReadEntity?.map { $0.itemId }
+                .contains(itemId) ?? false
             
         } catch {
             print(error.localizedDescription)
@@ -230,11 +266,14 @@ class BookDetailViewController: UIViewController {
             return
         }
         
-        let activityVC = UIActivityViewController(activityItems: [text], applicationActivities: nil)
+        let activityVC
+            = UIActivityViewController(activityItems: [text],
+                                       applicationActivities: nil)
         
         activityVC.excludedActivityTypes = [ UIActivity.ActivityType.airDrop ]
         
-        present(activityVC, animated: true)
+        present(activityVC,
+                animated: true)
     }
     
     @objc private func touchUpBackButton() {
@@ -243,48 +282,71 @@ class BookDetailViewController: UIViewController {
 }
 
 extension BookDetailViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(
+        _ tableView: UITableView,
+        didSelectRowAt indexPath: IndexPath
+    ) {
         switch indexPath.section {
         case 1:
-            guard let toc = bookData?.subInfo?.toc else { return }
+            guard let toc = bookData?.subInfo?.toc else {
+                return
+            }
+            
             let tocViewController = TocViewController()
-            tocViewController.webString = "<html><body><p><font size=18>" + toc + "</font></p></body></html>"
-            navigationController?.pushViewController(tocViewController, animated: true)
+            tocViewController.webString
+                = "<html><body><p><font size=18>"
+                + toc
+                + "</font></p></body></html>"
+            navigationController?.pushViewController(tocViewController,
+                                                     animated: true)
         default:
             return
         }
     }
     
-    func tableView(_ tableView: UITableView,
-                   viewForHeaderInSection section: Int) -> UIView? {
+    func tableView(
+        _ tableView: UITableView,
+        viewForHeaderInSection section: Int
+    ) -> UIView? {
         switch section {
         case 0:
-            guard let bookData = bookData else { return UIView() }
+            guard let bookData = bookData else {
+                return UIView()
+            }
             
             let header = BookDetailHeaderView()
+            
             header.gestureCallBack = { [weak self] in
                 let imageDetailViewController = ImageDetailViewController()
                 imageDetailViewController.itemId = self?.itemId
                 imageDetailViewController.modalPresentationStyle = .fullScreen
-                self?.present(imageDetailViewController, animated: true)
+                self?.present(imageDetailViewController,
+                              animated: true)
             }
+            
             header.rating = starRating
+            
             header.ratingCallback = { [weak self] score in
                 self?.starRating = score
             }
+            
             header.configure(book: bookData)
             return header
         case 2, 3:
             let header = MainSectionHeaderView()
+            
             header.configure(title: sectionTitles[section - 2])
+            
             return header
         default:
             return UIView()
         }
     }
     
-    func tableView(_ tableView: UITableView,
-                   heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(
+        _ tableView: UITableView,
+        heightForHeaderInSection section: Int
+    ) -> CGFloat {
         switch section {
         case 0:
             guard let height
@@ -302,16 +364,22 @@ extension BookDetailViewController: UITableViewDelegate {
         }
     }
     
-    func tableView(_ tableView: UITableView,
-                   heightForRowAt indexPath: IndexPath) -> CGFloat {
+    func tableView(
+        _ tableView: UITableView,
+        heightForRowAt indexPath: IndexPath
+    ) -> CGFloat {
         switch indexPath.section {
         case 0:
             return 80
         case 1:
             return 50
         case 2:
-            guard let text = bookData?.fullDescription else { return 0 }
-            return text.fetchEstimateCGRectWith(fontSize: 18, width: tableView.frame.width - 40).height
+            guard let text = bookData?.fullDescription else {
+                return 0
+            }
+            return text.fetchEstimateCGRectWith(fontSize: 18,
+                                                width: tableView.frame.width - 40)
+                .height
         default:
             return 0
         }
@@ -323,7 +391,10 @@ extension BookDetailViewController: UITableViewDataSource {
         return 3
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(
+        _ tableView: UITableView,
+        numberOfRowsInSection section: Int
+    ) -> Int {
         switch section {
         case 1:
             guard let toc = bookData?.subInfo?.toc,
@@ -338,12 +409,16 @@ extension BookDetailViewController: UITableViewDataSource {
         }
     }
     
-    func tableView(_ tableView: UITableView,
-                   cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(
+        _ tableView: UITableView,
+        cellForRowAt indexPath: IndexPath
+    ) -> UITableViewCell {
         
         switch indexPath.section {
         case 0:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "buttonTableViewCell") as? ButtonsTableViewCell,
+            guard let cell
+                = tableView.dequeueReusableCell(withIdentifier: "buttonTableViewCell")
+                    as? ButtonsTableViewCell,
                 let itemId = bookData?.itemId else {
                 return UITableViewCell()
             }
@@ -361,47 +436,62 @@ extension BookDetailViewController: UITableViewDataSource {
                                         message: nil,
                                         preferredStyle: .actionSheet)
                 
-                let reviewAction = UIAlertAction(title: "명언 작성", style: .default) { [weak self] _ in
+                let reviewAction = UIAlertAction(title: "명언 작성",
+                                                 style: .default) { [weak self] _ in
                     let phraseViewController = WritePhraseViewController()
                     phraseViewController.itemId = String(bookData.itemId)
                     phraseViewController.bookTitle = self?.bookData?.title
                     phraseViewController.imageUrl = self?.bookData?.cover
-                    let phraseNavigator = UINavigationController(rootViewController: phraseViewController)
+                    let phraseNavigator
+                        = UINavigationController(rootViewController: phraseViewController)
                     phraseNavigator.modalPresentationStyle = .fullScreen
-                    self?.present(phraseNavigator, animated: true)
+                    self?.present(phraseNavigator,
+                                  animated: true)
                 }
                 
-                let reportAction = UIAlertAction(title: "독후감 작성", style: .default) { [weak self] _ in
+                let reportAction = UIAlertAction(title: "독후감 작성",
+                                                 style: .default) { [weak self] _ in
                     let bookReportViewController = WriteBookReportViewController()
                     bookReportViewController.itemId = String(bookData.itemId)
                     bookReportViewController.bookTitle = self?.bookData?.title
                     bookReportViewController.imageUrl = self?.bookData?.cover
                     
-                    let bookReportNavigator = UINavigationController(rootViewController: bookReportViewController)
+                    let bookReportNavigator
+                        = UINavigationController(rootViewController: bookReportViewController)
                     bookReportNavigator.modalPresentationStyle = .fullScreen
-                    self?.present(bookReportNavigator, animated: true)
+                    self?.present(bookReportNavigator,
+                                  animated: true)
                     
                 }
-                let cancelAction = UIAlertAction(title: "취소", style: .cancel)
+                let cancelAction = UIAlertAction(title: "취소",
+                                                 style: .cancel)
                 alertController.addAction(reviewAction)
                 alertController.addAction(reportAction)
                 alertController.addAction(cancelAction)
                 
-                self?.present(alertController, animated: true)
+                self?.present(alertController,
+                              animated: true)
             }
             
             cell.bookMarkCallBack = { [weak self] isSave in
 
                 if isSave {
                     let appDelegate = UIApplication.shared.delegate as? AppDelegate
-                    guard let context = appDelegate?.persistentContainer.viewContext else { return }
+                    guard let context
+                        = appDelegate?.persistentContainer.viewContext else {
+                            return
+                    }
                 
-                    let entity = NSEntityDescription.entity(forEntityName: "BooksToRead", in: context)
+                    let entity
+                        = NSEntityDescription.entity(forEntityName: "BooksToRead",
+                                                     in: context)
                 
                     if let entity = entity {
-                        let bookreport = NSManagedObject(entity: entity, insertInto: context)
+                        let bookreport = NSManagedObject(entity: entity,
+                                                         insertInto: context)
                         
-                        bookreport.setValue(self?.itemId, forKey: "itemId")
+                        bookreport.setValue(self?.itemId,
+                                            forKey: "itemId")
                         
                         do {
                             try context.save()
@@ -411,14 +501,22 @@ extension BookDetailViewController: UITableViewDataSource {
                     }
                 } else {
                     let appDelegate = UIApplication.shared.delegate as? AppDelegate
-                    guard let context = appDelegate?.persistentContainer.viewContext else { return }
+                    guard let context
+                        = appDelegate?.persistentContainer.viewContext else {
+                            return
+                    }
                 
                     do {
-                        let booksToReadEntity = try context.fetch(BooksToReadEntity.fetchRequest()) as? [BooksToReadEntity]
+                        let booksToReadEntity
+                            = try context.fetch(BooksToReadEntity.fetchRequest())
+                                as? [BooksToReadEntity]
                         
-                        let result = booksToReadEntity?.filter { $0.itemId == self?.itemId }
+                        let result
+                            = booksToReadEntity?.filter { $0.itemId == self?.itemId }
                         
-                        guard let object = result?.first else { return }
+                        guard let object = result?.first else {
+                            return
+                        }
                         
                         context.delete(object)
                         
@@ -439,7 +537,8 @@ extension BookDetailViewController: UITableViewDataSource {
             
             return cell
         case 1:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell") else {
+            guard let cell
+                = tableView.dequeueReusableCell(withIdentifier: "cell") else {
                 return UITableViewCell()
             }
             
@@ -456,11 +555,15 @@ extension BookDetailViewController: UITableViewDataSource {
             }
             
             cell.selectionStyle = .none
-            cell.webString = "<html><body><p><font size=18>" + description + "</font></p></body></html>"
+            cell.webString
+                = "<html><body><p><font size=18>"
+                + description
+                + "</font></p></body></html>"
             
             return cell
         default:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell") else {
+            guard let cell
+                = tableView.dequeueReusableCell(withIdentifier: "cell") else {
                 return UITableViewCell()
             }
             

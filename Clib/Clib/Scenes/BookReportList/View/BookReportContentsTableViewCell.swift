@@ -13,7 +13,8 @@ class BookReportContentsTableViewCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "독후감"
-        label.font = .systemFont(ofSize: 17, weight: .semibold)
+        label.font = .systemFont(ofSize: 17,
+                                 weight: .semibold)
         return label
     }()
     
@@ -24,8 +25,12 @@ class BookReportContentsTableViewCell: UITableViewCell {
         return label
     }()
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    override init(
+        style: UITableViewCell.CellStyle,
+        reuseIdentifier: String?
+    ) {
+        super.init(style: style,
+                   reuseIdentifier: reuseIdentifier)
         
         setupLayout()
     }
@@ -66,6 +71,7 @@ class BookReportContentsTableViewCell: UITableViewCell {
         if contents == nil {
             contentsLabel.textColor = .gray
         }
-        contentsLabel.text = contents ?? "아직 작성된 독후감이 없습니다.\n독후감을 작성해보세요 :)"
+        contentsLabel.text
+            = contents ?? "아직 작성된 독후감이 없습니다.\n독후감을 작성해보세요 :)"
     }
 }

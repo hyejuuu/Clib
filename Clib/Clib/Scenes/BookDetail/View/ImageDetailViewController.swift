@@ -11,6 +11,7 @@ import UIKit
 class ImageDetailViewController: UIViewController {
 
     var itemId: String?
+    
     private let bookService: BookServiceProtocol = BookService()
     private let imageManager: ImageManagerProtocol = ImageManager()
     
@@ -36,8 +37,10 @@ class ImageDetailViewController: UIViewController {
     private let closeButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("닫기", for: .normal)
-        button.setTitleColor(.white, for: .normal)
+        button.setTitle("닫기",
+                        for: .normal)
+        button.setTitleColor(.white,
+                             for: .normal)
         return button
     }()
     
@@ -51,7 +54,9 @@ class ImageDetailViewController: UIViewController {
     }
     
     private func fetchCoverImage() {
-        guard let itemId = itemId else { return }
+        guard let itemId = itemId else {
+            return
+        }
         
         bookService.fetchBookDataWithBigImage(itemId: itemId) { [weak self] result in
             switch result {
@@ -125,10 +130,20 @@ class ImageDetailViewController: UIViewController {
             equalTo: imageScrollView.centerXAnchor)
             .isActive = true
         
-        closeButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
-        closeButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10).isActive = true
-        closeButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
-        closeButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        closeButton.topAnchor.constraint(
+            equalTo: view.safeAreaLayoutGuide.topAnchor,
+            constant: 10)
+            .isActive = true
+        closeButton.trailingAnchor.constraint(
+            equalTo: view.safeAreaLayoutGuide.trailingAnchor,
+            constant: -10)
+            .isActive = true
+        closeButton.widthAnchor.constraint(
+            equalToConstant: 50)
+            .isActive = true
+        closeButton.heightAnchor.constraint(
+            equalToConstant: 30)
+            .isActive = true
     }
     
     @objc private func touchUpCloseButton() {

@@ -32,29 +32,34 @@ class ButtonsTableViewCell: UITableViewCell {
     private let bookMarkButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitleColor(.black, for: .normal)
+        button.setTitleColor(.black,
+                             for: .normal)
         button.layer.cornerRadius = 8
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        button.titleLabel?.font = .systemFont(ofSize: 16)
         return button
     }()
     
     private let writeButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("작성", for: .normal)
-        button.setTitleColor(.black, for: .normal)
+        button.setTitle("작성",
+                        for: .normal)
+        button.setTitleColor(.black,
+                             for: .normal)
         button.layer.cornerRadius = 8
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        button.titleLabel?.font = .systemFont(ofSize: 16)
         return button
     }()
     
     private let moveToSiteButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("자세히보기", for: .normal)
-        button.setTitleColor(.black, for: .normal)
+        button.setTitle("자세히보기",
+                        for: .normal)
+        button.setTitleColor(.black,
+                             for: .normal)
         button.layer.cornerRadius = 8
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        button.titleLabel?.font = .systemFont(ofSize: 16)
         return button
     }()
     
@@ -67,8 +72,12 @@ class ButtonsTableViewCell: UITableViewCell {
         return stackView
     }()
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    override init(
+        style: UITableViewCell.CellStyle,
+        reuseIdentifier: String?
+    ) {
+        super.init(style: style,
+                   reuseIdentifier: reuseIdentifier)
         setupLayout()
     }
     
@@ -151,10 +160,12 @@ class ButtonsTableViewCell: UITableViewCell {
     @objc private func touchUpBookMarkButton() {
         if bookMarkButton.titleLabel?.text == "목록에 저장" {
             bookMarkCallBack?(true)
-            bookMarkButton.setTitle("목록에서 삭제", for: .normal)
+            bookMarkButton.setTitle("목록에서 삭제",
+                                    for: .normal)
         } else {
             bookMarkCallBack?(false)
-            bookMarkButton.setTitle("목록에 저장", for: .normal)
+            bookMarkButton.setTitle("목록에 저장",
+                                    for: .normal)
         }
     }
     
@@ -165,16 +176,22 @@ class ButtonsTableViewCell: UITableViewCell {
     @objc private func touchUpMoveToSiteButton() {
         guard let itemId = itemId,
             let url = URL(string: "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=\(itemId)"),
-           UIApplication.shared.canOpenURL(url) else { return }
+           UIApplication.shared.canOpenURL(url) else {
+            return
+        }
 
-        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        UIApplication.shared.open(url,
+                                  options: [:],
+                                  completionHandler: nil)
     }
     
     func configure(_ isSave: Bool) {
         if isSave {
-            bookMarkButton.setTitle("목록에서 삭제", for: .normal)
+            bookMarkButton.setTitle("목록에서 삭제",
+                                    for: .normal)
         } else {
-            bookMarkButton.setTitle("목록에 저장", for: .normal)
+            bookMarkButton.setTitle("목록에 저장",
+                                    for: .normal)
         }
     }
 }

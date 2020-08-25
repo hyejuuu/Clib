@@ -31,10 +31,15 @@ class BookReportTableViewCell: UITableViewCell {
     private let starRateButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(named: "iconStarYellow"), for: .normal)
-        button.setTitleColor(.gray, for: .normal)
+        button.setImage(UIImage(named: "iconStarYellow"),
+                        for: .normal)
+        button.setTitleColor(.gray,
+                             for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 14)
-        button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -10, bottom: 0, right: 0)
+        button.imageEdgeInsets = UIEdgeInsets(top: 0,
+                                              left: -10,
+                                              bottom: 0,
+                                              right: 0)
         return button
     }()
     
@@ -55,8 +60,12 @@ class BookReportTableViewCell: UITableViewCell {
         return stackView
     }()
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    override init(
+        style: UITableViewCell.CellStyle,
+        reuseIdentifier: String?
+    ) {
+        super.init(style: style,
+                   reuseIdentifier: reuseIdentifier)
         
         setupLayout()
     }
@@ -127,10 +136,14 @@ class BookReportTableViewCell: UITableViewCell {
         guard let title = bookReport.title,
             let imageUrl = bookReport.imageUrl,
             let rate = bookReport.rate,
-            let date = bookReport.editDate else { return }
+            let date = bookReport.editDate else {
+                return
+        }
+        
         titleLabel.text = title
         setImage(urlString: imageUrl)
-        starRateButton.setTitle(String(rate), for: .normal)
+        starRateButton.setTitle(String(rate),
+                                for: .normal)
 
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy.MM.dd"

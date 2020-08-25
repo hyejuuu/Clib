@@ -17,16 +17,20 @@ class EditingPhraseViewController: UIViewController {
     private let completeButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("완료", for: .normal)
-        button.setTitleColor(.black, for: .normal)
+        button.setTitle("완료",
+                        for: .normal)
+        button.setTitleColor(.black,
+                             for: .normal)
         return button
     }()
     
     private let cancelButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("취소", for: .normal)
-        button.setTitleColor(.black, for: .normal)
+        button.setTitle("취소",
+                        for: .normal)
+        button.setTitleColor(.black,
+                             for: .normal)
         return button
     }()
     
@@ -61,16 +65,18 @@ class EditingPhraseViewController: UIViewController {
     private func setupLayout() {
         navigationItem.title = "문장 수정"
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: cancelButton)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: completeButton)
+        navigationItem.leftBarButtonItem
+            = UIBarButtonItem(customView: cancelButton)
+        navigationItem.rightBarButtonItem
+            = UIBarButtonItem(customView: completeButton)
         
         completeButton.addTarget(self,
                                  action: #selector(touchUpCompleteButton),
                                  for: .touchUpInside)
         
         cancelButton.addTarget(self,
-                             action: #selector(touchUpCancelButton),
-                             for: .touchUpInside)
+                               action: #selector(touchUpCancelButton),
+                               for: .touchUpInside)
         
         view.backgroundColor = .white
         
@@ -113,7 +119,8 @@ class EditingPhraseViewController: UIViewController {
     }
     
     @objc private func touchUpCompleteButton() {
-        guard let itemId = phrase?.itemId, let imageUrl = phrase?.imageUrl else {
+        guard let itemId = phrase?.itemId,
+            let imageUrl = phrase?.imageUrl else {
             return
         }
         
@@ -125,14 +132,20 @@ class EditingPhraseViewController: UIViewController {
             let phraseContents = phraseTextView.text,
             let row = row {
             do {
-                let phraseEntity = try context.fetch(PhraseEntity.fetchRequest()) as! [PhraseEntity]
+                let phraseEntity
+                    = try context.fetch(PhraseEntity.fetchRequest())
+                        as! [PhraseEntity]
 
                 let object = phraseEntity[row]
                 
-                object.setValue(itemId, forKey: "itemId")
-                object.setValue(page, forKey: "page")
-                object.setValue(phraseContents, forKey: "contents")
-                object.setValue(imageUrl, forKey: "imageUrl")
+                object.setValue(itemId,
+                                forKey: "itemId")
+                object.setValue(page,
+                                forKey: "page")
+                object.setValue(phraseContents,
+                                forKey: "contents")
+                object.setValue(imageUrl,
+                                forKey: "imageUrl")
             
                 do {
                     try context.save()

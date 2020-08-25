@@ -34,9 +34,20 @@ class AladinFooterView: UIView {
         
         addSubview(aladinLabel)
         
-        aladinLabel.topAnchor.constraint(equalTo: topAnchor, constant: 5).isActive = true
-        aladinLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10).isActive = true
-        aladinLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10).isActive = true
-        aladinLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5).isActive = true
+        aladinLabel.topAnchor.constraint(
+            equalTo: topAnchor, constant: 5)
+            .isActive = true
+        aladinLabel.leadingAnchor.constraint(
+            equalTo: leadingAnchor,
+            constant: 10)
+            .isActive = true
+        aladinLabel.trailingAnchor.constraint(
+            equalTo: trailingAnchor,
+            constant: -10)
+            .isActive = true
+        aladinLabel.bottomAnchor.constraint(
+            equalTo: bottomAnchor,
+            constant: -5)
+            .isActive = true
     }
 }

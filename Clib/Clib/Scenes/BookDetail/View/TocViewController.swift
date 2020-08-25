@@ -14,13 +14,15 @@ class TocViewController: UIViewController, WKUIDelegate {
     var webString: String? {
         didSet {
             guard let webString = self.webString else { return }
-            webView.loadHTMLString(webString, baseURL: nil)
+            webView.loadHTMLString(webString,
+                                   baseURL: nil)
         }
     }
     
     let webView: WKWebView = {
         let webConfiguration = WKWebViewConfiguration()
-        let webView = WKWebView(frame: .zero, configuration: webConfiguration)
+        let webView = WKWebView(frame: .zero,
+                                configuration: webConfiguration)
         webView.translatesAutoresizingMaskIntoConstraints = false
         webView.scrollView.showsVerticalScrollIndicator = false
         return webView

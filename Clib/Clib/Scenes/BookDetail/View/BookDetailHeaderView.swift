@@ -9,12 +9,15 @@
 import UIKit
 
 class BookDetailHeaderView: UIView {
-
+    
+    var gestureCallBack: (()->())?
+    
     var rating: Float? {
         willSet {
             starRatingView.rating = newValue ?? 0.0
         }
     }
+    
     var ratingCallback: ((Float)->())? {
         willSet {
             if newValue != nil {
@@ -22,8 +25,6 @@ class BookDetailHeaderView: UIView {
             }
         }
     }
-    
-    var gestureCallBack: (()->())?
     
     private let imageManager: ImageManagerProtocol = ImageManager()
     private let imageViewTapGesture = UITapGestureRecognizer()
@@ -38,29 +39,32 @@ class BookDetailHeaderView: UIView {
         return imageView
     }()
     
-    let categoryLabel: UILabel = {
+    private let categoryLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 15, weight: .semibold)
+        label.font = .systemFont(ofSize: 15,
+                                 weight: .semibold)
         label.textColor = #colorLiteral(red: 0.3921568627, green: 0.3921568627, blue: 0.3921568627, alpha: 1)
         label.textAlignment = .center
         return label
     }()
     
-    let titleLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 18, weight: .bold)
+        label.font = .systemFont(ofSize: 18,
+                                 weight: .bold)
         label.textColor = #colorLiteral(red: 0.2274509804, green: 0.2274509804, blue: 0.2274509804, alpha: 1)
         label.numberOfLines = 2
         label.textAlignment = .center
         return label
     }()
     
-    let authorLabel: UILabel = {
+    private let authorLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 15, weight: .semibold)
+        label.font = .systemFont(ofSize: 15,
+                                 weight: .semibold)
         label.textColor = #colorLiteral(red: 0.3921568627, green: 0.3921568627, blue: 0.3921568627, alpha: 1)
         label.numberOfLines = 2
         label.textAlignment = .center
@@ -77,7 +81,8 @@ class BookDetailHeaderView: UIView {
     }()
     
     private let starRatingView: StarRatingView = {
-        let starRatingView = StarRatingView(color: .yellow, isEnabled: true)
+        let starRatingView = StarRatingView(color: .yellow,
+                                            isEnabled: true)
         starRatingView.translatesAutoresizingMaskIntoConstraints = false
         return starRatingView
     }()
@@ -108,10 +113,6 @@ class BookDetailHeaderView: UIView {
             equalTo: topAnchor,
             constant: 30)
             .isActive = true
-        
-//        let coverImageViewBottomConstraint = coverImageView.bottomAnchor.constraint(equalTo: stackView.bottomAnchor, constant: -15)
-//        coverImageViewBottomConstraint.priority = UILayoutPriority.defaultHigh
-//        coverImageViewBottomConstraint.isActive = true
         
         coverImageView.centerXAnchor.constraint(
             equalTo: centerXAnchor)
@@ -177,13 +178,19 @@ class BookDetailHeaderView: UIView {
         authorLabel.text = book.author
         
         let categoryComponents = book.categoryName.components(separatedBy: ">")
-        categoryLabel.text = categoryComponents.count != 1 ? categoryComponents[1] : categoryComponents[0]
+        categoryLabel.text
+            = categoryComponents.count != 1
+            ? categoryComponents[1]
+            : categoryComponents[0]
         setImage(urlString: book.cover)
     }
 }
 
 extension BookDetailHeaderView: UIGestureRecognizerDelegate {
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+    func gestureRecognizer(
+        _ gestureRecognizer: UIGestureRecognizer,
+        shouldReceive touch: UITouch
+    ) -> Bool {
         gestureCallBack?()
         return false
     }

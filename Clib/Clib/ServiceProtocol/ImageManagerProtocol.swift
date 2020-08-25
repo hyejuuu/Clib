@@ -9,5 +9,8 @@
 import UIKit
 
 protocol ImageManagerProtocol {
-    func fetchImage(urlString: String, completion: @escaping (Result<UIImage, Error>) -> Void)
+    func fetchImage(
+        urlString: String,
+        completion: @escaping (Result<UIImage, Error>) -> Void
+    )
 }

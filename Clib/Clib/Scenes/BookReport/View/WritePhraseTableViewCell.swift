@@ -17,8 +17,10 @@ class WritePhraseTableViewCell: UITableViewCell {
     private let deleteButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("삭제", for: .normal)
-        button.setTitleColor(.black, for: .normal)
+        button.setTitle("삭제",
+                        for: .normal)
+        button.setTitleColor(.black,
+                             for: .normal)
         return button
     }()
     
@@ -53,8 +55,12 @@ class WritePhraseTableViewCell: UITableViewCell {
         return textView
     }()
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    override init(
+        style: UITableViewCell.CellStyle,
+        reuseIdentifier: String?
+    ) {
+        super.init(style: style,
+                   reuseIdentifier: reuseIdentifier)
         
         pageTextField.delegate = self
         phraseTextView.delegate = self

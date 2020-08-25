@@ -15,8 +15,10 @@ class PhraseFooterView: UIView {
     private let addPhraseButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("+ 구절 추가", for: .normal)
-        button.setTitleColor(.black, for: .normal)
+        button.setTitle("+ 구절 추가",
+                        for: .normal)
+        button.setTitleColor(.black,
+                             for: .normal)
         return button
     }()
     
@@ -39,10 +41,18 @@ class PhraseFooterView: UIView {
         
         addSubview(addPhraseButton)
         
-        addPhraseButton.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        addPhraseButton.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
-        addPhraseButton.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-        addPhraseButton.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        addPhraseButton.topAnchor.constraint(
+            equalTo: topAnchor)
+            .isActive = true
+        addPhraseButton.leadingAnchor.constraint(
+            equalTo: leadingAnchor)
+            .isActive = true
+        addPhraseButton.trailingAnchor.constraint(
+            equalTo: trailingAnchor)
+            .isActive = true
+        addPhraseButton.bottomAnchor.constraint(
+            equalTo: bottomAnchor)
+            .isActive = true
         
     }
     

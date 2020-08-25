@@ -21,16 +21,20 @@ class WriteBookReportViewController: UIViewController {
     private let completeButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("완료", for: .normal)
-        button.setTitleColor(.black, for: .normal)
+        button.setTitle("완료",
+                        for: .normal)
+        button.setTitleColor(.black,
+                             for: .normal)
         return button
     }()
     
     private let cancelButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("취소", for: .normal)
-        button.setTitleColor(.black, for: .normal)
+        button.setTitle("취소",
+                        for: .normal)
+        button.setTitleColor(.black,
+                             for: .normal)
         return button
     }()
     
@@ -61,7 +65,9 @@ class WriteBookReportViewController: UIViewController {
         let context = appDelegate?.persistentContainer.viewContext
         
         do {
-            let bookReportEntity = try context?.fetch(BookReportEntity.fetchRequest()) as? [BookReportEntity]
+            let bookReportEntity
+                = try context?.fetch(BookReportEntity.fetchRequest())
+                    as? [BookReportEntity]
 
             let result = bookReportEntity?.filter { $0.itemId == itemId }
             
@@ -81,8 +87,10 @@ class WriteBookReportViewController: UIViewController {
     private func setupLayout() {
         navigationItem.title = "독후감 작성"
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: cancelButton)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: completeButton)
+        navigationItem.leftBarButtonItem
+            = UIBarButtonItem(customView: cancelButton)
+        navigationItem.rightBarButtonItem
+            = UIBarButtonItem(customView: completeButton)
         
         completeButton.addTarget(self,
                                  action: #selector(touchUpCompleteButton),
@@ -120,14 +128,19 @@ class WriteBookReportViewController: UIViewController {
     
     @objc private func touchUpCompleteButton() {
         guard bookReportTextView.text.isEmpty == false else {
-            let alertController = UIAlertController(title: nil, message: "독후감 내용을 적어주세요:(", preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "확인", style: .cancel)
+            let alertController
+                = UIAlertController(title: nil,
+                                    message: "독후감 내용을 적어주세요:(",
+                                    preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "확인",
+                                         style: .cancel)
             alertController.addAction(okAction)
             present(alertController, animated: true)
             return
         }
         
-        guard let itemId = itemId, let imageUrl = imageUrl else {
+        guard let itemId = itemId,
+            let imageUrl = imageUrl else {
             return
         }
 
@@ -137,11 +150,16 @@ class WriteBookReportViewController: UIViewController {
         }
         
         if isUpdate {
-            updateObject?.setValue(itemId, forKey: "itemId")
-            updateObject?.setValue(bookTitle, forKey: "title")
-            updateObject?.setValue(bookReportTextView.text, forKey: "contents")
-            updateObject?.setValue(imageUrl, forKey: "imageUrl")
-            updateObject?.setValue(Date(), forKey: "editDate")
+            updateObject?.setValue(itemId,
+                                   forKey: "itemId")
+            updateObject?.setValue(bookTitle,
+                                   forKey: "title")
+            updateObject?.setValue(bookReportTextView.text,
+                                   forKey: "contents")
+            updateObject?.setValue(imageUrl,
+                                   forKey: "imageUrl")
+            updateObject?.setValue(Date(),
+                                   forKey: "editDate")
             
             do {
                 try context.save()
@@ -150,16 +168,25 @@ class WriteBookReportViewController: UIViewController {
             }
         } else {
 
-            let entity = NSEntityDescription.entity(forEntityName: "BookReport", in: context)
+            let entity
+                = NSEntityDescription.entity(forEntityName: "BookReport",
+                                             in: context)
         
-            if let entity = entity, let bookReportContents = bookReportTextView.text {
-                let bookreport = NSManagedObject(entity: entity, insertInto: context)
+            if let entity = entity,
+                let bookReportContents = bookReportTextView.text {
+                let bookreport = NSManagedObject(entity: entity,
+                                                 insertInto: context)
                 
-                bookreport.setValue(itemId, forKey: "itemId")
-                bookreport.setValue(bookTitle, forKey: "title")
-                bookreport.setValue(bookReportContents, forKey: "contents")
-                bookreport.setValue(imageUrl, forKey: "imageUrl")
-                bookreport.setValue(Date(), forKey: "editDate")
+                bookreport.setValue(itemId,
+                                    forKey: "itemId")
+                bookreport.setValue(bookTitle,
+                                    forKey: "title")
+                bookreport.setValue(bookReportContents,
+                                    forKey: "contents")
+                bookreport.setValue(imageUrl,
+                                    forKey: "imageUrl")
+                bookreport.setValue(Date(),
+                                    forKey: "editDate")
                 
                 do {
                     try context.save()

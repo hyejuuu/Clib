@@ -9,39 +9,65 @@
 import Foundation
 
 protocol Network {
-    func dispatch(request: URLRequest, completion: @escaping (Data?, URLResponse?, Error?) -> Void)
+    func dispatch(
+        request: URLRequest,
+        completion: @escaping (Data?, URLResponse?, Error?) -> Void
+    )
 }
 
 extension URLSession: Network {
-    func dispatch(request: URLRequest, completion: @escaping (Data?, URLResponse?, Error?) -> Void) {
-        self.dataTask(with: request) { data, response, error in
+    func dispatch(
+        request: URLRequest,
+        completion: @escaping (Data?, URLResponse?, Error?) -> Void
+    ) {
+        dataTask(with: request) { data, response, error in
             guard error == nil else {
-                completion(nil, nil, error)
+                completion(nil,
+                           nil,
+                           error)
                 return
             }
             
             guard let data = data else {
-                completion(nil, nil, NSError(domain: "unknown", code: 0, userInfo: nil))
+                completion(nil,
+                           nil,
+                           NSError(domain: "unknown",
+                                   code: 0,
+                                   userInfo: nil))
                 return
             }
 
-            completion(data, response, nil)
+            completion(data,
+                       response,
+                       nil)
         }.resume()
     }
 }
 
 class MockSession: Network {
     
-    func dispatch(request: URLRequest, completion: @escaping (Data?, URLResponse?, Error?) -> Void) {
+    func dispatch(
+        request: URLRequest,
+        completion: @escaping (Data?, URLResponse?, Error?) -> Void
+    ) {
         DispatchQueue.global().asyncAfter(deadline: .now() + 0.5) {
-            if let path = Bundle.main.path(forResource: "books", ofType: "json") {
+            if let path = Bundle.main.path(forResource: "books",
+                                           ofType: "json") {
                 do {
-                    let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
+                    let data
+                        = try Data(contentsOf: URL(fileURLWithPath: path),
+                                   options: .mappedIfSafe)
 
-                    completion(data, URLResponse(), nil)
+                    completion(data,
+                               URLResponse(),
+                               nil)
                     return
                 } catch {
-                    completion(nil, nil, NSError(domain: "unknown", code: 0, userInfo: nil))
+                    completion(nil,
+                               nil,
+                               NSError(domain: "unknown",
+                                       code: 0,
+                                       userInfo: nil))
                     return
                 }
             }

@@ -65,12 +65,31 @@ class BookCollectionViewCell: UICollectionViewCell {
             equalTo: coverImageView.bottomAnchor,
             constant: 5)
             .isActive = true
-        titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 2).isActive = true
-        titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -2).isActive = true
-        authorLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 2).isActive = true
-        authorLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 2).isActive = true
-        authorLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -2).isActive = true
-        authorLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5).isActive = true
+        titleLabel.leadingAnchor.constraint(
+            equalTo: contentView.leadingAnchor,
+            constant: 2)
+            .isActive = true
+        titleLabel.trailingAnchor.constraint(
+            equalTo: contentView.trailingAnchor,
+            constant: -2)
+            .isActive = true
+        
+        authorLabel.topAnchor.constraint(
+            equalTo: titleLabel.bottomAnchor,
+            constant: 2)
+            .isActive = true
+        authorLabel.leadingAnchor.constraint(
+            equalTo: contentView.leadingAnchor,
+            constant: 2)
+            .isActive = true
+        authorLabel.trailingAnchor.constraint(
+            equalTo: contentView.trailingAnchor,
+            constant: -2)
+            .isActive = true
+        authorLabel.bottomAnchor.constraint(
+            equalTo: contentView.bottomAnchor,
+            constant: -5)
+            .isActive = true
     }
     
     func setImage(urlString: String) {

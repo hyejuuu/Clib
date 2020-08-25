@@ -26,9 +26,15 @@ class StarRatingView: UIView {
     
     var ratingCallback: ((Float)->())?
     
-    private lazy var fullImage = starColor == .yellow ? UIImage(named: "iconStarYellow") : UIImage(named: "iconStarPrimary")
+    private lazy var fullImage
+        = starColor == .yellow
+            ? UIImage(named: "iconStarYellow")
+            : UIImage(named: "iconStarPrimary")
+    private lazy var halfImage
+        = starColor == .yellow
+            ? UIImage(named: "iconStarYellowHalf")
+            : UIImage(named: "iconStarPrimaryHalf")
     private let emptyImage = UIImage(named: "iconStarGray")
-    private lazy var halfImage = starColor == .yellow ? UIImage(named: "iconStarYellowHalf") : UIImage(named: "iconStarPrimaryHalf")
     
     private let starStackView: UIStackView = {
         let stackView = UIStackView()
@@ -41,7 +47,9 @@ class StarRatingView: UIView {
     private let ratingSlider: UISlider = {
         let slider = UISlider()
         slider.translatesAutoresizingMaskIntoConstraints = false
-        slider.addTarget(self, action: #selector(sliderValueChanged), for: .valueChanged)
+        slider.addTarget(self,
+                         action: #selector(sliderValueChanged),
+                         for: .valueChanged)
         slider.maximumTrackTintColor = .clear
         slider.minimumTrackTintColor = .clear
         slider.thumbTintColor = .clear
@@ -94,7 +102,11 @@ class StarRatingView: UIView {
         return imageView
     }()
     
-    init(color: StarColor, isEnabled: Bool, rating: Float = 0.0) {
+    init(
+        color: StarColor,
+        isEnabled: Bool,
+        rating: Float = 0.0
+    ) {
         self.starColor = color
         self.isEnabled = isEnabled
         self.rating = rating
@@ -118,10 +130,13 @@ class StarRatingView: UIView {
         }
         
         for tag in 1...5 {
-            if let imageView = starStackView.viewWithTag(tag) as? UIImageView {
+            if let imageView
+                = starStackView.viewWithTag(tag)
+                    as? UIImageView {
                 if Float(tag) <= rating {
                     imageView.image = fullImage
-                } else if rating - Float(tag - 1) > 0.0, rating - Float(tag - 1) <= 0.5 {
+                } else if rating - Float(tag - 1) > 0.0,
+                    rating - Float(tag - 1) <= 0.5 {
                     imageView.image = halfImage
                 } else {
                     imageView.image = emptyImage
@@ -133,7 +148,9 @@ class StarRatingView: UIView {
     private func setupLayout() {
         ratingSlider.isUserInteractionEnabled = isEnabled
         
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(sliderTapValueChanged))
+        let tapGestureRecognizer
+            = UITapGestureRecognizer(target: self,
+                                     action: #selector(sliderTapValueChanged))
         
         addSubview(starStackView)
         addSubview(ratingSlider)
@@ -141,22 +158,31 @@ class StarRatingView: UIView {
         ratingSlider.addGestureRecognizer(tapGestureRecognizer)
         
         starStackView.leadingAnchor.constraint(
-            equalTo: leadingAnchor).isActive = true
+            equalTo: leadingAnchor)
+            .isActive = true
         starStackView.trailingAnchor.constraint(
-            equalTo: trailingAnchor).isActive = true
+            equalTo: trailingAnchor)
+            .isActive = true
         starStackView.topAnchor.constraint(
-            equalTo: topAnchor).isActive = true
-        starStackView.bottomAnchor.constraint(
-            equalTo: bottomAnchor).isActive = true
+            equalTo: topAnchor)
+            .isActive = true
+        starStackView.bottomAnchor
+            .constraint(
+            equalTo: bottomAnchor)
+            .isActive = true
         
         ratingSlider.leadingAnchor.constraint(
-            equalTo: starStackView.leadingAnchor).isActive = true
+            equalTo: starStackView.leadingAnchor)
+            .isActive = true
         ratingSlider.trailingAnchor.constraint(
-            equalTo: starStackView.trailingAnchor).isActive = true
+            equalTo: starStackView.trailingAnchor)
+            .isActive = true
         ratingSlider.topAnchor.constraint(
-            equalTo: starStackView.topAnchor).isActive = true
+            equalTo: starStackView.topAnchor)
+            .isActive = true
         ratingSlider.bottomAnchor.constraint(
-            equalTo: starStackView.bottomAnchor).isActive = true
+            equalTo: starStackView.bottomAnchor)
+            .isActive = true
         
     }
     
@@ -183,15 +209,21 @@ class StarRatingView: UIView {
 
         let positionOfSlider: CGPoint = ratingSlider.frame.origin
         let widthOfSlider: CGFloat = ratingSlider.frame.size.width
-        let newValue = ((pointTapped.x - positionOfSlider.x) * CGFloat(ratingSlider.maximumValue) / widthOfSlider)
+        let newValue
+            = ((pointTapped.x - positionOfSlider.x)
+                * CGFloat(ratingSlider.maximumValue) / widthOfSlider)
 
-        ratingSlider.setValue(Float(newValue), animated: true)
+        ratingSlider.setValue(Float(newValue),
+                              animated: true)
         
         let value = round(Float(newValue) / step) * step
         
         for tag in 1...5 {
-            if let imageView = starStackView.viewWithTag(tag) as? UIImageView {
-                if value <= Float(tag) - 0.5, value > Float(tag) - 1 {
+            if let imageView
+                = starStackView.viewWithTag(tag)
+                    as? UIImageView {
+                if value <= Float(tag) - 0.5,
+                    value > Float(tag) - 1 {
                     imageView.image = halfImage
                 } else if value > Float(tag) - 0.5 {
                     imageView.image = fullImage

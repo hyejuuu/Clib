@@ -33,7 +33,6 @@ class BookTableViewCell: UITableViewCell {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "djdjdjdjdjdjd"
         label.font = .systemFont(ofSize: 17, weight: .semibold)
         return label
     }()
@@ -41,7 +40,6 @@ class BookTableViewCell: UITableViewCell {
     private let authorLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "djdjdjdjdjdjd"
         label.font = .systemFont(ofSize: 14)
         label.textColor = .gray
         return label
@@ -50,15 +48,22 @@ class BookTableViewCell: UITableViewCell {
     private let starRateButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(named: "iconStarYellow"), for: .normal)
-        button.setTitle("5.0", for: .normal)
-        button.setTitleColor(.gray, for: .normal)
+        button.setImage(UIImage(named: "iconStarYellow"),
+                        for: .normal)
+        button.setTitle("5.0",
+                        for: .normal)
+        button.setTitleColor(.gray,
+                             for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 14)
         return button
     }()
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    override init(
+        style: UITableViewCell.CellStyle,
+        reuseIdentifier: String?
+    ) {
+        super.init(style: style,
+                   reuseIdentifier: reuseIdentifier)
         
         setupLayout()
     }
@@ -75,18 +80,46 @@ class BookTableViewCell: UITableViewCell {
         contentView.addSubview(coverImageView)
         contentView.addSubview(stackView)
         
-        starRateButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        starRateButton.widthAnchor.constraint(
+            equalToConstant: 40)
+            .isActive = true
         
-        coverImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
-        coverImageView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.25).isActive = true
-        coverImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10).isActive = true
-        coverImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10).isActive = true
-        coverImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15).isActive = true
+        coverImageView.centerYAnchor.constraint(
+            equalTo: contentView.centerYAnchor)
+            .isActive = true
+        coverImageView.widthAnchor.constraint(
+            equalTo: contentView.widthAnchor,
+            multiplier: 0.25)
+            .isActive = true
+        coverImageView.topAnchor.constraint(
+            equalTo: contentView.topAnchor,
+            constant: 10)
+            .isActive = true
+        coverImageView.bottomAnchor.constraint(
+            equalTo: contentView.bottomAnchor,
+            constant: -10)
+            .isActive = true
+        coverImageView.leadingAnchor.constraint(
+            equalTo: contentView.leadingAnchor,
+            constant: 15)
+            .isActive = true
         
-        stackView.topAnchor.constraint(equalTo: coverImageView.topAnchor, constant: 10).isActive = true
-        stackView.leadingAnchor.constraint(equalTo: coverImageView.trailingAnchor, constant: 15).isActive = true
-        stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15).isActive = true
-        stackView.bottomAnchor.constraint(lessThanOrEqualTo: coverImageView.bottomAnchor, constant: -10).isActive = true
+        stackView.topAnchor.constraint(
+            equalTo: coverImageView.topAnchor,
+            constant: 10)
+            .isActive = true
+        stackView.leadingAnchor.constraint(
+            equalTo: coverImageView.trailingAnchor,
+            constant: 15)
+            .isActive = true
+        stackView.trailingAnchor.constraint(
+            equalTo: contentView.trailingAnchor,
+            constant: -15)
+            .isActive = true
+        stackView.bottomAnchor.constraint(
+            lessThanOrEqualTo: coverImageView.bottomAnchor,
+            constant: -10)
+            .isActive = true
         
     }
     

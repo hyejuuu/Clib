@@ -21,8 +21,10 @@ class MainSectionHeaderView: UIView {
     private let moreButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("더보기 →", for: .normal)
-        button.setTitleColor(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1), for: .normal)
+        button.setTitle("더보기 →",
+                        for: .normal)
+        button.setTitleColor(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1),
+                             for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 13)
         return button
     }()
@@ -45,7 +47,9 @@ class MainSectionHeaderView: UIView {
     }
     
     private func setupLayout() {
-        moreButton.addTarget(self, action: #selector(touchUpMoreButton), for: .touchUpInside)
+        moreButton.addTarget(self,
+                             action: #selector(touchUpMoreButton),
+                             for: .touchUpInside)
         
         addSubview(separatorLine)
         addSubview(titleLabel)
